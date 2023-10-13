@@ -1,0 +1,2 @@
+VUE_APP_NAME = CRM
+VUE_APP_API_BASE_URL=http://crm.web-hands.ru/api/v1
