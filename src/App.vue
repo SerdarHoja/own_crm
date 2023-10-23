@@ -1,25 +1,16 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import SideBar from './components/SideBar.vue'
-import HeaderComponent from './components/HeaderComponent.vue'
-</script>
-
 <template>
-  <div class="layout">
-    <SideBar />
-    <div class="content">
-      <HeaderComponent/>
-      <RouterView />
-    </div>
-  </div>
-  
+  <AppLayout>
+      <router-view/>
+  </AppLayout>
 </template>
 
-<style scoped>
-/* .layout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-} */
-</style>
+<script>
+import AppLayout from "@/layouts/AppLayout.vue";
+import {lifecycleLoggerMixin} from "@/mixins/lifecycleLoggerMixin.js";
+
+export default {
+  name: 'App',
+  components: {AppLayout},
+  mixins: [lifecycleLoggerMixin]
+}
+</script>

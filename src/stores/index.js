@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { message } from 'ant-design-vue';
+import { useAuthStore } from "./auth.module";
+import UserService from '../services/user.service';
 
 export const useMyStore = defineStore('myStore', {
   state: () => ({
@@ -11,7 +13,8 @@ export const useMyStore = defineStore('myStore', {
     vicinities: [],
     regions: [],
     localities: [],
-    highways: []
+    highways: [],
+    userData: {},
   }),
 
   actions: {
@@ -32,19 +35,6 @@ export const useMyStore = defineStore('myStore', {
       try {
         const response = await axios.get('/places/?code=' + param);
         if (response.status === 200) {
-          // if (param === 'districts') {
-          //   this.districts = response.data.data;
-          // } else if (param === 'vicinities') {
-          //   this.vicinities = response.data.data;
-          // } else if (param === 'regions') {
-          //   this.regions = response.data.data;
-          // } else if (param === 'localities') {
-          //   this.localities = response.data.data;
-          // } else if (param === 'highways') {
-          //   this.highways = response.data.data;
-          // } else {
-          //   this.placesChild = response.data.data;
-          // }
           this.placesChild = response.data.data;
 
         } else {
@@ -79,6 +69,21 @@ export const useMyStore = defineStore('myStore', {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    }
+    },
+    async getMe() {
+      try {
+        const response = await UserService.getMe();
+        console.log('respo user:', response.data.data);  
+        this.userData = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
   },
+
+  modules: {
+    useAuthStore,
+  }
 });

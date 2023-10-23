@@ -39,7 +39,7 @@
                 {{ userNotifications }}
             </template>
         </VTooltip>
-        
+       data: {{ store.userData }}
         <div class="header__account">
             <div class="header__account-wrap">
                 <div class="header__account-name">
@@ -56,26 +56,31 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { BellIcon } from '@heroicons/vue/24/solid'
+import { useMyStore } from '../stores/index.js';
+import { useRouter } from 'vue-router';
 
 const currencyDataEURO = ref(null);
 const currencyDataUSD = ref(null);
 const userData = ref(null);
 const userNotifications = ref(null);
+const store = useMyStore();
         
 onMounted(() => {
-    axios.get('http://crm.web-hands.ru/api/v1/currency')
-        .then(response => {
-            currencyDataUSD.value = response.data.data.USD;
-            currencyDataEURO.value = response.data.data.EUR;
-        })
-    axios.get('http://crm.web-hands.ru/api/v1/user')
-        .then(response => {
-            userData.value = response.data.data; 
-        })
-    axios.get('http://crm.web-hands.ru/api/v1/notifications')
-        .then(response => {
-            console.log('response notification ', response);
-            userNotifications.value = response.data.data; 
-        })
+    store.getMe()
+    // axios.get('http://crm.web-hands.ru/api/v1/currency')
+    //     .then(response => {
+    //         currencyDataUSD.value = response.data.data.USD;
+    //         currencyDataEURO.value = response.data.data.EUR;
+    //     })
+    // axios.get('http://crm.web-hands.ru/api/v1/user')
+    //     .then(response => {
+    //         userData.value = response.data.data; 
+    //     })
+    // axios.get('http://crm.web-hands.ru/api/v1/notifications')
+    //     .then(response => {
+    //         console.log('response notification ', response);
+    //         userNotifications.value = response.data.data; 
+    //     })
+    
 })            
 </script>
