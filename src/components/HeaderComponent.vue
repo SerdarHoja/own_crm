@@ -39,48 +39,63 @@
                 {{ userNotifications }}
             </template>
         </VTooltip>
-       data: {{ store.userData }}
         <div class="header__account">
-            <div class="header__account-wrap">
-                <div class="header__account-name">
-                    {{ userData && userData.name !== null ? userData.name : 'Admin' }}
-                </div>
-            </div>
-            <div class="header__account-dropdown">
-                <a href="?logout=yes" class="header__account-item">Выход</a>
-            </div>
+            <a-dropdown-button>
+                User
+                <template #overlay>
+                    <a-menu @click="onLogout">
+                        <a-menu-item>
+                            Выход
+                        </a-menu-item>
+                    </a-menu>
+                </template>
+                <template #icon><UserOutlined /></template>
+            </a-dropdown-button>
         </div>
     </header>
 </template>
 <script setup>
-import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { BellIcon } from '@heroicons/vue/24/solid'
-import { useMyStore } from '../stores/index.js';
+import { useHeaderDataStore } from '../stores/headerData.module.js';
+import { useAuthStore } from '../stores/auth.module.js';
+import { UserOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router';
 
 const currencyDataEURO = ref(null);
 const currencyDataUSD = ref(null);
 const userData = ref(null);
 const userNotifications = ref(null);
-const store = useMyStore();
+const store = useHeaderDataStore();
+const authStore = useAuthStore();
+const router = useRouter();
+import { message } from 'ant-design-vue';
+
+const getMyData = computed(() => {
+    return store.me;
+})
         
 onMounted(() => {
-    store.getMe()
-    // axios.get('http://crm.web-hands.ru/api/v1/currency')
-    //     .then(response => {
-    //         currencyDataUSD.value = response.data.data.USD;
-    //         currencyDataEURO.value = response.data.data.EUR;
-    //     })
-    // axios.get('http://crm.web-hands.ru/api/v1/user')
-    //     .then(response => {
-    //         userData.value = response.data.data; 
-    //     })
-    // axios.get('http://crm.web-hands.ru/api/v1/notifications')
-    //     .then(response => {
-    //         console.log('response notification ', response);
-    //         userNotifications.value = response.data.data; 
-    //     })
-    
-})            
+    fetchMe();
+})
+
+const fetchMe = async () => {
+    try {
+        await store.getMe().then(
+        (response) => {
+            if (response.data.result === 'error') {
+                message.error(response.data.text)
+            } else {
+            }
+        }
+        )
+    } catch (error) {
+        console.error('Error fetching data in component:', error);
+    }
+}
+
+const onLogout = () => {
+    authStore.logout();
+    router.push("/login");
+}
 </script>

@@ -27,7 +27,7 @@
                 <div class="single__main-slider --info show-flex">
                     <div class="single__form">
                         <router-link  :to="'/places/' + $route.params.id + '/' + place.id" style="margin-left: 10px;"
-                            class="single__item places__item flex justify-between" v-for="(place) in data" :key="place.id">
+                            class="single__item places__item flex justify-between" v-for="(place) in subPlaces" :key="place.id">
                             <div style="display: flex; gap: 10px; align-items: center;">
                                 <a-spin v-if="loading && place.id === clickedItemId"/>
                                 {{ place.value }} - {{ place.id }}
@@ -42,14 +42,14 @@
     </div>
 </template>
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, computed } from 'vue';
 import Modals from '../../components/Modals.vue';
-import { useMyStore } from '@/stores/index.js';
 import { useRoute } from 'vue-router';
 import { TrashIcon } from '@heroicons/vue/24/solid'
+import { useUserStore } from '../../stores/user.module.js';
 
 const data = ref([]);
-const myStore = useMyStore();
+const myStore = useUserStore();
 const route = useRoute();
 const open = ref(false);
 const loading = ref(false);
@@ -78,9 +78,33 @@ const toggleModal = () => {
   open.value = !open.value;
 };
 
+const subPlaces = computed(() => {
+    if (route.params.id === 'regions') {
+        return myStore.regions;      
+    } else if (route.params.id === 'vicinity') {
+        return myStore.vicinities;
+    } else if (route.params.id === 'highway') {
+        return myStore.highways;
+    } else if (route.params.id === 'localities') {
+        return myStore.localities;
+    } else if (route.params.id === 'highways') {
+        return myStore.highways;
+    } else if (route.params.id === 'place') {
+        return myStore.place;
+    } else if (route.params.id === 'districts') {
+        return myStore.districts
+    } else if (route.params.id === 'metro') {
+        return myStore.metro
+    } else if (route.params.id === 'metro_line') {
+        return myStore.metro_line
+    } else {
+        return []
+    }
+})
+
 const saveData = async (e) => {
     await myStore.addNewPlaceChild(newItem);
-    await myStore.fetchPlacesChild(route.params.id);
+    await myStore.getPlacesChild(route.params.id);
     data.value = myStore.placesChild;
     open.value = false;
     // Clear the data properties
@@ -91,7 +115,6 @@ const saveData = async (e) => {
 
 const handleDelete = async (item, e) => {
     e.preventDefault();
-    console.log(item)
     clickedItemId.value = item.id;
     loading.value = true;
     const deleteItem = {
@@ -104,7 +127,7 @@ const handleDelete = async (item, e) => {
         }
     }
     await myStore.addNewPlaceChild(deleteItem);
-    await myStore.fetchPlacesChild(route.params.id);
+    await myStore.getPlacesChild(route.params.id);
     data.value = myStore.placesChild;
     loading.value = false;
 }
@@ -115,26 +138,21 @@ onMounted(() => {
 })
 
 const fetchData = async () => {
-  try {
-    await myStore.fetchPlacesChild(route.params.id);
-    // if (route.params.id === 'districts') {
-    //     data.value = myStore.districts;
-    // } else if (route.params.id === 'localities') {
-    //     data.value = myStore.localities;
-    // } else if (route.params.id === 'vicinities') {
-    //     data.value = myStore.vicinities;
-    // } else if (route.params.id === 'highways') {
-    //     data.value = myStore.highways;
-    // } else if (route.params.id === 'regions') {
-    //     data.value = myStore.regions;
-    // } else {
-    //     data.value = myStore.placesChild;
-    // }
-    data.value = myStore.placesChild;
-
-  } catch (error) {
-    console.error('Error fetching data in component:', error);
-  }
+    loading.value = true;
+    try {
+        await myStore.getPlacesChild(route.params.id).then(
+            (response) => {
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                    loading.value = false;
+                } else {
+                    loading.value = false;
+                }
+            }
+        )
+    } catch (error) {
+        console.error('Error fetching data in component:', error);
+    }
 }
 </script>
 <style>

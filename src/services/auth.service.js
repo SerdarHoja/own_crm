@@ -5,13 +5,13 @@ const API_URL = "http://crm.web-hands.ru/api/v1";
 class AuthService {
   
   login(formdata) {
-    
     return axios.post(API_URL + '/user/auth/', formdata)
       .then(response => {
         if (response.data.token) {
           localStorage.setItem('user', JSON.stringify(response.data));
+        } else {
+          return response.data;
         }
-        return response.data;
       });
   }
 

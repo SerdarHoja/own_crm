@@ -31,6 +31,7 @@
   import { reactive, ref } from 'vue';
   import { useAuthStore } from '../stores/auth.module.js';
   import { useRouter } from 'vue-router';
+  import { message } from 'ant-design-vue';
 
   const loading = ref(false);
   const store = useAuthStore();
@@ -45,19 +46,20 @@
     password: '',
   });
   const onFinish = (values: any) => {
-    console.log('Success:', values);
     loading.value = true;
     const formData = new FormData();
     formData.append('email', formState.email);
     formData.append('password', formState.password);
     store.login(formData).then(
-      () => {
-        router.push("/places");
-        loading.value = false;
-      },
-      (error) => {
-        loading.value = false;
-        console.log(error, 'eeeeee');
+      (response) => {
+        if(response && response.result === 'error') {
+          loading.value = false;
+          message.error(response.text );
+        } else {
+          router.push("/places");
+          loading.value = false;
+          message.success('Login Success');
+        } 
       }
     );
   };

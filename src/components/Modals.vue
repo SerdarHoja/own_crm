@@ -198,6 +198,24 @@
             <a-button key="submit" type="primary" :loading="loading" @click="saveData">Сохранить</a-button>
         </template>
     </a-modal>
+    <a-modal v-else-if="props.routeName === 'metro_line'" v-model:open="props.open" title="Добавить новый линию метро" @ok="saveData" closable @cancel="toggleModal">
+        <a-form
+            :model="newItem"
+            name="basic"
+            autocomplete="off"
+        >
+            <a-form-item
+                label="Линия метро"
+                name="Линия метро"
+            >
+                <a-input v-model:value="newItem.data.NAME" />
+            </a-form-item>
+        </a-form>
+        <template #footer>
+            <a-button key="back" @click="toggleModal">Отменить</a-button>
+            <a-button key="submit" type="primary" :loading="loading" @click="saveData">Сохранить</a-button>
+        </template>
+    </a-modal>
     <a-modal v-else-if="props.routeName === 'village'" v-model:open="props.open" title="Добавить новый коттеджый поселек" @ok="saveData" closable @cancel="toggleModal">
         <a-form
             :model="newItem"
@@ -213,15 +231,25 @@
     </a-modal>
 </template>
 <script setup>
-    import { reactive, ref, onMounted } from 'vue';
-    import { useMyStore } from '@/stores/index.js';
+    import { reactive, ref, onMounted, computed } from 'vue';
+    import { useUserStore } from '../stores/user.module.js';
     
-    const myStore = useMyStore();
-    const regions = ref([]);
-    const districts = ref([]);
-    const vicinities = ref([]);
-    const metrolines = ref([]);
+    const myStore = useUserStore();
     const loading = ref(false);
+
+    const regions = computed(() => {
+        return myStore.regions;
+    })
+    const districts = computed(() => {
+        return myStore.districts;
+    })
+    const vicinities = computed(() => {
+        return myStore.vicinity;
+    })
+    const metrolines = computed(() => {
+        return myStore.metro_line;
+    })
+
 
     const props = defineProps({
         routeName: String,
@@ -286,7 +314,7 @@
         loading.value = true;
         emits('save');
         await myStore.addNewPlaceChild(newItem);
-        await myStore.fetchPlacesChild(props.routeName);
+        await myStore.getPlacesChild(props.routeName);
         loading.value = false;
         // Clear the data properties
         Object.keys(newItem.data).forEach((key) => {
@@ -295,49 +323,17 @@
     };
 
     onMounted(() => {
-        fetchRegionsData();
-        fetchDistrictsData();
-        fetchVicinitiesData();
-        fetchMetroLinesData();   
+        fetchSubChildData();
     })
 
-    const fetchRegionsData = async () => {
+    const fetchSubChildData = async () => {
         try {
-            await myStore.fetchPlacesChild('regions');
-            regions.value = myStore.placesChild;
-            console.log("regions", regions.value)
+            await myStore.getPlacesChild('regions')
+            await myStore.getPlacesChild('districts')
+            await myStore.getPlacesChild('vicinity')
+            await myStore.getPlacesChild('metro_line')
         } catch (error) {
             console.error('Error fetching data in component:', error);
         }
     }
-
-    const fetchDistrictsData = async () => {
-        try {
-            await myStore.fetchPlacesChild('districts');
-            districts.value = myStore.placesChild;
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-        }
-    }
-
-    const fetchVicinitiesData = async () => {
-        try {
-            await myStore.fetchPlacesChild('vicinity');
-            console.log("request send to vicinities", myStore.placesChild)
-            vicinities.value = myStore.placesChild;
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-        }
-    }
-
-    const fetchMetroLinesData = async () => {
-        try {
-            await myStore.fetchPlacesChild('metro_line');
-            metrolines.value = myStore.placesChild;
-            console.log("metrolines", metrolines.value)
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-        }
-    }
-
 </script>
