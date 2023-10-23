@@ -166,6 +166,51 @@
             <a-button key="submit" type="primary" :loading="loading" @click="saveData">Сохранить</a-button>
         </template>
     </a-modal>
+    <a-modal v-else-if="props.routeName === 'metro'" v-model:open="props.open" title="Добавить новый метро" @ok="saveData" closable @cancel="toggleModal">
+        <a-form
+            :model="newItem"
+            name="basic"
+            autocomplete="off"
+        >
+            <a-form-item
+                label="Метро"
+                name="Метро"
+            >
+                <a-input v-model:value="newItem.data.NAME" />
+            </a-form-item>
+            <a-form-item
+                label="Линия метро"
+                name="Линия метро" 
+            >
+                <a-select v-model:value="newItem.data.PROPERTY_METRO_LINE">
+                    <a-select-option v-for="line in metrolines" :key="line.id" :value="line.id">{{ line.value }}</a-select-option>
+                </a-select>
+            </a-form-item>
+            <a-form-item
+                label="Циан ID"
+                name="Циан ID" 
+            >
+                <a-input v-model:value="newItem.data.PROPERTY_CIAN_ID" />
+            </a-form-item>
+        </a-form>
+        <template #footer>
+            <a-button key="back" @click="toggleModal">Отменить</a-button>
+            <a-button key="submit" type="primary" :loading="loading" @click="saveData">Сохранить</a-button>
+        </template>
+    </a-modal>
+    <a-modal v-else-if="props.routeName === 'village'" v-model:open="props.open" title="Добавить новый коттеджый поселек" @ok="saveData" closable @cancel="toggleModal">
+        <a-form
+            :model="newItem"
+            name="basic"
+            autocomplete="off"
+        >
+            тест
+        </a-form>
+        <template #footer>
+            <a-button key="back" @click="toggleModal">Отменить</a-button>
+            <a-button key="submit" type="primary" :loading="loading" @click="saveData">Сохранить</a-button>
+        </template>
+    </a-modal>
 </template>
 <script setup>
     import { reactive, ref, onMounted } from 'vue';
@@ -175,6 +220,7 @@
     const regions = ref([]);
     const districts = ref([]);
     const vicinities = ref([]);
+    const metrolines = ref([]);
     const loading = ref(false);
 
     const props = defineProps({
@@ -201,6 +247,10 @@
             'PROPERTY_VICINITY_ID': '',
             //districts
             "PROPERTY_POPULAR_DISTRICT": '',
+            //metro
+            "PROPERTY_CIAN_ID": '',
+            "PROPERTY_METRO_LINE": ''
+
         },
         place: props.routeName
     })
@@ -248,6 +298,7 @@
         fetchRegionsData();
         fetchDistrictsData();
         fetchVicinitiesData();
+        fetchMetroLinesData();   
     })
 
     const fetchRegionsData = async () => {
@@ -274,6 +325,16 @@
             await myStore.fetchPlacesChild('vicinity');
             console.log("request send to vicinities", myStore.placesChild)
             vicinities.value = myStore.placesChild;
+        } catch (error) {
+            console.error('Error fetching data in component:', error);
+        }
+    }
+
+    const fetchMetroLinesData = async () => {
+        try {
+            await myStore.fetchPlacesChild('metro_line');
+            metrolines.value = myStore.placesChild;
+            console.log("metrolines", metrolines.value)
         } catch (error) {
             console.error('Error fetching data in component:', error);
         }

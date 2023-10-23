@@ -55,16 +55,28 @@
                                                 <div class="filter__wrap-select" :ref="field.code"
                                                     :id="field.code + '_select'">
                                                     <a-select
-                                                        v-if="field.html == 'select' || field.html == 'select-multiple'"
+                                                        v-if="(field.html == 'select' || field.html == 'select-multiple') && field.currentValueName"
                                                         v-model:value="field.currentValueName"
                                                         show-search
                                                         style="width: 200px"
-                                                        :options="typeOptions"
+                                                        :options="field.values"
                                                         :filter-option="filterOption"
                                                         @focus="handleFocus"
                                                         @blur="handleBlur"
                                                         @change="handleChange"
-                                                    />                            
+                                                    /> 
+                                                    <a-select
+                                                        v-else-if="(field.html == 'select' || field.html == 'select-multiple') && field.code === 'PROPERTY_POPULAR_DISTRICT'"
+                                                        v-model:value="field.values[0].value"
+                                                        show-search
+                                                        style="width: 200px"
+                                                        :options="booleanOptions"
+                                                        :filter-option="filterOption"
+                                                        @focus="handleFocus"
+                                                        @blur="handleBlur"
+                                                        @change="handleChange"
+                                                    /> 
+                                                                        
                                                 </div>
                                             </div>
                                             <div class="single__group --columns">
@@ -122,6 +134,16 @@ const typeOptions = ref([
     {
         value: '3478',
         label: 'Город'
+    }
+])
+const booleanOptions = ref([
+    {
+        value: '1',
+        label: 'Да'
+    },
+    {
+        value: '0',
+        label: 'Нет'
     }
 ])
 
