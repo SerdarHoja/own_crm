@@ -255,14 +255,5 @@ const yellow_alarm = computed(() => {
 // })
 
 onMounted(() => {
-    axios.get('http://crm.web-hands.ru/api/v1/alarms/?entity=tasks')
-        .then(response => {
-            tasks_alarms.value = response.data.data
-        })
-    axios.get('http://crm.web-hands.ru/api/v1/alarms/?entity=cian')
-        .then(response => {
-            console.log('response alarms', response);
-            cian_alarms.value = response.data.data
-        })
 })
 </script>
