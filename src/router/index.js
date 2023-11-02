@@ -28,7 +28,8 @@ const router = createRouter({
       name: 'places',
       component: () => import('../views/places/index.vue'),
       meta: {
-        layout: 'User'
+        layout: 'User',
+        pageTitle: 'Места'
       }
     },
     {
@@ -36,7 +37,8 @@ const router = createRouter({
       name: 'places:id',
       component: () => import('../views/places/_id.vue'),
       meta: {
-        layout: 'User'
+        layout: 'User',
+        pageTitle: 'Места'
       }
     },
     {
@@ -44,9 +46,36 @@ const router = createRouter({
       name: 'places:id:id',
       component: () => import('../views/places/last/_id.vue'),
       meta: {
-        layout: 'User'
+        layout: 'User',
+        pageTitle: 'Места'
       }
     },
+    {
+      path: '/clients',
+      name: 'clients',
+      component: () => import('../views/clients/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Клиенты'
+      }
+    },
+    {
+      path: '/clients/:id',
+      name: 'clients:id',
+      component: () => import('../views/clients/_id.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Клиенты'
+      }
+    },
+    // {
+    //   path: '/clients/:id/:id',
+    //   name: 'clients:id:id',
+    //   component: () => import('../views/clients/last/_id.vue'),
+    //   meta: {
+    //     layout: 'User'
+    //   }
+    // },
   ]
 })
 router.beforeEach(loadLayoutMiddleware);
@@ -54,10 +83,11 @@ router.beforeEach( (to, from, next) => {
   const publicPages = ['/login'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
-
+  console.log("found:", loggedIn)
   // trying to access a restricted page + not logged in
   // redirect to login page
   if (authRequired && !loggedIn) {
+    console.log("notfound:", loggedIn)
     next('/login');
   } else {
     next();

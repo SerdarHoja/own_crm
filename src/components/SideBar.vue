@@ -1,11 +1,11 @@
 <template>
     <aside class="sidebar" id="leftMenu">
-        <div class="sidebar__head">
+        <!-- <div class="sidebar__head">
             <router-link to="/" class="logo">
                 <img src="http://crm.web-hands.ru/local/templates/crm/img/logo.png" alt="My CRM" class="logo__img">
             </router-link>
-        </div>
-        <div class="sidebar__switch">
+        </div> -->
+        <!-- <div class="sidebar__switch">
             <div  class="sidebar__switch-select flex items-center gap-3">
                 <div class="sidebar__switch-chosen gap-3">
                     Загородная
@@ -22,10 +22,10 @@
                     Город
                 </router-link>
             </div> 
-        </div>
+        </div> -->
 
         <ul class="sidebar__list sidebar__list--village show">
-            <li class="sidebar__list-item show-mob">
+            <!-- <li class="sidebar__list-item show-mob">
                 <router-link to="/deals/" class="sidebar__list-link gap-3">
                     <CurrencyDollarIcon class="w-6 h-6"/>
                     Сделки
@@ -57,8 +57,8 @@
                 <div class="sidebar__list-spoiler-btn">
                     <span></span>
                 </div>
-            </li>
-            <div class="sidebar__list-spoiler">
+            </li> -->
+            <!-- <div class="sidebar__list-spoiler">
                 <router-link to="/tasks/?filter=1&delay=1" class="sidebar__list-spoiler-item">Просроченны</router-link>
                 <router-link to="/tasks/?filter=1&almost=1" class="sidebar__list-spoiler-item">Ближайшие</router-link>
             </div>
@@ -67,7 +67,7 @@
                     <ChartBarIcon class="w-6 h-6"/>
                     Доска
                 </router-link>
-            </li>
+            </li> -->
             <li class="sidebar__list-item show-mob">
                 <router-link to="/clients/" class="sidebar__list-link gap-3">
                     <UsersIcon class="w-6 h-6"/>
@@ -80,31 +80,31 @@
                     Собственники
                 </router-link>
             </li>
-            <li class="sidebar__list-item">
+            <!-- <li class="sidebar__list-item">
                 <router-link to="/settlements/" class="sidebar__list-link gap-3">
                     <AdjustmentsVerticalIcon class="w-6 h-6"/>
                     Поселки
                 </router-link>
-            </li>
+            </li> -->
             <li class="sidebar__list-item">
                 <router-link to="/places/" class="sidebar__list-link gap-3">
                     <MapPinIcon class="w-6 h-6"/>
                     Справочники
                 </router-link>
             </li>
-            <li class="sidebar__list-item --extended -show-mob ">
+            <!-- <li class="sidebar__list-item --extended -show-mob ">
                 <router-link to="/cian/" class="sidebar__list-link gap-3">
                     <MapPinIcon class="w-6 h-6"/>
                     ЦИАН
                 </router-link>
                 <BellIcon style="width: 14px; height: 14px; color: #d31a2b;" />
-                    <!-- <span v-if="red_cian_alarm.length" class="count">
+                    <span v-if="red_cian_alarm.length" class="count">
                         {{ red_cian_alarm.length }}
-                    </span> -->
+                    </span>
                 <BellIcon  style="width: 14px; height: 14px; color: #f7d360;" />
-                    <!-- <span v-if="yellow_cian_alarm.length" class="count">
+                    <span v-if="yellow_cian_alarm.length" class="count">
                         {{ yellow_cian_alarm.length }}
-                    </span> -->
+                    </span>
             </li>
             <li class="sidebar__list-item --extended show-mob ">
                 <router-link to="/uploading/" class="sidebar__list-link">
@@ -133,11 +133,11 @@
                 <router-link to="/poly_xml/" class="sidebar__list-link">
                     Создать презентацию
                 </router-link>
-            </li>
+            </li> -->
         </ul>
 
         <ul class="sidebar__list sidebar__list--city">
-            <li class="sidebar__list-item show-mob">
+            <!-- <li class="sidebar__list-item show-mob">
                 <router-link to="/desk/" class="sidebar__list-link gap-3">
                     <ChartBarIcon class="w-6 h-6"/>
                     Доска
@@ -173,7 +173,7 @@
             <div class="sidebar__list-spoiler">
                 <router-link to="/tasks/?filter=1&delay=1" class="sidebar__list-spoiler-item">Просроченны</router-link>
                 <router-link to="/tasks/?filter=1&almost=1" class="sidebar__list-spoiler-item">Ближайшие</router-link>
-            </div>
+            </div> -->
             <li class="sidebar__list-item show-mob">
                 <router-link to="/owners/" class="sidebar__list-link gap-3">
                     <BookmarkSquareIcon class="w-6 h-6"/>
@@ -192,19 +192,19 @@
                     Объекты
                 </router-link>
             </li>
-            <li class="sidebar__list-item">
+            <!-- <li class="sidebar__list-item">
                 <router-link to="/zhk/" class="sidebar__list-link gap-3">
                     <KeyIcon class="w-6 h-6"/>
                     ЖК
                 </router-link>
-            </li>
+            </li> -->
             <li class="sidebar__list-item">
                 <router-link to="/places/" class="sidebar__list-link gap-3">
                     <MapPinIcon class="w-6 h-6"/>
                     Справочники
                 </router-link>
             </li>
-            <li class="sidebar__list-item --extended -show-mob">
+            <!-- <li class="sidebar__list-item --extended -show-mob">
                 <router-link to="/cian/" class="sidebar__list-link gap-3">
                     ЦИАН
                 </router-link>
@@ -213,7 +213,7 @@
                 <router-link to="/showed/" class="sidebar__list-link">
                     Choice Construction
                 </router-link>
-            </li>
+            </li> -->
         </ul>
     </aside>
 </template>
