@@ -222,7 +222,20 @@
             name="basic"
             autocomplete="off"
         >
-            тест
+            <a-form-item
+                label="Название"
+                name="Название"
+            >
+                <!-- v-model value we need to add newItem object too -->
+                <a-input v-model:value="newItem.data.NAME" />
+            </a-form-item>
+            <a-form-item
+                label="ССЫЛКА НА ЦИАН"
+                name="ССЫЛКА НА ЦИАН"
+            >
+                <a-input v-model:value="newItem.data.PROPERTY_CIAN_LINK" />
+            </a-form-item>
+            
         </a-form>
         <template #footer>
             <a-button key="back" @click="toggleModal">Отменить</a-button>
@@ -258,6 +271,7 @@
 
     const emits = defineEmits(['toggle'], ['save'])   
 
+    // main object for sending data to backend
     const newItem = reactive({
         type: 'new',
         data: {
@@ -277,7 +291,9 @@
             "PROPERTY_POPULAR_DISTRICT": '',
             //metro
             "PROPERTY_CIAN_ID": '',
-            "PROPERTY_METRO_LINE": ''
+            "PROPERTY_METRO_LINE": '',
+            // village
+            "PROPERTY_CIAN_LINK" : ''
 
         },
         place: props.routeName
@@ -310,6 +326,7 @@
         emits('toggle');
     };
 
+    // main function for sending data to backend
     const saveData = async (e) => {
         loading.value = true;
         emits('save');
