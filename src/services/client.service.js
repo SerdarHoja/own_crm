@@ -15,6 +15,16 @@ class ClientService {
   getClientData(param) {
     return axios.get(API_URL + '/clients/data/?id=' + param, { headers: authHeader() });
   }
+
+  createNewClient(data) {
+    return axios.post(API_URL + '/clients/save/', data, { headers: authHeader() });
+  }
+
+  deleteClient(data) {
+    return axios.post(API_URL + '/clients/delete/', data, { headers: authHeader() });
+  }
+
+  i
 }
 
 export default new ClientService();

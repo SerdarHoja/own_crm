@@ -108,11 +108,11 @@
 </template>
 <script setup>
 import { ref, onMounted, watch, reactive } from 'vue';
-import { useMyStore } from '@/stores/index.js';
+import { useUserStore } from '@/stores/user.module.js';
 import { useRoute } from 'vue-router';
 
 const data = ref([]);
-const myStore = useMyStore();
+const myStore = useUserStore();
 const route = useRoute();
 const value1 = ref()
 
@@ -157,7 +157,7 @@ watch(value1, () => {
 
 const fetchData = async () => {
   try {
-    await myStore.fetchPlacesSubChild(route.path.split('/')[2], route.params.id);
+    await myStore.getPlacesSubChild(route.path.split('/')[2], route.params.id);
     data.value = myStore.placesSubChild;
   } catch (error) {
     console.error('Error fetching data in component:', error);
