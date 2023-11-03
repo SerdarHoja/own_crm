@@ -87,7 +87,7 @@
                     label="Телефон"
                     name="Телефон"
                 >
-                    <a-input v-model:value="newItem.phone" />
+                    <a-input v-model:value="newItem.phone"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
                 </a-form-item>
                 <a-form-item
                     label="Еmail"

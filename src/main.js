@@ -5,6 +5,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import Antd from 'ant-design-vue';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'ant-design-vue/dist/reset.css';
+import VueTheMask from 'vue-the-mask';
 import axios from 'axios'
 
 import App from './App.vue'
@@ -19,5 +20,6 @@ app.use(VueSweetalert2)
 app.use(createPinia())
 app.use(router)
 app.use(Antd)
+app.use(VueTheMask)
 
 app.mount('#app')
