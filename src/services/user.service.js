@@ -17,7 +17,7 @@ class UserService {
   }
 
   getPlacesSubChild(code, id) {
-    return axios.get(API_URL + '/place/fields/?code=' + code + '&id=' + id, { headers: authHeader() });
+    return axios.get(API_URL + '/place/fields/?place=' + code + '&id=' + id, { headers: authHeader() });
   }
 
   addNewPlaceChild(data) {
