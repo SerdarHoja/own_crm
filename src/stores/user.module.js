@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', {
     metro: [],
     metro_line: [],
     placesSubChild: [],
+    optionData: []
   }),
   actions: {
     async getPlacesList() {
@@ -74,6 +75,17 @@ export const useUserStore = defineStore('user', {
         } catch (error) {
           return Promise.reject(error);
         }
+    },
+
+    async getOptionsData(code) {
+      try {
+        const response = await UserService.getOptionData(code);
+        this.optionData = response.data.data;
+        console.log("reeeee", this.optionData)
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
     }
   },
 });

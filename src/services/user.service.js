@@ -23,6 +23,10 @@ class UserService {
   addNewPlaceChild(data) {
     return axios.post(API_URL + '/places/save/', data, { headers: authHeader() });
   }
+
+  getOptionData(code) {
+    return axios.get(API_URL + '/options/list/?prop=' + code, { headers: authHeader() });
+  }
 }
 
 export default new UserService();

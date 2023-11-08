@@ -1,5 +1,5 @@
 <template>
-    <main class="leads single places" id="app" v-cloak>
+    <main class="mt-40" id="app" v-cloak>
         <div class="single__main">
             <a-spin :spinning="loading">
               <div class="single__main-slider --info show-flex">
@@ -47,3 +47,8 @@ const fetchData = async () => {
 }
 
 </script>
+<style scoped>
+  .single__main {
+    height: calc(100vh - 70px);
+  }
+</style>
