@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main class="leads single places" id="app" v-cloak>
+        <main class="mt-36" id="app" v-cloak>
             <div class="filter">
                 <div class="filter__task --w-refresh hidden-desktop">
                     <div class="filter__task-t">
