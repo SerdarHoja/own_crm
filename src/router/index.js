@@ -68,14 +68,33 @@ const router = createRouter({
         pageTitle: 'Клиенты'
       }
     },
-    // {
-    //   path: '/clients/:id/:id',
-    //   name: 'clients:id:id',
-    //   component: () => import('../views/clients/last/_id.vue'),
-    //   meta: {
-    //     layout: 'User'
-    //   }
-    // },
+    {
+      path: '/owners',
+      name: 'owners',
+      component: () => import('../views/owners/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Собственники'
+      }
+    },
+    {
+      path: '/owners/:id',
+      name: 'owners:id',
+      component: () => import('../views/owners/_id.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Собственники'
+      }
+    },
+    {
+      path: '/objects',
+      name: 'objects',
+      component: () => import('../views/objects/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Объекты'
+      }
+    },
   ]
 })
 router.beforeEach(loadLayoutMiddleware);

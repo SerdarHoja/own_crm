@@ -6,12 +6,13 @@ export const useClientStore = defineStore('client', {
   state: () => ({
     clients: [],
     client: {},
+    clientFields: []
   }),
   actions: {
     async getClientsList() {
       try {
         const response = await ClientService.getClients();
-        this.clients = response.data.data;
+        this.clients = response.data;
         return response;
       } catch (error) {
         return Promise.reject(error);
@@ -56,5 +57,15 @@ export const useClientStore = defineStore('client', {
           console.error('Error fetching data:', error);
       }
     },
+
+    async getClientFields() {
+      try {
+        const response = await ClientService.getClientFields();
+        this.clientFields = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
   },
 });

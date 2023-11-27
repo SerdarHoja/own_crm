@@ -11,10 +11,15 @@
                 </a-button>
             </template>
         </a-page-header>
+        {{ clients }}
         <a-table
+            @change="onTableChange($event)"
             :columns="columns"
-            :data-source="clients"
-            :pagination="{ pageSize: 50 }"
+            :data-source="clients.data"
+            :pagination="{ 
+                pageSize: 10,
+                total: clients.total, 
+            }"
             :custom-row="
                 (record) => {
                 if (record.id) {
@@ -44,25 +49,55 @@
         <a-modal v-model:open="open" :footer="null" :title="'ID: ' + clickedRow"  width="80%" class="h-[80vh]" @ok="handleOk">
             <div class="flex w-full mt-20">
                 <div class="w-1/2">
-                    <ul>
-                        <li class="flex mb-10">
-                            <div class="w-[100px]">ФИО</div>
-                            <div class="w-1/2">{{ client.fio }}</div>
-                        </li>
-                        <li class="flex mb-10">
-                            <div class="w-[100px]">Телефон</div>
-                            <div class="w-1/2">{{ client.phone_format }}</div>
-                        </li>
-                        <li class="flex mb-10">
-                            <div class="w-[100px]">Email</div>
-                            <div class="w-1/2">{{ client.email }}</div>
-                        </li>
-                        <li class="flex mb-10">
-                            <div class="w-[100px]">O клиенте</div>
-                            <div class="w-1/2">{{ client.about }}</div>
-                        </li>
+                    <div v-for="row in selectedItemValue" :key="row.name">
+                        <a-form
+                            name="basic"
+                        >
+                            <a-form-item
+                                v-if="row.type === 'text' || row.type === 'email' ||  row.type === 'textarea'"
+                                :label="row.name"
+                                :name="row.name"
+                                :rules="[{ required: row.required }]"
+                            >
+                                <a-input
+                                    v-model:value="row.value"
+                                    :ref="row.code"
+                                    :type="row.html"
+                                    @change="onChangeInput"
+                                    class="!w-[200px]"
+                                />
+                            </a-form-item>
 
-                    </ul>
+                            <a-form-item
+                                v-if="row.type === 'phone'"
+                                :label="row.name"
+                                :name="row.name"
+                                :rules="[{ required: row.required }]"
+                            >
+                                <a-input v-model:value="row.value"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
+                            </a-form-item>
+                            
+                            <a-form-item
+                                v-if="row.type == 'select'"
+                                :label="row.name"
+                                :name="row.name"
+                                :rules="[{ required: row.required, message: 'Required' }]"
+                            >
+                                <a-select    
+                                    v-model:value="row.value"
+                                    show-search
+                                    :filter-option="filterOption"
+                                    class="!w-[200px]"
+                                >
+                                    <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
+                                </a-select>                        
+                            </a-form-item>                        
+                        </a-form>
+                    </div>
+                    <a-button @click="console.log(fields.map(item => {
+                            const value = client[item.code];
+                            return { name: item.name, value, type: item.type, options:item.options };
+                        }))">test</a-button>
                 </div>
                 <div class="w-1/2 bg-stone-200">ddd</div>
             </div>
@@ -70,44 +105,57 @@
 
         <!-- create modal -->
         <a-modal v-model:open="createModal" title="Новый клиент"  width="80%" class="h-[80vh]" @ok="saveData">
-            <a-form
-                :model="newItem"
-                name="basic"
-                autocomplete="off"
-                @finish="onFinish"
-                @finishFailed="onFinishFailed"
-            >
-                <a-form-item
-                    label="Ф.И.О"
-                    name="Ф.И.О"
-                >
-                    <a-input v-model:value="newItem.fio" />
-                </a-form-item>
-                <a-form-item
-                    label="Телефон"
-                    name="Телефон"
-                >
-                    <a-input v-model:value="newItem.phone"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
-                </a-form-item>
-                <a-form-item
-                    label="Еmail"
-                    name="Еmail"
-                >
-                    <a-input v-model:value="newItem.email" />
-                </a-form-item>
-                <a-form-item
-                    label="O клиенте"
-                    name="O клиенте"
-                >
-                    <a-input v-model:value="newItem.about" />
-                </a-form-item>
-                <a-form-item
-                    label="Номер авто"
-                    name="Номер авто"
-                >
-                    <a-input v-model:value="newItem.number_auto" />
-                </a-form-item>
-            </a-form>
+            <div v-if="fields">
+                <div v-for="row in fields" :key="row.code">
+                    <a-form
+                        :model="newItem"
+                        name="basic"
+                        autocomplete="off"
+                        @finish="onFinish"
+                        @finishFailed="onFinishFailed"
+                    >
+                        <a-form-item
+                            v-if="row.type === 'text' || row.type === 'email' ||  row.type === 'textarea'"
+                            :label="row.name"
+                            :name="row.name"
+                            :rules="[{ required: row.required }]"
+                        >
+                            <a-input
+                                v-model:value="newData[row.code]"
+                                :ref="row.code"
+                                :type="row.html"
+                                @change="onChangeInput"
+                                class="!w-[200px]"
+                            />
+                        </a-form-item>
+
+                        <a-form-item
+                            v-if="row.type === 'phone'"
+                            :label="row.name"
+                            :name="row.name"
+                            :rules="[{ required: row.required }]"
+                        >
+                            <a-input v-model:value="newData[row.code]"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
+                        </a-form-item>
+                        
+                        <a-form-item
+                            v-if="row.type == 'select'"
+                            :label="row.name"
+                            :name="row.name"
+                            :rules="[{ required: row.required, message: 'Required' }]"
+                        >
+                            <a-select    
+                                v-model:value="newData[row.code]"
+                                show-search
+                                :filter-option="filterOption"
+                                class="!w-[200px]"
+                            >
+                                <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
+                            </a-select>                        
+                        </a-form-item>                        
+                    </a-form>
+                </div>
+            </div>
         </a-modal>
         
     </div>
@@ -125,17 +173,23 @@ const loading = ref(false);
 const open = ref(false);
 const clickedRow = ref(null);
 const createModal = ref(false)
+const fields = ref(null);
 
-const newItem = reactive({
-    "fio": '', 
-    "phone": '', 
-    "email": '', 
-    "about": '', 
-    "number_auto": '', 
-    "type": 1
+const fetchClientFields = async () => {
+    try {
+        await myStore.getClientFields();
+        fields.value = myStore.clientFields;
+        console.log('res', data.value)
+    } catch (error) {
+        console.error('Error fetching data in component:', error);
+    }
+}
+
+const newData = ref({
+    type: 1,
 })
 
-const showModal = (record) => {
+const showModal = async (record) => {
     open.value = true;
     clickedRow.value = record;
     fetchClientData(record);
@@ -145,22 +199,29 @@ const toggleModal = () => {
     createModal.value = !createModal.value;
 };
 
+const selectedItemValue = ref({})
+
 const handleOk = (e) => {
   console.log(e);
   open.value = false;
 };
 
+const onTableChange = (e) => {
+    console.log('p', e)
+} 
  // main function for sending data to backend
  const saveData = async (e) => {
+    const formData = new FormData();
+    for (var key in newData.value) {
+        if (newData.value.hasOwnProperty(key)) {
+            formData.append(key, newData.value[key]);
+        }
+    }
     loading.value = true;
-    await myStore.createNewClient(newItem);
+    await myStore.createNewClient(formData);
     await myStore.getClientsList();
     loading.value = false;
     createModal.value = false;
-    // Clear the data properties
-    Object.keys(newItem.data).forEach((key) => {
-        newItem.data[key] = '';
-    });
 };
 
 const deleteConfirm = (e) => {
@@ -212,6 +273,7 @@ const columns = [
 
 onMounted(() => {
   fetchData();
+  fetchClientFields()
 })
 
 const clients = computed(() => {
@@ -221,6 +283,9 @@ const clients = computed(() => {
 const client = computed(() => {
     return myStore.client;
 })
+
+
+
 
 const fetchData = async () => {
   loading.value = true;

@@ -103,14 +103,7 @@ const subPlaces = computed(() => {
 })
 
 const saveData = async (e) => {
-    await myStore.addNewPlaceChild(newItem);
-    await myStore.getPlacesChild(route.params.id);
-    data.value = myStore.placesChild;
-    open.value = false;
-    // Clear the data properties
-    Object.keys(newItem.data).forEach((key) => {
-        newItem.data[key] = '';
-    });
+    console.log('test', e)
 };
 
 const handleDelete = async (item, e) => {

@@ -92,6 +92,12 @@
                     Справочники
                 </router-link>
             </li>
+            <li class="sidebar__list-item">
+                <router-link to="/objects/" class="sidebar__list-link gap-3">
+                    <BuildingOffice2Icon class="w-6 h-6"/>
+                    Объекты
+                </router-link>
+            </li>
             <!-- <li class="sidebar__list-item --extended -show-mob ">
                 <router-link to="/cian/" class="sidebar__list-link gap-3">
                     <MapPinIcon class="w-6 h-6"/>

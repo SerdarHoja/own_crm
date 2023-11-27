@@ -23,8 +23,9 @@ class ClientService {
   deleteClient(data) {
     return axios.post(API_URL + '/clients/delete/', data, { headers: authHeader() });
   }
-
-  i
+  getClientFields() {
+    return axios.get(API_URL + '/clients/fields/', { headers: authHeader() });
+  }
 }
 
 export default new ClientService();
