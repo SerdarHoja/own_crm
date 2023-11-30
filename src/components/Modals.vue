@@ -7,7 +7,6 @@
             @finishFailed="onFinishFailed"
         >
             <div v-if="data && data[0]">
-                {{ data[0] }}
                 <div v-for="row in data[0].fields" :key="row.id">
                     <a-form-item
                         v-if="row.type === 'text'"
@@ -16,7 +15,7 @@
                         :rules="[{ required: row.required }]"
                     >
                         <a-input
-                            v-model:value="formData[row.code]"
+                            v-model:value="formData.fields[row.code]"
                             :ref="row.code"
                             :type="row.html"
                             @change="onChangeInput"
@@ -30,15 +29,13 @@
                         :rules="[{ required: row.required, message: 'Required' }]"
                     >
                         <a-select    
-                            v-model:value="formData[row.code]"
+                            v-model:value="formData.fields[row.code]"
                             show-search
-                            :options="row.options"
                             :filter-option="filterOption"
-                            @focus="handleFocus"
-                            @blur="handleBlur"
-                            @change="handleChange"
                             class="!w-[200px]"
-                        /> 
+                        >
+                            <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
+                        </a-select>                        
                     </a-form-item>
                     <a-form-item
                         v-if="row.type == 'select' && row.mode == 'ajax'"
@@ -49,13 +46,12 @@
                         <a-select    
                             v-model:value="row.code"
                             show-search
-                            :options="row.options"
                             :filter-option="filterOption"
-                            @focus="handleFocus"
-                            @blur="handleBlur"
-                            @change="handleChange"
+                            @focus="onFocusSelect(row.code)"
                             class="!w-[200px]"
-                        /> 
+                        >
+                            <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                        </a-select> 
                     </a-form-item>
                 
                 </div>
@@ -87,7 +83,8 @@
     })
 
     const formData = ref({
-
+        place: props.routeName,
+        fields: {},
     })
 
     const emits = defineEmits(['toggle'], ['save'])   
@@ -98,6 +95,7 @@
 
 
     const data = ref([]);
+    const optionsData = ref([])
 
     const fetchData = async () => {
         try {
@@ -109,18 +107,22 @@
         }
     }
 
-    // main function for sending data to backend
+    const onFocusSelect = async (code) => {
+        await myStore.getOptionsData(code)
+        optionsData.value = myStore.optionData;
+        console.log('focus', state.data)
+    }
+
     const saveData = async (e) => {
-        console.log('data', formData.value)
-        // loading.value = true;
-        // emits('save');
-        // await myStore.addNewPlaceChild(newItem);
-        // await myStore.getPlacesChild(props.routeName);
-        // loading.value = false;
-        // // Clear the data properties
-        // Object.keys(newItem.data).forEach((key) => {
-        //     newItem.data[key] = '';
-        // });
+        loading.value = true;
+        await myStore.addNewPlaceChild(formData.value);
+        await myStore.getPlacesChild(props.routeName);
+        loading.value = false;
+        emits('toggle')
+        // Clear the data properties
+        Object.keys(formData.value).forEach((key) => {
+            formData.value[key] = '';
+        });
     };
 
     onMounted(() => {

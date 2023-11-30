@@ -21,7 +21,7 @@ class UserService {
   }
 
   addNewPlaceChild(data) {
-    return axios.post(API_URL + '/places/save/', data, { headers: authHeader() });
+    return axios.post(API_URL + '/place/save/', data, { headers: authHeader() });
   }
 
   getOptionData(code) {
