@@ -95,6 +95,15 @@ const router = createRouter({
         pageTitle: 'Объекты'
       }
     },
+    {
+      path: '/objects/:id',
+      name: 'objects:id',
+      component: () => import('../views/objects/_id.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Объекты'
+      }
+    },
   ]
 })
 router.beforeEach(loadLayoutMiddleware);

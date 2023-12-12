@@ -5,6 +5,8 @@ import { message } from 'ant-design-vue';
 export const useObjectsStore = defineStore('objects', {
   state: () => ({
     countryObjects: [],
+    objectBrief: [],
+    objectFields: []
   }),
   actions: {
     async getObjects(section) {
@@ -18,5 +20,46 @@ export const useObjectsStore = defineStore('objects', {
         return Promise.reject(error);
       }
     },
+
+    async getObjectBrief(section, id) {
+      try {
+        const response = await ObjectsService.getObjectBrief(section, id);
+        if (section === 'country') {
+            this.objectBrief = response.data.data;
+            return response;
+        }
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async getObjectFields(section, id) {
+      try {
+        const response = await ObjectsService.getObjectFields(section, id);
+        if (section === 'country') {
+            this.objectFields = response.data.data;
+            return response;
+        }
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async updateObject(data) {
+      try {
+        const response = await ObjectsService.updateObject(data);
+        if (response.data.code === 200) {
+          message.success(response.data.data);
+        } else {
+          console.error('Error fetching data:', response.statusText);
+          message.error(response.data.data);
+        }
+      } catch (error) {
+        this.status.loggedIn = false;
+        this.user = null;
+        return Promise.reject(error);
+      }
+    }
+
   },
 });

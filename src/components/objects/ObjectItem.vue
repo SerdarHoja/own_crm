@@ -3,11 +3,11 @@
         <a-card
             :extra="extra"
             style="width: 100%;"
-            @click="showModal"
+            @click="goToDetails"
         >   
             <div class="flex gap-5">
                 <div class="w-1/5 flex gap-4">
-                    <img class="w-[120px] h-[80px] rounded-2xl" src="https://ik.imagekit.io/demo/medium_cafe_B1iTdD0C.jpg" alt="">
+                    <img class="w-[120px] h-[80px] rounded-2xl" :src="object.picture" alt="">
                     <div>
                         <h6 class="font-bold text-2xl text-slate-900">{{ object.name }}, {{ object.distance_from_mkad.value + ' км' }}</h6>
                         <p class="text-xl mt-8 text-slate-600">{{ object.district_id.value }}</p>
@@ -27,9 +27,9 @@
                     {{ object.house_number.name }}: {{ object.house_number.value }} | {{ object.flat_area.name }} : {{ object.flat_area.value }} | {{ object.floors_count.name }}: {{ object.floors_count.value }} | {{ object.rooms_count.name }}: {{ object.rooms_count.value }}
                 </div>
                 <div class="w-1/6">
-                    <p class="text-xl text-slate-600">{{ object.owners[0].fio }}</p>
-                    <p class="text-xl text-slate-600">{{ object.owners[0].phone }}</p>
-                    <p class="text-xl text-slate-600">{{ object.owners[0].email }}</p>
+                    <p class="text-xl text-slate-600">{{ object.owners[0] ? object.owners[0].fio : '' }}</p>
+                    <p class="text-xl text-slate-600">{{ object.owners[0] ? object.owners[0].phone : '' }}</p>
+                    <p class="text-xl text-slate-600">{{ object.owners[0] ? object.owners[0].email : '' }}</p>
                 </div>
                 <div class="w-1/6">
                     {{ object.status.value }}
@@ -51,14 +51,15 @@
                     </div>
                 </div>
             </div>
-        </a-card>   
-        <a-modal width="1000px" v-model:open="open" title="Basic Modal" @ok="handleOk">
-            {{ object }}
-        </a-modal>     
+        </a-card>      
     </div>
 </template>
 <script setup>
     import { ref } from 'vue'
+    import { useRoute, useRouter } from 'vue-router';
+    const router = useRouter();
+    const route = useRoute();
+
     const props = defineProps({
         object: Object,
     })
@@ -68,4 +69,8 @@
     const showModal = () => {
         open.value = true;
     };
+
+    const goToDetails = () => {
+        router.push('/objects/' + props.object.id);
+    }
 </script>
