@@ -48,17 +48,16 @@ export const useObjectsStore = defineStore('objects', {
     async updateObject(data) {
       try {
         const response = await ObjectsService.updateObject(data);
+        console.log("resssspo", response)
         if (response.data.code === 200) {
-          message.success(response.data.data);
+            message.success(response.data.data);
         } else {
-          console.error('Error fetching data:', response.statusText);
-          message.error(response.data.data);
+            console.error('Error fetching data:', response.statusText);
+            message.error(response.data.data);
         }
-      } catch (error) {
-        this.status.loggedIn = false;
-        this.user = null;
-        return Promise.reject(error);
-      }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
     }
 
   },

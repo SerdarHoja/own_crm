@@ -168,15 +168,15 @@
             for (const [key, value] of Object.entries(formData.value.fields)) {
                 fd.append('fields['+ key +']', value);
             }
-            console.log('fd', fd)
             await myStore.updateObject(fd).then(
             (response) => {
-                if (response.data.result === 'error') {
-                    message.error(response.data.text)
-                    loading.value = false;
-                } else {
-                    loading.value = false;
-                }
+                console.log(response)
+                // if (response.data.result === 'error') {
+                //     message.error(response.data.text)
+                //     loading.value = false;
+                // } else {
+                //     loading.value = false;
+                // }
             }
             )
         } catch (error) {

@@ -1,16 +1,21 @@
 <template>
     <div>
-        <div v-for="item in objectBrief" :key="item" class="mb-5">
-            {{ item.name ? item.name : item  }} ................ {{ item.value }}
-        </div>
+        <a-card class="m-16" v-for="card in objectBrief" :key="card.title">
+            {{ card.title }}
+            <a-divider />
+            <div>
+                <div v-for="row in card.fields" :key="row.id"> 
+                    {{ row.name }} ...... {{ row.value }}
+                </div>
+            </div>
+        </a-card>
     </div>
 </template>
 
 <script setup>
     
     import { ref, onMounted, computed } from 'vue';
-    import brief from "@/components/objects/tabs/brief.vue";
-    import { useRoute, useRouter } from 'vue-router';
+    import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
 
     const props = defineProps({
