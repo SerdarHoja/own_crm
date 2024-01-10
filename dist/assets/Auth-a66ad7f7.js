@@ -1,0 +1,1 @@
+import{_ as t,a as o,b as c,d as s,f as n}from"./index-8ea796bf.js";const r={},a={class:"layout w-[50rem] mt-[300px] mx-auto pt-10"};function _(m,p){const e=o("RouterView");return c(),s("div",a,[n(e)])}const d=t(r,[["render",_]]);export{d as default};
