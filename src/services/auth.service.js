@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "http://crm.web-hands.ru/api/v1";
+const API_URL = "https://crm.web-hands.ru/api/v1";
 
 class AuthService {
   
