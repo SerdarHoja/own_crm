@@ -162,13 +162,7 @@
     const updateObject = async () => {
         loading.value = true;
         try {
-            const fd = new FormData();
-            fd.append('id', formData.value.id);
-            fd.append('section', formData.value.section);
-            for (const [key, value] of Object.entries(formData.value.fields)) {
-                fd.append('fields['+ key +']', value);
-            }
-            await myStore.updateObject(fd).then(
+            await myStore.updateObject(formData.value).then(
             (response) => {
                 console.log(response)
                 // if (response.data.result === 'error') {

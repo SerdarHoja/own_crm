@@ -14,7 +14,7 @@ import './assets/main.css'
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios
-axios.defaults.baseURL = 'http://crm.web-hands.ru/api/v1'
+axios.defaults.baseURL = 'https://crm.web-hands.ru/api/v1'
 
 app.use(VueSweetalert2)
 app.use(createPinia())
