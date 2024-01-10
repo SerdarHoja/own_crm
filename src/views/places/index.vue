@@ -1,16 +1,18 @@
 <template>
-    <main class="mt-40" id="app" v-cloak>
-        <div class="single__main">
+    <div class="p-8" id="app" v-cloak>
+        <div>
             <a-spin :spinning="loading">
               <div class="single__main-slider --info show-flex">
-                  <div class="single__form" >
-                      <router-link :to="'/places/' + place.code" style="margin-left: 10px;" class="single__item places__item"
-                      v-for="(place,code) in places" :key="code">{{ place.title }}</router-link>
+                  <div class="flex flex-wrap gap-[1.6rem]" >
+                      <router-link :to="'/places/' + place.code" class="w-[27rem] p-[4rem] flex flex-col items-center justify-center gap-y-4 border-solid border-2 border-placesBorder rounded-[.8rem]"
+                      v-for="(place,code) in places" :key="code">
+                        <img src="../../assets/img/places-elem-doc.svg" alt="icon">
+                        {{ place.title }}</router-link>
                   </div>
               </div>
             </a-spin>
-        </div> 
-    </main>
+        </div>
+    </div>
 </template>
 <script setup>
 import { onMounted, computed, ref } from 'vue';

@@ -1,22 +1,23 @@
 <template>
     <div>
         <a-button @click="updateObject">Save</a-button>
-        <a-card class="m-16" v-for="card in objectFields" :key="card.title">
-            {{ card.title }}
+        <a-card class="" v-for="card in objectFields" :key="card.title">
+            <div class="font-bold">{{ card.title }}</div>
             <a-divider />
-            <div>
-                <div v-for="row in card.fields" :key="row.id"> 
+            <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
+                <div v-for="row in card.fields" :key="row.id">
                     <a-form-item
                         v-if="row.type === 'text' || row.type === 'number'"
                         :label="row.name"
                         :name="row.name"
                         :rules="[{ required: row.required }]"
+                        class="flex flex-col items-start"
                     >
                         <a-input
                             v-model:value="formData.fields[row.code]"
                             :ref="row.code"
                             :type="row.html"
-                            class="!w-[200px]"
+                            class="w-full"
                         />
                     </a-form-item>
                     <a-form-item
@@ -29,7 +30,7 @@
                             v-model:value="formData.fields[row.code]"
                             :ref="row.code"
                             :type="row.html"
-                            class="!w-[200px]"
+                            class="w-full"
                         >
                         </a-textarea>
                     </a-form-item>
@@ -39,12 +40,12 @@
                         :name="row.name"
                         :rules="[{ required: row.required }]"
                     >
-                        <a-date-picker 
+                        <a-date-picker
                             v-model:value="formData.fields[row.code]"
                             :ref="row.code"
                             :type="row.html"
-                            class="!w-[200px]"
-                            style="width: 100%" 
+                            class="w-full"
+                            style="width: 100%"
                         />
                     </a-form-item>
                     <a-form-item
@@ -53,11 +54,11 @@
                         :name="row.name"
                         :rules="[{ required: row.required }]"
                     >
-                        <a-checkbox 
+                        <a-checkbox
                             v-model:value="formData.fields[row.code]"
                             :ref="row.code"
                             :type="row.html"
-                            class="!w-[200px]"
+                            class="w-full"
                             style="width: 100%"
                         >
                         {{ row.name }} - {{ row.code }}
@@ -69,13 +70,13 @@
                         :name="row.name"
                         :rules="[{  required: row.required, message: 'Required' }]"
                     >
-                        <a-select    
+                        <a-select
                             v-model:value="formData.fields[row.code]"
-                            class="!w-[200px]"
+                            class="w-full"
                             :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                         >
                             <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
-                        </a-select>                 
+                        </a-select>
                     </a-form-item>
                     <a-form-item
                         v-if="row.type == 'select' && row.mode == 'ajax'"
@@ -83,14 +84,14 @@
                         :name="row.name"
                         :rules="[{ required: row.required, message: 'Required' }]"
                     >
-                        <a-select    
+                        <a-select
                             v-model:value="row.code"
                             show-search
                             :filter-option="filterOption"
-                            class="!w-[200px]"
+                            class="w-full"
                         >
                             <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
-                        </a-select> 
+                        </a-select>
                     </a-form-item>
                     <a-form-item
                         v-if="row.type == 'radio'"
@@ -98,14 +99,14 @@
                         :name="row.name"
                         :rules="[{ required: row.required, message: 'Required' }]"
                     >
-                        <a-radio-group 
+                        <a-radio-group
                             v-model:value="formData.fields[row.code]"
-                            :disabled="disabled" 
-                            button-style="solid" 
+                            :disabled="disabled"
+                            button-style="solid"
                             :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                         >
                             <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
-                        </a-radio-group> 
+                        </a-radio-group>
                     </a-form-item>
                 </div>
             </div>
@@ -114,7 +115,7 @@
 </template>
 
 <script setup>
-    
+
     import { ref, onMounted, computed } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
@@ -180,3 +181,12 @@
 
 
 </script>
+<style>
+.ant-row.ant-form-row.css-dev-only-do-not-override-kqecok{
+  display: flex;flex-direction: column;
+}
+.ant-col.ant-form-item-control.css-dev-only-do-not-override-kqecok{
+  width: 100%;
+  margin-bottom: 0;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[95px] p-8" style="height: calc(100vh - 92px);">
+    <div class="p-8 w-full" style="height: calc(100vh - 92px);">
         <a-page-header
             class="demo-page-header"
             style="border: 1px solid rgb(235, 237, 240)"
@@ -7,7 +7,7 @@
         >
             <template #extra>
                 <!-- <a-button @click="toggleModal" key="1" type="primary">
-                    Добавить собственника 
+                    Добавить собственника
                 </a-button> -->
             </template>
         </a-page-header>

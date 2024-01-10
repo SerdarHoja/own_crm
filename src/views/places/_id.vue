@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main class="mt-36" id="app" v-cloak>
+        <main id="app" v-cloak>
             <div class="filter">
                 <div class="filter__task --w-refresh hidden-desktop">
                     <div class="filter__task-t">
@@ -13,12 +13,12 @@
                         <div @click="toggleModal" class="filter__refresh-btn">
                             Добавить {{ route.params.id }}
                         </div>
-                        <Modals 
-                            :routeName="route.params.id" 
-                            :open="open" 
+                        <Modals
+                            :routeName="route.params.id"
+                            :open="open"
                             :newItem="newItem"
                             @toggle="toggleModal"
-                            @save="saveData" 
+                            @save="saveData"
                         />
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                                 <a-spin v-if="loading && place.id === clickedItemId"/>
                                 {{ place.value }} - {{ place.id }}
                             </div>
-                            
+
                             <TrashIcon @click="handleDelete(place, $event)" class="w-10 h-10"/>
                         </router-link>
                     </div>
@@ -80,7 +80,7 @@ const toggleModal = () => {
 
 const subPlaces = computed(() => {
     if (route.params.id === 'regions') {
-        return myStore.regions;      
+        return myStore.regions;
     } else if (route.params.id === 'vicinity') {
         return myStore.vicinities;
     } else if (route.params.id === 'highway') {

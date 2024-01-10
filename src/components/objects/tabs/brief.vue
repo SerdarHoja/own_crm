@@ -1,19 +1,22 @@
 <template>
-    <div>
-        <a-card class="m-16" v-for="card in objectBrief" :key="card.title">
-            {{ card.title }}
-            <a-divider />
-            <div>
-                <div v-for="row in card.fields" :key="row.id"> 
-                    {{ row.name }} ...... {{ row.value }}
-                </div>
-            </div>
-        </a-card>
+  <div class="flex gap-24">
+    <div class="w-[30%]">
+      <a-card class="mb-16" v-for="card in objectBrief" :key="card.title">
+        {{ card.title }}
+        <a-divider />
+        <div>
+          <div v-for="row in card.fields" :key="row.id">
+            {{ row.name }} ...... {{ row.value }}
+          </div>
+        </div>
+      </a-card>
     </div>
+    <div>Slider</div>
+  </div>
 </template>
 
 <script setup>
-    
+
     import { ref, onMounted, computed } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';

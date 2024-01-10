@@ -104,6 +104,15 @@ const router = createRouter({
         pageTitle: 'Объекты'
       }
     },
+    {
+      path: '/deals',
+      name: 'deals',
+      component: () => import('../views/deals/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Сделки'
+      }
+    },
   ]
 })
 router.beforeEach(loadLayoutMiddleware);

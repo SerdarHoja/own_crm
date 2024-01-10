@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.ant-btn-primary {
-    background-color: #1677ff !important;
+::-webkit-scrollbar-thumb {
+    background-color: #007BFF; /* цвет ползунка (скроллбара) */
 }
+body{
+    color: #253858;
+    font-size: 1.4rem;
+}
+.ant-btn-primary {
+    background-color: #4064bf !important;
+}
+.css-dev-only-do-not-override-kqecok.ant-tabs-card >.ant-tabs-nav .ant-tabs-tab, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-card >div>.ant-tabs-nav .ant-tabs-tab {
+    padding: .6rem 1.2rem;
+}
+.css-dev-only-do-not-override-kqecok.ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab {
+    border-radius: .4rem!important;
+}
+

@@ -1,13 +1,24 @@
 <template>
-    <div class="mt-[70px]">
+    <div class="p-[4rem] w-full">
         <a-tabs v-model:activeKey="activeKey" type="card">
             <a-tab-pane key="1" tab="Информация">
                 <brief :id="id"/>
             </a-tab-pane>
-            <a-tab-pane key="2" tab="Редактировать">
+            <a-tab-pane key="2" tab="Редактирование">
                 <edit :id="id"/>
             </a-tab-pane>
-            <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
+            <a-tab-pane key="3" tab="Фотографии">
+
+            </a-tab-pane>
+            <a-tab-pane key="4" tab="Комментарии">
+
+            </a-tab-pane>
+            <a-tab-pane key="5" tab="Лиды">
+
+            </a-tab-pane>
+            <a-tab-pane key="6" tab="Собственник">
+
+            </a-tab-pane>
         </a-tabs>
     </div>
 </template>
