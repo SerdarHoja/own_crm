@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[95px] p-8" style="height: calc(100vh - 92px);">
+    <div class=" p-8" style="height: calc(100vh - 92px);">
         <a-page-header
             class="demo-page-header"
             style="border: 1px solid rgb(235, 237, 240)"
@@ -7,7 +7,7 @@
         >
             <template #extra>
                 <a-button @click="toggleModal" key="1" type="primary">
-                    Добавить клиента 
+                    Добавить клиента
                 </a-button>
             </template>
         </a-page-header>
@@ -16,9 +16,9 @@
             @change="onTableChange($event)"
             :columns="columns"
             :data-source="clients.data"
-            :pagination="{ 
+            :pagination="{
                 pageSize: 10,
-                total: clients.total, 
+                total: clients.total,
             }"
             :custom-row="
                 (record) => {
@@ -40,7 +40,7 @@
                         @cancel="cancel"
                     >
                         <TrashIcon @click="deleteConfirm($event)" class="w-10 h-10 cursor-pointer"/>
-                    </a-popconfirm> 
+                    </a-popconfirm>
                 </template>
             </template>
         </a-table>
@@ -76,22 +76,22 @@
                             >
                                 <a-input v-model:value="row.value"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
                             </a-form-item>
-                            
+
                             <a-form-item
                                 v-if="row.type == 'select'"
                                 :label="row.name"
                                 :name="row.name"
                                 :rules="[{ required: row.required, message: 'Required' }]"
                             >
-                                <a-select    
+                                <a-select
                                     v-model:value="row.value"
                                     show-search
                                     :filter-option="filterOption"
                                     class="!w-[200px]"
                                 >
                                     <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
-                                </a-select>                        
-                            </a-form-item>                        
+                                </a-select>
+                            </a-form-item>
                         </a-form>
                     </div>
                     <a-button @click="console.log(fields.map(item => {
@@ -137,27 +137,27 @@
                         >
                             <a-input v-model:value="newData[row.code]"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
                         </a-form-item>
-                        
+
                         <a-form-item
                             v-if="row.type == 'select'"
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required, message: 'Required' }]"
                         >
-                            <a-select    
+                            <a-select
                                 v-model:value="newData[row.code]"
                                 show-search
                                 :filter-option="filterOption"
                                 class="!w-[200px]"
                             >
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
-                            </a-select>                        
-                        </a-form-item>                        
+                            </a-select>
+                        </a-form-item>
                     </a-form>
                 </div>
             </div>
         </a-modal>
-        
+
     </div>
 </template>
 <script setup>
@@ -208,7 +208,7 @@ const handleOk = (e) => {
 
 const onTableChange = (e) => {
     console.log('p', e)
-} 
+}
  // main function for sending data to backend
  const saveData = async (e) => {
     const formData = new FormData();
