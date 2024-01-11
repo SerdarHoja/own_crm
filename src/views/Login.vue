@@ -11,17 +11,18 @@
         <a-form-item
           name="email"
           :rules="[{ required: true, message: 'Please input your email!' }]"
+          class="!w-full"
         >
-          <a-input v-model:value="formState.email" placeholder="Username" />
+          <a-input v-model:value="formState.email" placeholder="Username" class="!w-full"/>
         </a-form-item>
-    
+
         <a-form-item
           name="password"
           :rules="[{ required: true, message: 'Please input your password!' }]"
         >
           <a-input-password v-model:value="formState.password" placeholder="Password" />
         </a-form-item>
-    
+
         <a-form-item>
           <a-button type="primary" html-type="submit" :loading="loading" class="!bg-blue-600 w-full">Submit</a-button>
         </a-form-item>
@@ -40,7 +41,7 @@
     email: string;
     password: string;
   }
-  
+
   const formState = reactive<FormState>({
     email: '',
     password: '',
@@ -59,14 +60,13 @@
           router.push("/places");
           loading.value = false;
           message.success('Login Success');
-        } 
+        }
       }
     );
   };
-  
+
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
   </script>
-  
-  
+

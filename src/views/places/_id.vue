@@ -149,7 +149,4 @@ const fetchData = async () => {
 }
 </script>
 <style>
-    .ant-btn-primary {
-        background-color: #1677FF !important;
-    }
 </style>
