@@ -1,5 +1,5 @@
 <template>
-    <div class=" p-8" style="height: calc(100vh - 92px);">
+    <div class="w-full p-8" style="height: calc(100vh - 92px);">
         <a-page-header
             class="demo-page-header"
             style="border: 1px solid rgb(235, 237, 240)"
@@ -11,7 +11,6 @@
                 </a-button>
             </template>
         </a-page-header>
-        {{ clients }}
         <a-table
             @change="onTableChange($event)"
             :columns="columns"
@@ -64,7 +63,7 @@
                                     :ref="row.code"
                                     :type="row.html"
                                     @change="onChangeInput"
-                                    class="!w-[200px]"
+                                    class="!w-full"
                                 />
                             </a-form-item>
 
@@ -87,7 +86,7 @@
                                     v-model:value="row.value"
                                     show-search
                                     :filter-option="filterOption"
-                                    class="!w-[200px]"
+                                    class="!w-full"
                                 >
                                     <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                                 </a-select>
@@ -104,16 +103,17 @@
         </a-modal>
 
         <!-- create modal -->
-        <a-modal v-model:open="createModal" title="Новый клиент"  width="80%" class="h-[80vh]" @ok="saveData">
+        <a-modal v-model:open="createModal" title="Новый клиент"   width="30%" class="h-[80vh]" @ok="saveData">
             <div v-if="fields">
-                <div v-for="row in fields" :key="row.code">
-                    <a-form
-                        :model="newItem"
-                        name="basic"
-                        autocomplete="off"
-                        @finish="onFinish"
-                        @finishFailed="onFinishFailed"
-                    >
+                <a-form
+                    :model="newItem"
+                    name="basic"
+                    autocomplete="off"
+                    @finish="onFinish"
+                    @finishFailed="onFinishFailed"
+                    layout="vertical"
+                >
+                    <div v-for="row in fields" :key="row.code">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'email' ||  row.type === 'textarea'"
                             :label="row.name"
@@ -125,7 +125,7 @@
                                 :ref="row.code"
                                 :type="row.html"
                                 @change="onChangeInput"
-                                class="!w-[200px]"
+                                class="!w-full"
                             />
                         </a-form-item>
 
@@ -148,13 +148,13 @@
                                 v-model:value="newData[row.code]"
                                 show-search
                                 :filter-option="filterOption"
-                                class="!w-[200px]"
+                                class="!w-full"
                             >
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
                         </a-form-item>
-                    </a-form>
-                </div>
+                    </div>
+                </a-form>
             </div>
         </a-modal>
 
