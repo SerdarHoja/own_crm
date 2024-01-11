@@ -1,5 +1,5 @@
 <template>
-    <div class=" p-8" style="height: calc(100vh - 92px);">
+    <div class="w-full p-8" style="height: calc(100vh - 92px);">
         <a-page-header
             class="demo-page-header"
             style="border: 1px solid rgb(235, 237, 240)"
@@ -11,7 +11,6 @@
                 </a-button>
             </template>
         </a-page-header>
-        {{ owners }}
         <a-table
             @change="onTableChange($event)"
             :columns="columns"
@@ -53,19 +52,35 @@
                         <li class="flex mb-10">
                             <div class="w-[100px]">ФИО</div>
                             <div class="w-1/2">{{ owner.fio }}</div>
-
                         </li>
                         <li class="flex mb-10">
                             <div class="w-[100px]">Телефон</div>
-                            <div class="w-1/2">{{ owner.phone_format }}</div>
+                            <a-form-item>
+                                <a-input 
+                                    v-model:value="owner.phone_format" 
+                                    :default-value="owner.phone_format"
+                                />
+                            </a-form-item>
+                            
+                            <!-- <div class="w-1/2">{{ owner.phone_format }}</div> -->
                         </li>
                         <li class="flex mb-10">
                             <div class="w-[100px]">Email</div>
-                            <div class="w-1/2">{{ owner.email }}</div>
+                            <a-form-item>
+                                <a-input 
+                                    v-model:value="owner.email" 
+                                    :default-value="owner.email"
+                                />
+                            </a-form-item>
                         </li>
                         <li class="flex mb-10">
                             <div class="w-[100px]">O клиенте</div>
-                            <div class="w-1/2">{{ owner.about }}</div>
+                            <a-form-item>
+                                <a-input 
+                                    v-model:value="owner.about" 
+                                    :default-value="owner.about"
+                                />
+                            </a-form-item>
                         </li>
 
                     </ul>
@@ -75,16 +90,17 @@
         </a-modal>
 
         <!-- create modal -->
-        <a-modal v-model:open="createModal" title="Новый собственник"  width="80%" class="h-[80vh]" @ok="saveData">
+        <a-modal v-model:open="createModal" title="Новый собственник"  width="30%" class="h-[80vh]" @ok="saveData">
             <div v-if="fields">
-                <div v-for="row in fields" :key="row.code">
-                    <a-form
-                        :model="newItem"
-                        name="basic"
-                        autocomplete="off"
-                        @finish="onFinish"
-                        @finishFailed="onFinishFailed"
-                    >
+                <a-form
+                    :model="newItem"
+                    name="basic"
+                    autocomplete="off"
+                    @finish="onFinish"
+                    @finishFailed="onFinishFailed"
+                    layout="vertical"
+                >
+                    <div class="flex flex-col justify-start !text-left" v-for="row in fields" :key="row.code">  
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'email' ||  row.type === 'textarea'"
                             :label="row.name"
@@ -96,7 +112,7 @@
                                 :ref="row.code"
                                 :type="row.html"
                                 @change="onChangeInput"
-                                class="!w-[200px]"
+                                class="!w-full"
                             />
                         </a-form-item>
 
@@ -105,6 +121,8 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="!w-full"
+
                         >
                             <a-input v-model:value="newData[row.code]"  v-mask="'+# (###) ###-##-##'"  type="tel" placeholder="+7"/>
                         </a-form-item>
@@ -119,13 +137,13 @@
                                 v-model:value="newData[row.code]"
                                 show-search
                                 :filter-option="filterOption"
-                                class="!w-[200px]"
+                                class="!w-full"
                             >
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
                         </a-form-item>
-                    </a-form>
-                </div>
+                    </div>
+                </a-form>
             </div>
         </a-modal>
 
