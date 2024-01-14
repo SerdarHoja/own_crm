@@ -9,8 +9,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            {{ data }}
+            </div> 
             <div class="single__main">
                 <div class="">
                     

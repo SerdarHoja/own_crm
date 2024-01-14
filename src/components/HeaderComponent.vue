@@ -58,7 +58,7 @@ const getMyData = computed(() => {
 
 onMounted(() => {
   fetchMe();
-  fetchCurrencyData()
+  // fetchCurrencyData()
 })
 
 const fetchMe = async () => {
@@ -75,22 +75,22 @@ const fetchMe = async () => {
   }
 }
 
-const fetchCurrencyData = async () => {
-  try {
-    await store.getCurrencyRate().then(
-        (response) => {
-          if (response.data.result === 'error') {
-            message.error(response.data.text)
-          } else {
-            currencyDataEURO.value = response.data.EUR;
-            currencyDataUSD.value = response.data.USD;
-          }
-        }
-    )
-  } catch (error) {
-    console.error('Error fetching data in component:', error);
-  }
-}
+// const fetchCurrencyData = async () => {
+//   try {
+//     await store.getCurrencyRate().then(
+//         (response) => {
+//           if (response.data.result === 'error') {
+//             message.error(response.data.text)
+//           } else {
+//             currencyDataEURO.value = response.data.EUR;
+//             currencyDataUSD.value = response.data.USD;
+//           }
+//         }
+//     )
+//   } catch (error) {
+//     console.error('Error fetching data in component:', error);
+//   }
+// }
 
 
 const onLogout = () => {

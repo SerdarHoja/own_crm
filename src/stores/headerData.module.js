@@ -16,14 +16,14 @@ export const useHeaderDataStore = defineStore('headerData', {
                 return Promise.reject(error);
             }
         },
-        async getCurrencyRate() {
-            try {
-                const response = await HeaderDataService.getCurrencyData();
-                this.currencyRate = response.data.data;
-                return response;
-            } catch (error) {
-                return Promise.reject(error);
-            }
-        },
+        // async getCurrencyRate() {
+        //     try {
+        //         const response = await HeaderDataService.getCurrencyData();
+        //         this.currencyRate = response.data.data;
+        //         return response;
+        //     } catch (error) {
+        //         return Promise.reject(error);
+        //     }
+        // },
     },
 });

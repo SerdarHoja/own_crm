@@ -8,9 +8,9 @@ class HeaderDataService {
     return axios.get(API_URL + '/user/', { headers: authHeader() });
   } 
 
-  getCurrencyData() {
-    return axios.get(API_URL + '/currency/rate', { headers: authHeader() });
-  }
+  // getCurrencyData() {
+  //   return axios.get(API_URL + '/currency/rate', { headers: authHeader() });
+  // }
 }
 
 export default new HeaderDataService(); 

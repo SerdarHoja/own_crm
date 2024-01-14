@@ -51,7 +51,12 @@
                     <ul>
                         <li class="flex mb-10">
                             <div class="w-[100px]">ФИО</div>
-                            <div class="w-1/2">{{ owner.fio }}</div>
+                            <a-form-item>
+                                <a-input 
+                                    v-model:value="owner.fio" 
+                                    :default-value="owner.fio"
+                                />
+                            </a-form-item>
                         </li>
                         <li class="flex mb-10">
                             <div class="w-[100px]">Телефон</div>
@@ -85,7 +90,7 @@
 
                     </ul>
                 </div>
-                <div class="w-1/2 bg-stone-200">ddd</div>
+                <div class="w-1/2 bg-stone-200"></div>
             </div>
         </a-modal>
 
@@ -100,20 +105,20 @@
                     @finishFailed="onFinishFailed"
                     layout="vertical"
                 >
-                    <div class="flex flex-col justify-start !text-left" v-for="row in fields" :key="row.code">  
+                    <div class="flex flex-col justify-start !text-left" v-for="row in fields" :key="row.code">   
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'email' ||  row.type === 'textarea'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required }]"
+                            :rules="[{ required: row.required ? 'true' : 'false'}]"
                         >
                             <a-input
-                                v-model:value="newData[row.code]"
                                 :ref="row.code"
                                 :type="row.html"
-                                @change="onChangeInput"
+                                @change="onChangeInputMain(row, $event)"
                                 class="!w-full"
                             />
+                            {{ newData[row.code] }} - {{ row.required }}
                         </a-form-item>
 
                         <a-form-item
@@ -306,6 +311,13 @@ const fetchOwnerData = async (id) => {
     } catch (error) {
         console.error('Error fetching data in component:', error);
     }
+}
+
+const onChangeInputMain = (row, e) => {
+    console.log('e', row, e.target.value) 
+    newData.value[row.code] = e.target.value;
+    console.log('newData', newData.value)
+    // newData.value[e.target.id] = e.target.value;
 }
 
 
