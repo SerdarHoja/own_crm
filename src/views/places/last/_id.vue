@@ -108,7 +108,7 @@ const state = reactive({
 const selectOptionsList = async (code) => {
     await myStore.getOptionsData(code)
     optionsData.value = myStore.optionData;
-    console.log('focus', state.data)
+    // console.log('focus', state.data)
 }
 
 // const fetchOptionData = debounce(async value => {
@@ -118,7 +118,7 @@ const selectOptionsList = async (code) => {
 //   state.data = [];
 //   state.fetching = true;
 //   await myStore.getOptionsData(route.path.split('/')[2])
-//     console.log('sss', myStore.optionsData)
+    // console.log('sss', myStore.optionsData)
 //     // .then(body => {
 //     //   if (fetchId !== lastFetchId) {
 //     //     // for fetch callback order
@@ -155,14 +155,14 @@ onMounted(() => {
 })
 
 watch(value1, () => {
-  console.log('sss',value1.value);
+//   console.log('sss',value1.value);
 });
 
 const fetchData = async () => {
   try {
     await myStore.getPlacesSubChild(route.path.split('/')[2], route.params.id);
     data.value = myStore.placesSubChild;
-    console.log('res', data.value)
+    // console.log('res', data.value)
   } catch (error) {
     console.error('Error fetching data in component:', error);
   }
@@ -173,19 +173,19 @@ const filterOption = (input, option) => {
   return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 };
 const onChangeValue = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     newItem.data['NAME'] = e.target.value;
 }
 const handleChange = (value) => {
-  console.log(`selected ${value}`);
+//   console.log(`selected ${value}`);
   newItem.data['PROPERTY_REGION_TYPE'] = value;
-  console.log(newItem)
+//   console.log(newItem)
 };
 const handleBlur = () => {
-  console.log('blur');
+//   console.log('blur');
 };
 const handleFocus = () => {
-  console.log('focus');
+//   console.log('focus');
 };
 
 const update = async () => {
@@ -209,7 +209,7 @@ import axios from 'axios';
             axios.get('http://crm.web-hands.ru/api/v1/places/fields/?code='+ this.$route.path.split('/')[2] + '&id=' + this.$route.params.id)
                 .then(response => {
                     const responseData = response.data; // Store the response data
-                    console.log('sss',responseData) 
+                    <!-- console.log('sss',responseData)  -->
                     this.data = response.data.data.fields
                 })
             
@@ -268,7 +268,7 @@ import axios from 'axios';
         $('.filter__select').on('click', function () {
             $('.filter__select').not(this).removeClass('dropdown');
             $(this).toggleClass('dropdown');
-            console.log('sss')
+            <!-- console.log('sss') -->
         });
 
         // ЗАКРЫВАЕМ СЕЛЕКТ ПО КЛИКУ ВНЕ

@@ -120,11 +120,11 @@ router.beforeEach( (to, from, next) => {
   const publicPages = ['/login'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
-  console.log("found:", loggedIn)
+  // console.log("found:", loggedIn)
   // trying to access a restricted page + not logged in
   // redirect to login page
   if (authRequired && !loggedIn) {
-    console.log("notfound:", loggedIn)
+    // console.log("notfound:", loggedIn)
     next('/login');
   } else {
     next();

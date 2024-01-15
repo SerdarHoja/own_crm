@@ -173,9 +173,9 @@ const fetchOwnerFields = async () => {
     try {
         await myStore.getOwnerFields();
         fields.value = myStore.ownerFields;
-        console.log('res', data.value)
+        // console.log('res', data.value)
     } catch (error) {
-        console.error('Error fetching data in component:', error);
+        // console.error('Error fetching data in component:', error);
     }
 }
 
@@ -184,7 +184,7 @@ const newData = ref({
 })
 
 const onTableChange = (e) => {
-    console.log('p', e)
+    // console.log('p', e)
 }
 
 const showModal = (record) => {
@@ -198,7 +198,7 @@ const toggleModal = () => {
 };
 
 const handleOk = (e) => {
-  console.log(e);
+//   console.log(e);
   open.value = false;
 };
 
@@ -291,7 +291,7 @@ const fetchData = async () => {
       }
     )
   } catch (error) {
-    console.error('Error fetching data in component:', error);
+    // console.error('Error fetching data in component:', error);
   }
 }
 
@@ -309,14 +309,14 @@ const fetchOwnerData = async (id) => {
         }
         )
     } catch (error) {
-        console.error('Error fetching data in component:', error);
+        // console.error('Error fetching data in component:', error);
     }
 }
 
 const onChangeInputMain = (row, e) => {
-    console.log('e', row, e.target.value) 
+    // console.log('e', row, e.target.value) 
     newData.value[row.code] = e.target.value;
-    console.log('newData', newData.value)
+    // console.log('newData', newData.value)
     // newData.value[e.target.id] = e.target.value;
 }
 

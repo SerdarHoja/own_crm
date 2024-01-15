@@ -165,7 +165,7 @@
         try {
             await myStore.updateObject(formData.value).then(
             (response) => {
-                console.log(response)
+                // console.log(response)
                 // if (response.data.result === 'error') {
                 //     message.error(response.data.text)
                 //     loading.value = false;
