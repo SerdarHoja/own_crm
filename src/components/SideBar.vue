@@ -165,7 +165,7 @@ onMounted(() => {
 })
 
 const onTabsChange = (key) => {
-  console.log(key)
+  // console.log(key)
 }
 </script>
 

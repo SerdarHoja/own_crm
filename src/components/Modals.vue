@@ -101,7 +101,7 @@
         try {
             await myStore.getPlacesSubChild(props.routeName);
             data.value = myStore.placesSubChild;
-            console.log('res', data.value)
+            // console.log('res', data.value)
         } catch (error) {
             console.error('Error fetching data in component:', error);
         }
@@ -110,7 +110,7 @@
     const onFocusSelect = async (code) => {
         await myStore.getOptionsData(code)
         optionsData.value = myStore.optionData;
-        console.log('focus', state.data)
+        // console.log('focus', state.data)
     }
 
     const saveData = async (e) => {

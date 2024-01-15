@@ -49,61 +49,31 @@
              @ok="handleOk">
       <div class="flex w-full mt-20">
         <div class="w-1/2">
-          <div v-for="row in selectedItemValue" :key="row.name">
+          
             <a-form
                 name="basic"
             >
-              <a-form-item
-                  v-if="row.type === 'text' || row.type === 'email' ||  row.type === 'textarea'"
-                  :label="row.name"
-                  :name="row.name"
-                  :rules="[{ required: row.required }]"
-              >
-                <a-input
-                    v-model:value="row.value"
-                    :ref="row.code"
-                    :type="row.html"
-                    @change="onChangeInput"
-                    class="!w-full"
-                />
-              </a-form-item>
-
-              <a-form-item
-                  v-if="row.type === 'phone'"
-                  :label="row.name"
-                  :name="row.name"
-                  :rules="[{ required: row.required }]"
-              >
-                <a-input v-model:value="row.value" v-mask="'+# (###) ###-##-##'" type="tel" placeholder="+7"/>
-              </a-form-item>
-
-              <a-form-item
-                  v-if="row.type == 'select'"
-                  :label="row.name"
-                  :name="row.name"
-                  :rules="[{ required: row.required, message: 'Required' }]"
-              >
-                <a-select
-                    v-model:value="row.value"
-                    show-search
-                    :filter-option="filterOption"
-                    class="!w-full"
+              <div v-for="row in Object.entries(selectedItemValue)" :key="row">
+                <a-form-item
+                    :label="row[0]"
+                    :name="row[0]"
                 >
-                  <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{
-                      option.value
-                    }}
-                  </a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-form>
-          </div>
+                  <a-input
+                      v-model:value="row[1]"
+                      :default-value="row[1]"
+                      @change="onEditInput"
+                      class="!w-full"
+                  />
+                </a-form-item>
+            </div>
+          </a-form>
           <a-button @click="console.log(fields.map(item => {
                             const value = client[item.code];
                             return { name: item.name, value, type: item.type, options:item.options };
                         }))">test
           </a-button>
         </div>
-        <div class="w-1/2 bg-stone-200">ddd</div>
+        <div class="w-1/2 bg-stone-200"></div>
       </div>
     </a-modal>
 
@@ -120,7 +90,7 @@
             class="flex flex-col gap-6"
         >
           <div v-for="row in fields" :key="row.code" class="flex flex-col gap-4">
-            <div v-for="row in fields" :key="row.code">
+            <div>
               <a-form
                   :model="newItem"
                   name="basic"
@@ -229,6 +199,10 @@ const handleOk = (e) => {
   open.value = false;
 };
 
+const onEditInput = (e) => {
+  console.log('e', e)
+}
+
 const onTableChange = (e) => {
   console.log('p', e)
 }
@@ -336,6 +310,7 @@ const fetchClientData = async (id) => {
             loading.value = false;
           } else {
             loading.value = false;
+            selectedItemValue.value = response.data.data;
           }
         }
     )

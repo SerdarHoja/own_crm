@@ -103,7 +103,7 @@ const subPlaces = computed(() => {
 })
 
 const saveData = async (e) => {
-    console.log('test', e)
+    // console.log('test', e)
 };
 
 const handleDelete = async (item, e) => {
