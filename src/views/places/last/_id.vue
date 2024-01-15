@@ -57,7 +57,7 @@
                                     v-model="row.value"
                                     show-search 
                                     :filter-option="filterOption"
-                                    @focus="selectOptionsList(row.code)"
+                                    @focus="selectOptionsList(row.code, row.id, 'place')"
                                     @blur="handleBlur"
                                     @change="handleChange"
                                     class="!w-[200px]"
@@ -105,8 +105,8 @@ const state = reactive({
   fetching: false,
 });
 
-const selectOptionsList = async (code) => {
-    await myStore.getOptionsData(code)
+const selectOptionsList = async (code, id, entity) => {
+    await myStore.getOptionsData(code, id, entity)
     optionsData.value = myStore.optionData;
     // console.log('focus', state.data)
 }
@@ -197,94 +197,6 @@ const update = async () => {
 const value = ref(undefined);
 
 </script>
-<!-- <script>
-import axios from 'axios';
-    export default {
-        data() {
-            return {
-                data: null
-            }
-        },
-        mounted() {
-            axios.get('http://crm.web-hands.ru/api/v1/places/fields/?code='+ this.$route.path.split('/')[2] + '&id=' + this.$route.params.id)
-                .then(response => {
-                    const responseData = response.data; // Store the response data
-                    <!-- console.log('sss',responseData)  -->
-                    this.data = response.data.data.fields
-                })
-            
-                if(this.child == 'settlement' || this.child == 'zhk') {
-            this.setMap();
-        }
-
-        //работа селекта из div
-        $('.filter__select-item').on('click', function (e) {
-            parent = $(this).closest('.filter__wrap-select').find('.filter__select');
-            selectSpan = '<span>' + '</span>'
-            //Добавляем placeholder перед выбранным элементом
-            if ($(parent).hasClass('filter__select--span')) {
-                $(parent).text('')
-                    .prepend(selectSpan + $(this).text())
-                    .attr('data-type', $(this).attr('data-type'))
-                    .attr('data-value', $(this).attr('data-value'))
-                    .attr('data-code', $(this).attr('data-code'))
-                    .attr('ref', $(this).attr('data-code'))
-                    .addClass('active')
-                    .toggleClass('dropdown');
-
-                //Селект для добавления элементов
-            } else if ($(parent).hasClass('filter__select--add-elem')) {
-                $(parent).attr('data-select', $(this).attr('data-select')).attr('data-currentvalue', $(this).attr('data-currentvalue'))
-                    .toggleClass('dropdown');
-
-                //Селект добавление дома в попапе
-            } else if ($(parent).hasClass('filter__select--add-home')) {
-
-                $(this).toggleClass('active');
-
-                //Множественный селект
-            } else if ($(this).closest('.filter__wrap-select').hasClass('--multi')) {
-
-                //Селект ответственного с фото
-            } else if ($(parent).hasClass('filter__select--person')) {
-                $(parent).text($(this).text())
-                    .removeClass($(parent).attr('data-select'))
-                    .attr('data-select', $(this).attr('data-select'))
-                    .attr('data-currentvalue', $(this).attr('data-currentvalue'))
-                    .toggleClass('dropdown')
-                    .addClass($(this).attr('data-select'));
-
-                //Нормальное состояние
-            } else {
-                $(parent).text($(this).text())
-                    .attr('data-select', $(this).attr('data-select'))
-                    .attr('data-currentvalue', $(this).attr('data-currentvalue'))
-                    .toggleClass('dropdown')
-                    .addClass('active');
-            }
-        });
-
-        //выпадающий список в селекте
-        $('.filter__select').on('click', function () {
-            $('.filter__select').not(this).removeClass('dropdown');
-            $(this).toggleClass('dropdown');
-            <!-- console.log('sss') -->
-        });
-
-        // ЗАКРЫВАЕМ СЕЛЕКТ ПО КЛИКУ ВНЕ
-        $('html body').on('click', function (e) {
-            if (!$(e.target).parents().addBack().is('.filter__select') && !$(e.target).parents().addBack().is('.filter__select-quest') && !$(e.target).parents().addBack().is('.filter__select-item')) {
-                $('.filter__select').removeClass('dropdown');
-            }
-        });
-        },
-        methods: {
-            addDropdown() {
-                $('.filter__select').toggleClass('dropdown');
-            }
-        }
-    }
-</script> -->
 <style>
     .cn {
         margin-top: 100px;

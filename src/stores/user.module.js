@@ -77,9 +77,9 @@ export const useUserStore = defineStore('user', {
         }
     },
 
-    async getOptionsData(code) {
+    async getOptionsData(code, id, entity) {
       try {
-        const response = await UserService.getOptionData(code);
+        const response = await UserService.getOptionData(code, id, entity);
         this.optionData = response.data.data;
         console.log("reeeee", this.optionData)
         return response;
