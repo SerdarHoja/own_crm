@@ -64,8 +64,9 @@
                                 :type="row.html"
                                 class="w-full"
                                 style="width: 100%"
+                                @change="onChangeCheckBox(row.value, $event)"
                             >
-                            {{ row.name }} - {{ row.code }}
+                            {{ row.name }} - {{ row.code }} - {{ row.value }}
                             </a-checkbox>
                         </a-form-item>
                         <a-form-item
@@ -146,6 +147,10 @@
     const objectFields = computed(() => {
         return myStore.objectFields;
     })
+
+    const onChangeCheckBox = (value, e) => {
+        console.log('valva', value,  e)
+    }
 
     const fetchObjectFields = async () => {
         loading.value = true;
