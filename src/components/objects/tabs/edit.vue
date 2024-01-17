@@ -4,20 +4,20 @@
         <a-card class="" v-for="card in objectFields" :key="card.title">
             <div class="font-bold">{{ card.title }}</div>
             <a-divider />
-            <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
-                <div v-for="row in card.fields" :key="row.id">
+            <div class="flex flex-wrap gap-[1.6rem] ">
+                <div v-for="row in card.fields" :key="row.id" class="w-[280px]">
                     <a-form-item
                         v-if="row.type === 'text' || row.type === 'number'"
                         :label="row.name"
                         :name="row.name"
                         :rules="[{ required: row.required }]"
-                        class="flex flex-col items-start"
+                        class="flex flex-col items-start w-[280px]"
                     >
                         <a-input
                             v-model:value="formData.fields[row.code]"
                             :ref="row.code"
                             :type="row.html"
-                            class="w-full"
+                            class="flex w-[280px]"
                         />
                     </a-form-item>
                     <a-form-item
@@ -183,7 +183,9 @@
 </script>
 <style>
 .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok{
-  display: flex;flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .ant-col.ant-form-item-control.css-dev-only-do-not-override-kqecok{
   width: 100%;

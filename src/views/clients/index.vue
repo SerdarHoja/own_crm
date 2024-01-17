@@ -49,7 +49,7 @@
              @ok="handleOk">
       <div class="flex w-full mt-20">
         <div class="w-1/2">
-          
+
             <a-form
                 name="basic"
             >
@@ -78,7 +78,7 @@
     </a-modal>
 
     <!-- create modal -->
-    <a-modal v-model:open="createModal" title="Новый клиент" width="30%" class="h-[80vh]" @ok="saveData">
+    <a-modal v-model:open="createModal" title="Новый клиент" width="40%" @ok="saveData">
       <div v-if="fields">
         <a-form
             :model="newItem"
@@ -89,7 +89,7 @@
             layout="vertical"
             class="flex flex-col gap-6"
         >
-          <div v-for="row in fields" :key="row.code" class="flex flex-col gap-4">
+          <div v-for="row in fields" :key="row.code" class="flex flex-wrap gap-4">
             <div>
               <a-form
                   :model="newItem"

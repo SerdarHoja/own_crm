@@ -13,6 +13,8 @@ form input.ant-input.css-dev-only-do-not-override-kqecok{
 form .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok{
   display: flex;
   flex-direction: column;
+}form .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok{
+  display: inherit;
 }
 .layout form input.ant-input.css-dev-only-do-not-override-kqecok{
   width: 100%!important;

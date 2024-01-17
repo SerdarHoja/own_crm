@@ -53,7 +53,7 @@
               </router-link>
             </li>
             <li class="sidebar__list-item">
-              <router-link to="/settings/" class="sidebar__list-link gap-3">
+              <router-link to="/setting/" class="sidebar__list-link gap-3">
                 <IconSetting class="w-10 h-10"/>
                 Настройки
               </router-link>
@@ -110,7 +110,7 @@
             </router-link>
           </li>
           <li class="sidebar__list-item">
-            <router-link to="/places/" class="sidebar__list-link gap-3">
+            <router-link to="/setting/" class="sidebar__list-link gap-3">
               <IconSetting class="w-10 h-10"/>
               Настройки
             </router-link>

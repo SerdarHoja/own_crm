@@ -81,12 +81,20 @@
 
       </div>
     </div>
-    <div class="cards__arr --left w-[5rem] h-full absolute top-0 left-0"
-         style="background: url(../../assets/img/icon-list-arr.svg) center center/3rem no-repeat;"></div>
-    <div class="cards__arr --right w-[5rem] h-full absolute top-0 right-0"
-         style="background: url(../../assets/img/icon-list-arr.svg) center center/3rem no-repeat;"></div>
+    <div
+        class="cards__arr --left w-[5rem] h-full absolute top-0 left-0"
+        @mouseover="scrollLeft"
+        @mouseout="stopScroll">
+    </div>
+    <div
+        class="cards__arr --right w-[5rem] h-full absolute top-0 right-0"
+        @mouseover="scrollRight"
+        @mouseout="stopScroll">
+    </div>
     <div class="h-main-wrap">
-      <div class="flex h-full items-start pb-1 overflow-x-auto relative">
+      <div
+          class="h-main-content-wrap flex h-full items-start pb-1 overflow-x-auto relative"
+          ref="middleBlock">
         <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
           <div class="flex items-center justify-between p-[1.6rem]">
             <div>Лид - <span>3</span></div>
@@ -1007,7 +1015,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 <script setup>
@@ -1043,7 +1050,6 @@ function formatNumber(value) {
   }
   return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`;
 }
-
 const inputValue = ref('111');
 const formatValue = computed(() => {
   if (inputValue.value === '-') return '-';
@@ -1067,7 +1073,38 @@ const onBlur = () => {
 watch(inputValue, (val, preVal) => {
   format(val, preVal);
 });
+
+const middleBlock = ref(null);
+let scrollInterval;
+
+const scrollLeft = () => {
+  scrollInterval = setInterval(() => {
+    middleBlock.value.scrollLeft -= 5;
+  }, 20);
+};
+
+const scrollRight = () => {
+  scrollInterval = setInterval(() => {
+    middleBlock.value.scrollLeft += 5;
+  }, 20);
+};
+
+const stopScroll = () => {
+  clearInterval(scrollInterval);
+};
+
 </script>
+
 <style scoped>
+.cards__arr.--left{
+  background: url(../../assets/img/icon-list-arr.svg) center center/3rem no-repeat;
+  transform: rotate(180deg);
+  opacity: 0;
+}
+.cards__arr.--right{
+  background: url(../../assets/img/icon-list-arr.svg) center center/3rem no-repeat;
+  opacity: 0;
+}
 
 </style>
+
