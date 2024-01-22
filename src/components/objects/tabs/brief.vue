@@ -6,7 +6,13 @@
         <a-divider />
         <div>
           <div v-for="row in card.fields" :key="row.id">
-            {{ row.name }} ...... {{ row.value }}
+            <!-- {{ row.name }} ...... {{ row.value }} -->
+            
+            <div v-if="row.value" class="flex justify-between">
+              <p>{{ row.name }}</p>
+              <p>..........................................</p>
+              <p>{{ row.value }}</p>
+            </div>
           </div>
         </div>
       </a-card>

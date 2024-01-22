@@ -24,8 +24,8 @@ class UserService {
     return axios.post(API_URL + '/place/save/', data, { headers: authHeader() });
   }
 
-  getOptionData(code) {
-    return axios.get(API_URL + '/options/list/?prop=' + code, { headers: authHeader() });
+  getOptionData(code, id, entity) {
+    return axios.get(API_URL + '/options/list/?prop=' + code + '&id=' + id + '&entity=' + entity, { headers: authHeader() });
   }
 }
 

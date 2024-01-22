@@ -11,6 +11,7 @@ export const useHeaderDataStore = defineStore('headerData', {
             try {
                 const response = await HeaderDataService.getMe();
                 this.me = response.data.data;
+                console.log("me", this.me)
                 return response;
             } catch (error) {
                 return Promise.reject(error);

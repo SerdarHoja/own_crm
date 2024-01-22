@@ -46,6 +46,7 @@
 
         <!-- edit modal -->
         <a-modal v-model:open="open" :footer="null" :title="'ID: ' + clickedRow"  width="80%" class="h-[80vh]" @ok="handleOk">
+            {{ owner }}
             <div class="flex w-full mt-20">
                 <div class="w-1/2">
                     <ul>
@@ -53,8 +54,8 @@
                             <div class="w-[100px]">ФИО</div>
                             <a-form-item>
                                 <a-input 
-                                    v-model:value="owner.fio" 
-                                    :default-value="owner.fio"
+                                    v-model:value="owner.name" 
+                                    :default-value="owner.name"
                                 />
                             </a-form-item>
                         </li>
