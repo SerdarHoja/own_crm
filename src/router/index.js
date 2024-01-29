@@ -113,6 +113,33 @@ const router = createRouter({
         pageTitle: 'Сделки'
       }
     },
+    {
+      path: '/tasks',
+      name: 'tasks',
+      component: () => import('../views/tasks/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Задачи'
+      }
+    },
+    {
+      path: '/villages',
+      name: 'villages',
+      component: () => import('../views/villages/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Посёлки'
+      }
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: () => import('../views/setting/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Настройки'
+      }
+    },
   ]
 })
 router.beforeEach(loadLayoutMiddleware);

@@ -35,7 +35,7 @@
               </router-link>
             </li>
             <li class="sidebar__list-item">
-              <router-link to="/owners/" class="sidebar__list-link gap-3">
+              <router-link to="/villages/" class="sidebar__list-link gap-3">
                 <IconVillages class="w-10 h-10"/>
                 Посёлки
               </router-link>

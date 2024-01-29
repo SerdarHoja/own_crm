@@ -1099,11 +1099,9 @@ const stopScroll = () => {
 .cards__arr.--left{
   background: url(../../assets/img/icon-list-arr.svg) center center/3rem no-repeat;
   transform: rotate(180deg);
-  opacity: 0;
 }
 .cards__arr.--right{
   background: url(../../assets/img/icon-list-arr.svg) center center/3rem no-repeat;
-  opacity: 0;
 }
 
 </style>
