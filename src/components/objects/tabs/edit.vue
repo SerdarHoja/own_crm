@@ -193,7 +193,9 @@
 </script>
 <style>
 .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok{
-  display: flex;flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .ant-col.ant-form-item-control.css-dev-only-do-not-override-kqecok{
   width: 100%;

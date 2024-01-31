@@ -5,14 +5,9 @@
         {{ card.title }}
         <a-divider />
         <div>
-          <div v-for="row in card.fields" :key="row.id">
-            <!-- {{ row.name }} ...... {{ row.value }} -->
-            
-            <div v-if="row.value" class="flex justify-between">
-              <p>{{ row.name }}</p>
-              <p>..........................................</p>
-              <p>{{ row.value }}</p>
-            </div>
+          <div v-for="row in card.fields" :key="row.id" class="flex">
+            <div class="objects-detail__info-elem flex flex-1">{{ row.name }}</div>
+            <div>{{ row.value }}</div>
           </div>
         </div>
       </a-card>
@@ -67,3 +62,19 @@
 
 
 </script>
+
+<style>
+.objects-detail__info-elem:first-child::after {
+  content: "";
+  display: inline-block;
+  margin: 0 0.3rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border-bottom: 1px dashed #253858;
+  opacity: .2;
+  -webkit-transform: translateY(-0.35rem);
+  -ms-transform: translateY(-.35rem);
+  transform: translateY(-0.35rem);
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-full">
         <main id="app" v-cloak>
             <div class="filter">
                 <div class="filter__task --w-refresh hidden-desktop">
