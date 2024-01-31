@@ -23,7 +23,39 @@
                     </div>
                 </div>
             </div>
-            <div class="single__main">
+            <a-table
+                @change="onTableChange($event)"
+                :columns="columns"
+                :data-source="subPlaces"
+                :pagination="{
+                        pageSize: 10,
+                        total: subPlaces.total,
+                    }"
+                :custom-row="
+                        (record) => {
+                        if (record.id) {
+                            return {
+                                onClick : (event) => goToPage(record.id),
+                            };
+                        }
+                        }
+                    "
+            >
+            <template #bodyCell="{ column, record }">
+                <template v-if="column.key === 'action'">
+                <a-popconfirm
+                    title="Действительно удалить?"
+                    ok-text="Да"
+                    cancel-text="Нет"
+                    @confirm="handleDelete(record, $event)"
+                    @cancel="cancel"
+                >
+                    <TrashIcon @click="deleteConfirm($event)" class="w-10 h-10 cursor-pointer"/>
+                </a-popconfirm>
+                </template>
+            </template>
+            </a-table>
+            <!-- <div class="single__main">
                 <div class="single__main-slider --info show-flex">
                     <div class="single__form">
                         <router-link  :to="'/places/' + $route.params.id + '/' + place.id" style="margin-left: 10px;"
@@ -37,14 +69,14 @@
                         </router-link>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </main>
     </div>
 </template>
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
 import Modals from '../../components/Modals.vue';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { TrashIcon } from '@heroicons/vue/24/solid'
 import { useUserStore } from '../../stores/user.module.js';
 
@@ -76,6 +108,30 @@ const newItem = reactive({
 
 const toggleModal = () => {
   open.value = !open.value;
+};
+
+const columns = [
+  {
+    title: 'id',
+    key: 'id',
+    dataIndex: 'id',
+    width: 50,
+  },
+  {
+    title: "Название",
+    dataIndex: "value",
+    key: 'value',
+  },
+  {
+    title: 'Действия',
+    key: 'action',
+    width: 50,
+  },
+]
+
+const router = useRouter();
+const goToPage = (placeId) => {
+  router.push(`/places/` + route.params.id + '/' + placeId);
 };
 
 const subPlaces = computed(() => {
@@ -123,6 +179,11 @@ const handleDelete = async (item, e) => {
     await myStore.getPlacesChild(route.params.id);
     data.value = myStore.placesChild;
     loading.value = false;
+}
+
+const deleteConfirm = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 }
 
 

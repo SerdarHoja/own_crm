@@ -124,6 +124,7 @@
     <!-- edit modal -->
     <a-modal v-model:open="open" :footer="null" :title="'ID: ' + clickedRow" width="80%" class="h-[80vh]"
              @ok="handleOk">
+             {{ selectedItemValue }}
       <div class="flex w-full mt-20">
         <div class="w-1/2">
 

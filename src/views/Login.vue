@@ -57,7 +57,7 @@
           loading.value = false;
           message.error(response.text );
         } else {
-          router.push("/places");
+          router.push("/objects");
           loading.value = false;
           message.success('Login Success');
         }

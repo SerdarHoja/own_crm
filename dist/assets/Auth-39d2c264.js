@@ -1,1 +1,0 @@
-import{_ as t,a as o,b as c,d as n,f as s}from"./index-dc8ff5dc.js";const r={},a={class:"layout flex items-center justify-center w-full min-h-[100vh]"};function _(f,i){const e=o("RouterView");return c(),n("div",a,[s(e)])}const u=t(r,[["render",_]]);export{u as default};

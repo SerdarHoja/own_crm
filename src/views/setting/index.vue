@@ -52,6 +52,22 @@
             :options="options"
             @change="handleChange"
         ></a-select>
+        <a-select
+            v-model:value="value"
+            mode="tags"
+            style="width: 28rem;"
+            placeholder="Статус"
+            :options="options"
+            @change="handleChange"
+        ></a-select>
+        <a-select
+            v-model:value="value"
+            mode="tags"
+            style="width: 28rem;"
+            placeholder="Статус"
+            :options="options"
+            @change="handleChange"
+        ></a-select>
       </div>
     </div>
     <div class="cards__arr --left w-[5rem] h-full absolute top-0 left-0"
