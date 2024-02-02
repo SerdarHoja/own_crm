@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full mx-5">
         <main id="app" v-cloak>
             <div class="filter">
                 <div class="filter__task --w-refresh hidden-desktop">
@@ -55,21 +55,6 @@
                 </template>
             </template>
             </a-table>
-            <!-- <div class="single__main">
-                <div class="single__main-slider --info show-flex">
-                    <div class="single__form">
-                        <router-link  :to="'/places/' + $route.params.id + '/' + place.id" style="margin-left: 10px;"
-                            class="single__item places__item flex justify-between" v-for="(place) in subPlaces" :key="place.id">
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <a-spin v-if="loading && place.id === clickedItemId"/>
-                                {{ place.value }} - {{ place.id }}
-                            </div>
-
-                            <TrashIcon @click="handleDelete(place, $event)" class="w-10 h-10"/>
-                        </router-link>
-                    </div>
-                </div>
-            </div> -->
         </main>
     </div>
 </template>
