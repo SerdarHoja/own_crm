@@ -47,7 +47,7 @@
               </router-link>
             </li>
             <li class="sidebar__list-item">
-              <router-link to="/owners/" class="sidebar__list-link gap-3">
+              <router-link to="/tsian/" class="sidebar__list-link gap-3">
                 <IconCian class="w-10 h-10"/>
                 ЦИАН
               </router-link>
@@ -68,7 +68,7 @@
             </router-link>
           </li>
           <li class="sidebar__list-item">
-            <router-link to="/owners/" class="sidebar__list-link gap-3">
+            <router-link to="/tasks/" class="sidebar__list-link gap-3">
               <IconTasks class="w-10 h-10"/>
               Задачи
             </router-link>
@@ -92,7 +92,7 @@
             </router-link>
           </li>
           <li class="sidebar__list-item">
-            <router-link to="/owners/" class="sidebar__list-link gap-3">
+            <router-link to="/villages/" class="sidebar__list-link gap-3">
               <IconVillages class="w-10 h-10"/>
               Посёлки
             </router-link>
@@ -104,7 +104,7 @@
             </router-link>
           </li>
           <li class="sidebar__list-item">
-            <router-link to="/owners/" class="sidebar__list-link gap-3">
+            <router-link to="/tsian/" class="sidebar__list-link gap-3">
               <IconCian class="w-10 h-10"/>
               ЦИАН
             </router-link>

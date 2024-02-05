@@ -48,7 +48,7 @@
                     ok-text="Да"
                     cancel-text="Нет"
                     @confirm="handleDelete(record, $event)"
-                    @cancel="cancel"
+                    @cancel="onCancel"
                 >
                     <TrashIcon @click="deleteConfirm($event)" class="w-10 h-10 cursor-pointer"/>
                 </a-popconfirm>
@@ -146,6 +146,11 @@ const subPlaces = computed(() => {
 const saveData = async (e) => {
     // console.log('test', e)
 };
+
+const onCancel = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+}
 
 const handleDelete = async (item, e) => {
     e.preventDefault();
