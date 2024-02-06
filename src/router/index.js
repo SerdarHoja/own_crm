@@ -123,6 +123,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/tsian',
+      name: 'tsian',
+      component: () => import('../views/tsian/index.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Циан'
+      }
+    },
+    {
       path: '/villages',
       name: 'villages',
       component: () => import('../views/villages/index.vue'),
@@ -143,16 +152,16 @@ const router = createRouter({
   ]
 })
 router.beforeEach(loadLayoutMiddleware);
+
 router.beforeEach( (to, from, next) => {
-  const publicPages = ['/login'];
+  const publicPages = ['/login', '/'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
-  // console.log("found:", loggedIn)
-  // trying to access a restricted page + not logged in
-  // redirect to login page
+
   if (authRequired && !loggedIn) {
-    // console.log("notfound:", loggedIn)
     next('/login');
+  } else if (loggedIn && to.path === '/login') {
+    next('/objects');
   } else {
     next();
   }
