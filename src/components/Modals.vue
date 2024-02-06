@@ -47,7 +47,7 @@
                             v-model:value="row.code"
                             show-search
                             :filter-option="filterOption"
-                            @focus="onFocusSelect(row.code)"
+                            @focus="onFocusSelect(row.code, row.id, 'place')"
                             class="!w-[200px]"
                         >
                             <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
@@ -107,8 +107,8 @@
         }
     }
 
-    const onFocusSelect = async (code) => {
-        await myStore.getOptionsData(code)
+    const onFocusSelect = async (code, id, entity) => {
+        await myStore.getOptionsData(code, id, entity)
         optionsData.value = myStore.optionData;
         // console.log('focus', state.data)
     }
