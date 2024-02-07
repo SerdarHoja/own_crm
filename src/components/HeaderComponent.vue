@@ -20,7 +20,7 @@
       </template>
     </a-input-search>
     <a-space class="mr-12">
-      <a-button size="middle" type="primary">+ Новая сделка</a-button>
+      <!-- <a-button size="middle" type="primary">+ Новая сделка</a-button> -->
     </a-space>
     <DateTimeHeader class="mr-12"/>
     <div class="mr-12 flex items-center"><IconDollar/> - <span class="usd">{{ currencyDataUSD }}</span></div>
