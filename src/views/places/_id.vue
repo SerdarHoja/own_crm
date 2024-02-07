@@ -11,7 +11,7 @@
                             Сбросить
                         </div>
                         <div @click="toggleModal" class="filter__refresh-btn">
-                            Добавить {{ route.params.id }}
+                            Добавить {{ currentPlace }}
                         </div>
                         <Modals
                             :routeName="route.params.id"
@@ -119,6 +119,30 @@ const goToPage = (placeId) => {
   router.push(`/places/` + route.params.id + '/' + placeId);
 };
 
+const currentPlace = computed(() => {
+    if (route.params.id === 'regions') {
+        return "Регион";
+    } else if (route.params.id === 'vicinity') {
+        return "Округ"
+    } else if (route.params.id === 'highway') {
+        return 'Шоссе';
+    } else if (route.params.id === 'place') {
+        return "Населенный пункт";
+    } else if (route.params.id === 'districts') {
+        return "Район"
+    } else if (route.params.id === 'metro') {
+        return "Метро"
+    } else if (route.params.id === 'metro_line') {
+        return "Линия метро"
+    } else if (route.params.id === 'village') {
+        return "Коттеджный поселок"
+    } else if (route.params.id === 'zhk') {
+        return "Жилой комплекс"
+    } else {
+        return []
+    }
+})
+
 const subPlaces = computed(() => {
     if (route.params.id === 'regions') {
         return myStore.regions;
@@ -138,6 +162,10 @@ const subPlaces = computed(() => {
         return myStore.metro
     } else if (route.params.id === 'metro_line') {
         return myStore.metro_line
+    } else if (route.params.id === 'village') {
+        return myStore.village
+    } else if (route.params.id === 'zhk') {
+        return myStore.zhk
     } else {
         return []
     }
