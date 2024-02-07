@@ -14,7 +14,9 @@ export const useUserStore = defineStore('user', {
     metro: [],
     metro_line: [],
     placesSubChild: [],
-    optionData: []
+    optionData: [],
+    village: [],
+    zhk: []
   }),
   actions: {
     async getPlacesList() {
@@ -46,6 +48,10 @@ export const useUserStore = defineStore('user', {
                 this.metro = response.data.data;
             } else if (param === 'metro_line') {
                 this.metro_line = response.data.data;
+            } else if (param === 'village') {
+              this.village = response.data.data;
+            } else if (param === 'zhk') {
+              this.zhk = response.data.data;
             }
             return response;
         } catch (error) {

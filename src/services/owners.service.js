@@ -5,7 +5,7 @@ const API_URL = 'https://crm.web-hands.ru/api/v1';
 
 class OwnerService {
   getMe() {
-    return axios.get(API_URL + '/user/', { headers: authHeader() });
+    return axios.get(API_URL + '/user/data/', { headers: authHeader() });
   }
 
   getOwners() {

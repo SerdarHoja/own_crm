@@ -5,7 +5,7 @@ const API_URL = 'https://crm.web-hands.ru/api/v1';
 
 class UserService {
   getMe() {
-    return axios.get(API_URL + '/user/', { headers: authHeader() });
+    return axios.get(API_URL + '/user/data/', { headers: authHeader() });
   }
 
   getPlaces() {
@@ -13,7 +13,7 @@ class UserService {
   }
 
   getPlacesChild(param) {
-    return axios.get(API_URL + '/places/?code=' + param, { headers: authHeader() });
+    return axios.get(API_URL + '/place/list/?code=' + param, { headers: authHeader() });
   }
 
   getPlacesSubChild(code, id) {

@@ -26,7 +26,7 @@
     <div class="mr-12 flex items-center"><IconDollar/> - <span class="usd">{{ currencyDataUSD }}</span></div>
     <div class="mr-12 flex items-center"><IconEuro/> - <span class="eur">{{ currencyDataEURO }}</span></div>
     <NotificationHeader class="mr-12"/>
-    <UserHeader/>
+    <UserHeader :userData="getMyData" />
   </header>
 </template>
 <script setup>
@@ -75,22 +75,27 @@ const fetchMe = async () => {
   }
 }
 
-// const fetchCurrencyData = async () => {
-//   try {
-//     await store.getCurrencyRate().then(
-//         (response) => {
-//           if (response.data.result === 'error') {
-//             message.error(response.data.text)
-//           } else {
-//             currencyDataEURO.value = response.data.EUR;
-//             currencyDataUSD.value = response.data.USD;
-//           }
-//         }
-//     )
-//   } catch (error) {
-//     console.error('Error fetching data in component:', error);
-//   }
-// }
+onMounted(() => {
+  fetchCurrencyData()
+})
+
+const fetchCurrencyData = async () => {
+  try {
+    await store.getCurrencyData().then(
+        (response) => {
+          if (response.data.result === 'error') {
+            message.error(response.data.text)
+          } else {
+            console.log("response.data", response.data)
+            currencyDataEURO.value = response.data.EUR;
+            currencyDataUSD.value = response.data.USD;
+          }
+        }
+    )
+  } catch (error) {
+    console.error('Error fetching data in component:', error);
+  }
+}
 
 
 const onLogout = () => {

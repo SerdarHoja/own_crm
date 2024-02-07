@@ -4,7 +4,7 @@
     <a class="ant-dropdown-link flex gap-2" @click.prevent>
       <img src="../../assets/img/icon-avatar.svg" class="avatar w-14" />
       <div class="user-info flex gap-3 items-center">
-        <p class="user-name">Иванов Иван</p>
+        <p class="user-name">{{userData.userData.name}}</p>
       </div>
       <DownOutlined />
     </a>
@@ -22,8 +22,13 @@
 import { useAuthStore } from '../../stores/auth.module.js';
 import { useRouter } from 'vue-router';
 
+const userData = defineProps({
+  userData: Object
+});
+
 const store = useAuthStore();
 const router = useRouter();
+
 
 const logout = () => {
   store.logout();
