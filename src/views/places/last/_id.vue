@@ -16,7 +16,7 @@
                     <div class="single__title" v-if="data && data[0]"><span>{{ data[0].title }}</span></div>
                     <div class="flex gap-8" v-if="data && data[0]">
                         <div v-for="row in data[0].fields" :key="row.id">
-                            {{ row }}
+                            <!-- {{ row }} -->
                             <a-form-item
                                 v-if="row.type === 'text'"
                                 :label="row.name"

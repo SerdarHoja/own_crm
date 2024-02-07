@@ -11,9 +11,6 @@
     <template #overlay>
       <a-menu>
         <a-menu-item>
-          <a href="javascript:;">Профил</a>
-        </a-menu-item>
-        <a-menu-item>
           <p @click="logout">Выход</p>
         </a-menu-item>
       </a-menu>
