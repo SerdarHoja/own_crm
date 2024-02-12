@@ -77,17 +77,6 @@
 
       </div>
     </div>
-    <a-page-header
-        class="demo-page-header"
-        style="border: 1px solid rgb(235, 237, 240)"
-        @back="() => $router.go(-1)"
-    >
-        <template #extra>
-            <!-- <a-button @click="toggleModal" key="1" type="primary">
-                Добавить собственника
-            </a-button> -->
-        </template>
-    </a-page-header>
     <div class="country-data">
         <div class="mt-5 p-12">
             <div class="flex gap-5">

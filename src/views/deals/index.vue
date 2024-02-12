@@ -1,5 +1,5 @@
 <template>
-  <div class=" px-[5rem] pt-[3.2rem] pb-[1rem] h-full relative flex-1" style="width: calc(100vh - 24rem);">
+  <div class="content__area px-[5rem] pt-[3.2rem] pb-[1rem] h-full relative flex-1" style="width: calc(100vh - 24rem);">
     <div class="flex gap-x-[3rem] mb-m-base">
       <div class="text-main-title font-bold">Сделки</div>
       <div>
@@ -95,8 +95,8 @@
       <div
           class="h-main-content-wrap flex h-full items-start pb-1 overflow-x-auto relative"
           ref="middleBlock">
-        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
-          <div class="flex items-center justify-between p-[1.6rem]">
+        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem] max-h-full overflow-x-auto" style="scrollbar-width: none">
+          <div class="flex items-center justify-between p-[1.6rem] sticky top-0 bg-[#f4f5f7] z-10">
             <div>Лид - <span>3</span></div>
             <div class="flex justify-between items-center gap-[1.6rem]">
               <div class="flex items-center">
@@ -248,8 +248,8 @@
             </a>
           </div>
         </div>
-        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
-          <div class="flex items-center justify-between p-[1.6rem]">
+        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem] max-h-full overflow-x-auto" style="scrollbar-width: none">
+          <div class="flex items-center justify-between p-[1.6rem] sticky top-0 bg-[#f4f5f7] z-10">
             <div>Лид - <span>3</span></div>
             <div class="flex justify-between items-center gap-[1.6rem]">
               <div class="flex items-center">
@@ -401,8 +401,8 @@
             </a>
           </div>
         </div>
-        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
-          <div class="flex items-center justify-between p-[1.6rem]">
+        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem] max-h-full overflow-x-auto" style="scrollbar-width: none">
+          <div class="flex items-center justify-between p-[1.6rem] sticky top-0 bg-[#f4f5f7] z-10">
             <div>Лид - <span>3</span></div>
             <div class="flex justify-between items-center gap-[1.6rem]">
               <div class="flex items-center">
@@ -554,8 +554,8 @@
             </a>
           </div>
         </div>
-        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
-          <div class="flex items-center justify-between p-[1.6rem]">
+        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem] max-h-full overflow-x-auto" style="scrollbar-width: none">
+          <div class="flex items-center justify-between p-[1.6rem] sticky top-0 bg-[#f4f5f7] z-10">
             <div>Лид - <span>3</span></div>
             <div class="flex justify-between items-center gap-[1.6rem]">
               <div class="flex items-center">
@@ -707,8 +707,8 @@
             </a>
           </div>
         </div>
-        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
-          <div class="flex items-center justify-between p-[1.6rem]">
+        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem] max-h-full overflow-x-auto" style="scrollbar-width: none">
+          <div class="flex items-center justify-between p-[1.6rem] sticky top-0 bg-[#f4f5f7] z-10">
             <div>Лид - <span>3</span></div>
             <div class="flex justify-between items-center gap-[1.6rem]">
               <div class="flex items-center">
@@ -860,8 +860,8 @@
             </a>
           </div>
         </div>
-        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem]">
-          <div class="flex items-center justify-between p-[1.6rem]">
+        <div class="flex-flexCard bg-[#f4f5f7] rounded-[.8rem] mr-[1.6rem] max-h-full overflow-x-auto" style="scrollbar-width: none">
+          <div class="flex items-center justify-between p-[1.6rem] sticky top-0 bg-[#f4f5f7] z-10">
             <div>Лид - <span>3</span></div>
             <div class="flex justify-between items-center gap-[1.6rem]">
               <div class="flex items-center">

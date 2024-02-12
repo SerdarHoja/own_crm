@@ -1,11 +1,11 @@
 <template>
     <div>
-        <a-button @click="updateObject">Save</a-button>
+        <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
         <div v-if="loading" class="flex justify-center items-center">
             <a-spin />
         </div>
         <div v-else>
-            <a-card class="" v-for="card in objectFields" :key="card.title">
+            <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
                 <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
@@ -196,6 +196,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 .ant-col.ant-form-item-control.css-dev-only-do-not-override-kqecok{
   width: 100%;
