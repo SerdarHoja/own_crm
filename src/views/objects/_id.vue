@@ -8,16 +8,12 @@
                 <edit :id="id"/>
             </a-tab-pane>
             <a-tab-pane key="3" tab="Фотографии">
-
             </a-tab-pane>
             <a-tab-pane key="4" tab="Комментарии">
-
             </a-tab-pane>
             <a-tab-pane key="5" tab="Лиды">
-
             </a-tab-pane>
             <a-tab-pane key="6" tab="Собственник">
-
             </a-tab-pane>
         </a-tabs>
     </div>

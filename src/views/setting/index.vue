@@ -3,71 +3,74 @@
     <div class="flex gap-x-[3rem] mb-m-base">
       <div class="text-main-title font-bold">Настройки</div>
     </div>
-    <div class="flex flex-col mb-m-base">
-      <div class=" flex flex-wrap mb-m-base gap-[1.6rem]">
-        <a-tooltip :trigger="['focus']" placement="topLeft" overlay-class-name="numeric-input">
-          <template v-if="inputValue" #title>
+    <div class="flex gap-10 mb-m-base">
+      <div>
+        <div>Контактные данные</div>
+        <div class="flex gap-10">
+          <div>
+            <img src="/src/assets/img/icon-avatar.svg" alt="">
+          </div>
+          <div class="grid grid-cols-2 mb-m-base gap-[1.6rem]">
+            <a-tooltip :trigger="['focus']" placement="topLeft" overlay-class-name="numeric-input">
+              <template v-if="inputValue" #title>
       <span class="numeric-input-title">
         {{ formatValue }}
       </span>
-          </template>
+              </template>
 
-          <a-input
-              v-model:value="inputValue"
-              placeholder="Input a number"
-              :max-length="30"
-              style="width: 28rem;"
-              @blur="onBlur"
-          />
-        </a-tooltip>
-        <a-select
-            v-model:value="value"
-            mode="tags"
-            style="width: 28rem;"
-            placeholder="Ответственный брокер"
-            :options="options"
-            @change="handleChange"
-        ></a-select>
-        <a-select
-            v-model:value="value"
-            mode="tags"
-            style="width: 28rem;"
-            placeholder="Тип сделки"
-            :options="options"
-            @change="handleChange"
-        ></a-select>
-        <a-select
-            v-model:value="value"
-            mode="tags"
-            style="width: 28rem;"
-            placeholder="Статус"
-            :options="options"
-            @change="handleChange"
-        ></a-select>
-        <a-select
-            v-model:value="value"
-            mode="tags"
-            style="width: 28rem;"
-            placeholder="Статус"
-            :options="options"
-            @change="handleChange"
-        ></a-select>
-        <a-select
-            v-model:value="value"
-            mode="tags"
-            style="width: 28rem;"
-            placeholder="Статус"
-            :options="options"
-            @change="handleChange"
-        ></a-select>
-        <a-select
-            v-model:value="value"
-            mode="tags"
-            style="width: 28rem;"
-            placeholder="Статус"
-            :options="options"
-            @change="handleChange"
-        ></a-select>
+            <a-input
+                  v-model:value="inputValue"
+                  placeholder="Input a number"
+                  :max-length="30"
+                  style="width: 28rem;"
+                  @blur="onBlur"
+              />
+            </a-tooltip>
+            <a-select
+                v-model:value="value"
+                mode="tags"
+                style="width: 28rem;"
+                placeholder="Ответственный брокер"
+                :options="options"
+                @change="handleChange"
+            ></a-select>
+            <a-select
+                v-model:value="value"
+                mode="tags"
+                style="width: 28rem;"
+                placeholder="Тип сделки"
+                :options="options"
+                @change="handleChange"
+            ></a-select>
+            <a-select
+                v-model:value="value"
+                mode="tags"
+                style="width: 28rem;"
+                placeholder="Статус"
+                :options="options"
+                @change="handleChange"
+            ></a-select>
+            <a-select
+                v-model:value="value"
+                mode="tags"
+                style="width: 28rem;"
+                placeholder="Статус"
+                :options="options"
+                @change="handleChange"
+            ></a-select>
+            <a-select
+                v-model:value="value"
+                mode="tags"
+                style="width: 28rem;"
+                placeholder="Статус"
+                :options="options"
+                @change="handleChange"
+            ></a-select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>Сбросить пароль</div>
       </div>
     </div>
     <div class="cards__arr --left w-[5rem] h-full absolute top-0 left-0"
