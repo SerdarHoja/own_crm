@@ -18,7 +18,7 @@
 
 <script setup>
 
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, onMounted, computed, defineProps } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
 
@@ -26,13 +26,10 @@
         id: String,
     })
 
-
     const activeKey = ref('1');
     const route = useRoute();
     const loading = ref(false);
     const myStore = useObjectsStore();
-
-    const id = route.params.id;
 
     onMounted(() => {
         fetchObjectBrief();

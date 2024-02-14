@@ -11,7 +11,7 @@
         </a-tabs>
       </div>
     </div>
-    <div class="flex flex-col mb-m-base">
+    <!-- <div class="flex flex-col mb-m-base">
       <div class=" flex flex-wrap mb-m-base gap-[1.6rem]">
         <a-tooltip :trigger="['focus']" placement="topLeft" overlay-class-name="numeric-input">
           <template v-if="inputValue" #title>
@@ -76,7 +76,7 @@
 
 
       </div>
-    </div>
+    </div> -->
     <a-page-header
         class="demo-page-header"
         style="border: 1px solid rgb(235, 237, 240)"

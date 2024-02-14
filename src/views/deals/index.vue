@@ -11,7 +11,7 @@
         </a-tabs>
       </div>
     </div>
-    <div class="flex flex-col mb-m-base">
+    <!-- <div class="flex flex-col mb-m-base">
       <div class=" flex flex-wrap mb-m-base gap-[1.6rem]">
         <a-tooltip :trigger="['focus']" placement="topLeft" overlay-class-name="numeric-input">
           <template v-if="inputValue" #title>
@@ -80,7 +80,7 @@
 
 
       </div>
-    </div>
+    </div> -->
     <div
         class="cards__arr --left w-[5rem] h-full absolute top-0 left-0"
         @mouseover="scrollLeft"

@@ -6,7 +6,8 @@ export const useObjectsStore = defineStore('objects', {
   state: () => ({
     countryObjects: [],
     objectBrief: [],
-    objectFields: []
+    objectFields: [],
+    commentsList: []
   }),
   actions: {
     async getObjects(section) {
@@ -58,6 +59,30 @@ export const useObjectsStore = defineStore('objects', {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+    },
+
+    async getComments(id) {
+      try {
+        const response = await ObjectsService.getComments(id);  
+          this.commentsList = response.data.data;
+          return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async deleteComment(data) {
+      try {
+        const response = await ObjectsService.deleteComment(data);
+        if (response.data.code === 200) {
+            message.success(response.data.data);
+        } else {
+            console.error('Error fetching data:', response.statusText);
+            message.error(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     }
 
   },

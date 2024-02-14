@@ -26,7 +26,7 @@
             <a-table
                 @change="onTableChange($event)"
                 :columns="columns"
-                :data-source="subPlaces"
+                :data-source="subPlaces.data"
                 :pagination="{
                         pageSize: 10,
                         total: subPlaces.total,
@@ -194,7 +194,7 @@ const handleDelete = async (item, e) => {
         }
     }
     await myStore.addNewPlaceChild(deleteItem);
-    await myStore.getPlacesChild(route.params.id);
+    await myStore.getPlacesChild(route.params.id, 1, 100);
     data.value = myStore.placesChild;
     loading.value = false;
 }
@@ -212,7 +212,7 @@ onMounted(() => {
 const fetchData = async () => {
     loading.value = true;
     try {
-        await myStore.getPlacesChild(route.params.id).then(
+        await myStore.getPlacesChild(route.params.id, 1, 100).then(
             (response) => {
                 if (response.data.result === 'error') {
                     message.error(response.data.text)

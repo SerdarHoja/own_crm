@@ -46,6 +46,14 @@ class ObjectsService {
                 throw error; // Propagate the error further if needed
             });
     }
+
+    getComments(id) {
+        return axios.get(API_URL + '/objectcomments/list/?id=' + id, {headers: authHeader()})
+    }
+
+    deleteComment(data) {
+        return axios.post(API_URL + '/objectcomments/delete/', data, {headers: authHeader()})
+    }
     
 }
 
