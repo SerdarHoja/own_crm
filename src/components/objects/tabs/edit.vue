@@ -175,17 +175,19 @@
         try {
             await myStore.updateObject(formData.value).then(
             (response) => {
-                // console.log(response)
-                // if (response.data.result === 'error') {
-                //     message.error(response.data.text)
-                //     loading.value = false;
-                // } else {
-                //     loading.value = false;
-                // }
+                console.log(response)
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                    loading.value = false;
+                } else {
+                    myStore.getObjectBrief('country', props.id)
+                    loading.value = false;
+                }
             }
             )
         } catch (error) {
             console.error('Error fetching data in component:', error);
+            loading.value = false;
         }
     };
 
