@@ -29,29 +29,29 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async getPlacesChild(param) {
+    async getPlacesChild(param, page, limit) {
         try {
-            const response = await UserService.getPlacesChild(param);
+            const response = await UserService.getPlacesChild(param, page, limit);
             if (param === 'regions') {
-                this.regions = response.data.data;
+                this.regions = response.data;
             } else if (param === 'districts') {
-                this.districts = response.data.data;
+                this.districts = response.data;
             } else if (param === 'vicinity') {
-                this.vicinities = response.data.data;
+                this.vicinities = response.data;
             } else if (param === 'localities') {
-                this.localities = response.data.data;
+                this.localities = response.data;
             } else if (param === 'highway') {
-                this.highways = response.data.data;
+                this.highways = response.data;
             } else if (param === 'place') {
-                this.place = response.data.data;
+                this.place = response.data;
             } else if (param === 'metro') {
-                this.metro = response.data.data;
+                this.metro = response.data;
             } else if (param === 'metro_line') {
-                this.metro_line = response.data.data;
+                this.metro_line = response.data;
             } else if (param === 'village') {
-              this.village = response.data.data;
+              this.village = response.data;
             } else if (param === 'zhk') {
-              this.zhk = response.data.data;
+              this.zhk = response.data;
             }
             return response;
         } catch (error) {

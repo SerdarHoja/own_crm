@@ -46,18 +46,6 @@
                 Справочники
               </router-link>
             </li>
-            <li class="sidebar__list-item">
-              <router-link to="/tsian/" class="sidebar__list-link gap-3">
-                <IconCian class="w-10 h-10"/>
-                ЦИАН
-              </router-link>
-            </li>
-            <li class="sidebar__list-item">
-              <router-link to="/setting/" class="sidebar__list-link gap-3">
-                <IconSetting class="w-10 h-10"/>
-                Настройки
-              </router-link>
-            </li>
           </ul>
         </a-tab-pane>
         <a-tab-pane key="2" tab="Городская" class="h-[4rem]">
@@ -101,18 +89,6 @@
             <router-link to="/places/" class="sidebar__list-link gap-3">
               <IconDirectory class="w-10 h-10"/>
               Справочники
-            </router-link>
-          </li>
-          <li class="sidebar__list-item">
-            <router-link to="/tsian/" class="sidebar__list-link gap-3">
-              <IconCian class="w-10 h-10"/>
-              ЦИАН
-            </router-link>
-          </li>
-          <li class="sidebar__list-item">
-            <router-link to="/setting/" class="sidebar__list-link gap-3">
-              <IconSetting class="w-10 h-10"/>
-              Настройки
             </router-link>
           </li>
         </a-tab-pane>

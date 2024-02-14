@@ -12,8 +12,8 @@ class UserService {
     return axios.get(API_URL + '/place/list/', { headers: authHeader() });
   }
 
-  getPlacesChild(param) {
-    return axios.get(API_URL + '/place/list/?code=' + param, { headers: authHeader() });
+  getPlacesChild(param, page, limit) {
+    return axios.get(API_URL + '/place/list/?code=' + param + '&page=' + page + '&limit=' + limit, { headers: authHeader() });
   }
 
   getPlacesSubChild(code, id) {

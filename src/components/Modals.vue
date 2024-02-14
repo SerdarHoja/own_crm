@@ -44,7 +44,7 @@
                         :rules="[{ required: row.required, message: 'Required' }]"
                     >
                         <a-select    
-                            v-model:value="row.code"
+                            v-model:value="formData.fields[row.code]"
                             show-search
                             :filter-option="filterOption"
                             @focus="onFocusSelect(row.code, row.id, 'place')"
@@ -116,7 +116,7 @@
     const saveData = async (e) => {
         loading.value = true;
         await myStore.addNewPlaceChild(formData.value);
-        await myStore.getPlacesChild(props.routeName);
+        await myStore.getPlacesChild(props.routeName, 1, 100);
         loading.value = false;
         emits('toggle')
         // Clear the data properties
@@ -132,10 +132,10 @@
 
     const fetchSubChildData = async () => {
         try {
-            await myStore.getPlacesChild('regions')
-            await myStore.getPlacesChild('districts')
-            await myStore.getPlacesChild('vicinity')
-            await myStore.getPlacesChild('metro_line')
+            await myStore.getPlacesChild('regions',1, 100)
+            await myStore.getPlacesChild('districts',1, 100)
+            await myStore.getPlacesChild('vicinity',1, 100)
+            await myStore.getPlacesChild('metro_line',1, 100)
         } catch (error) {
             console.error('Error fetching data in component:', error);
         }

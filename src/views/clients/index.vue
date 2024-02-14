@@ -1,7 +1,7 @@
 <template>
   <div class=" px-[5rem] pt-[3.2rem] pb-[1rem] h-full relative flex-1" style="width: calc(100vh - 24rem);">
     <div class="flex gap-x-[3rem] mb-m-base">
-      <div class="text-main-title font-bold">Собственники</div>
+      <div class="text-main-title font-bold">Клиенты</div>
       <div>
         <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
           <a-tab-pane key="1" tab="Мои" class="h-[4rem] text-inherit">
@@ -88,6 +88,7 @@
         </a-button>
       </template>
     </a-page-header>
+    <filters :page="'clients'"/>
     <a-table
         @change="onTableChange($event)"
         :columns="columns"
@@ -236,9 +237,10 @@ import {reactive, onMounted, computed, ref} from 'vue';
 import {useClientStore} from '@/stores/clients.module.js';
 import {message} from 'ant-design-vue';
 import {TrashIcon} from '@heroicons/vue/24/solid'
-
+import Filters from '../../components/Filters.vue';
 
 const myStore = useClientStore();
+
 const loading = ref(false);
 
 const open = ref(false);
@@ -250,7 +252,6 @@ const fetchClientFields = async () => {
   try {
     await myStore.getClientFields();
     fields.value = myStore.clientFields;
-    console.log('res', data.value)
   } catch (error) {
     console.error('Error fetching data in component:', error);
   }
@@ -349,6 +350,7 @@ const columns = [
 onMounted(() => {
   fetchData();
   fetchClientFields()
+
 })
 
 const clients = computed(() => {

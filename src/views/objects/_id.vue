@@ -10,6 +10,7 @@
             <a-tab-pane key="3" tab="Фотографии">
             </a-tab-pane>
             <a-tab-pane key="4" tab="Комментарии">
+                <comments :id="id"/>
             </a-tab-pane>
             <a-tab-pane key="5" tab="Лиды">
             </a-tab-pane>
@@ -23,9 +24,11 @@
     import { ref } from 'vue';
     import brief from "@/components/objects/tabs/brief.vue";
     import edit from "@/components/objects/tabs/edit.vue";
+    import comments from "@/components/objects/tabs/comments.vue";
     import { useRoute, useRouter } from 'vue-router';
     const activeKey = ref('1');
     const route = useRoute();
 
     const id = route.params.id;
+    console.log("comp", id)
 </script>
