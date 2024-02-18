@@ -134,7 +134,7 @@
     const loading = ref(false);
     const myStore = useObjectsStore();
 
-    const formData = ref({
+    const formData = reactive({
         id: props.id,
         section: 'country',
         fields: {},
