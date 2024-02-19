@@ -68,6 +68,17 @@
                                     <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
                                 </a-select> 
                             </a-form-item>
+                            <a-form-item
+                                v-if="row.type == 'checkbox'"
+                                :name="row.name"
+                            >
+                                <a-checkbox 
+                                    v-model:checked="row.checked"
+                                    @change="onChangeCheckBox(row.value, $event)"
+                                >
+                                    {{row.name}}
+                                </a-checkbox>
+                            </a-form-item>
                         </div>
                     </div>
                 </div>
@@ -158,6 +169,18 @@ const update = async () => {
     router.back();
     data.value = myStore.placesSubChild;
     console.log("new", newItem)
+}
+
+const onChangeCheckBox = (value, e) => {
+    if (e.target.checked) {
+        console.log('checked true', value)
+    } else {
+        console.log('checked false', false)
+    }
+}
+
+const handleBlur = () => {
+    console.log('blur');
 }
 
 </script>

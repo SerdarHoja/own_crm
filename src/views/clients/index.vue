@@ -333,6 +333,10 @@ const fetchClientData = async (id) => {
   }
 }
 
+const cancel = (e) => {
+  console.log(e);
+};
+
 
 </script>
 <style>

@@ -6,7 +6,7 @@
       <div class="user-info flex gap-3 items-center">
         <p class="user-name">{{userData.userData.name}}</p>
       </div>
-      <DownOutlined />
+      <!-- <DownOutlined /> -->
     </a>
     <template #overlay>
       <a-menu>

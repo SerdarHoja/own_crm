@@ -4,7 +4,7 @@
       <img src="../assets/img/logo.png" alt="logo" class="w-full max-w-logoW">
     </a>
     <a-input-search
-        v-model:value="value"
+        v-model:value="searchText"
         class="mr-12"
         size="middle"
         placeholder="Поиск"
@@ -39,8 +39,6 @@ import {useRoute, useRouter} from 'vue-router';
 import DateTimeHeader from "@/components/DateTimeHeader/DateTimeHeader.vue";
 import NotificationHeader from "@/components/NotificationHeader/NotificationHeader.vue";
 import UserHeader from "@/components/UserHeader/UserHeader.vue";
-
-import IconClock from "@/components/icons/IconClock.vue";
 import IconDollar from "@/components/icons/IconDollar.vue";
 import IconEuro from "@/components/icons/IconEuro.vue";
 
@@ -51,6 +49,11 @@ const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 import {message} from 'ant-design-vue';
+const searchText = ref('');
+
+const onSearch = () => {
+  console.log('searchText', searchText.value);
+}
 
 const getMyData = computed(() => {
   return store.me;
