@@ -9,9 +9,10 @@ export const useClientStore = defineStore('client', {
     clientFields: []
   }),
   actions: {
-    async getClientsList() {
+    async getClientsList(param) {
+      console.log("param clients module: ", param)
       try {
-        const response = await ClientService.getClients();
+        const response = await ClientService.getClients(param);
         this.clients = response.data;
         return response;
       } catch (error) {

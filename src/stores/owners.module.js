@@ -9,9 +9,9 @@ export const useOwnerStore = defineStore('owner', {
     ownerFields: []
   }),
   actions: {
-    async getOwnersList() {
+    async getOwnersList(param) {
       try {
-        const response = await OwnerService.getOwners();
+        const response = await OwnerService.getOwners(param);
         this.owners = response.data.data;
         return response;
       } catch (error) {
