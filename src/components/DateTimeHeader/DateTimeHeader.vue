@@ -1,13 +1,13 @@
 <template>
   <div class="flex">
-    <IconClock/>
+    <!-- <IconClock/> -->
     <p>{{ currentTime }}</p>
   </div>
 </template>
 <script>
 import { ref, onMounted } from 'vue';
 
-import IconClock from "@/components/icons/IconClock.vue";
+// import IconClock from "@/components/icons/IconClock.vue";
 
 export default {
   setup() {
