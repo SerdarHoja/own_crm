@@ -77,6 +77,16 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
+    },
+
+    async sendCheckboxValueToServer(id, isChecked) {
+      try {
+        const response = await ObjectsService.updateCheckboxValue(id, isChecked);
+        return response
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error)
+      }
     }
 
   },
