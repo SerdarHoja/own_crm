@@ -2,14 +2,16 @@
   <div class="flex gap-24">
     <div class="w-[30%]">
       <a-card class="mb-16" v-for="card in objectBrief" :key="card.title">
-        {{ card.title }}
-        <a-divider />
-        <div>
-          <div v-for="row in card.fields" :key="row.id" class="flex">
-            <div class="objects-detail__info-elem flex flex-1">{{ row.name }}</div>
-            <div>{{ row.value }}</div>
+        <span v-if="card.fields.length > 0">
+          {{ card.title }}
+          <a-divider />
+          <div>
+            <div v-for="row in card.fields" :key="row.id" class="flex">
+              <div class="objects-detail__info-elem flex flex-1">{{ row.name }}</div>
+              <div>{{ row.value }}</div>
+            </div>
           </div>
-        </div>
+        </span>
       </a-card>
     </div>
     <div>Slider</div>
