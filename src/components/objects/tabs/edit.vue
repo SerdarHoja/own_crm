@@ -121,8 +121,7 @@
 </template>
 
 <script setup>
-
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
 
