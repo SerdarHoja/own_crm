@@ -8,8 +8,8 @@ class OwnerService {
     return axios.get(API_URL + '/user/data/', { headers: authHeader() });
   }
 
-  getOwners() {
-    return axios.get(API_URL + '/owners/list/', { headers: authHeader() });
+  getOwners(param) {
+    return axios.get(API_URL + '/owners/list/?' + param, { headers: authHeader() });
   }
 
   getOwnerData(param) {

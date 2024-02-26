@@ -6,9 +6,17 @@
                     <div class="filter__task-t">
                         <p class="filter__text">Фильтр</p>
                     </div>
-                    <div class="filter__refresh">
+                    <div class="filter__refresh flex gap-3">
                         <div @click="clearFilter()" class="filter__refresh-btn">
                             Сбросить
+                        </div>
+                        <div>
+                            <a-input-search
+                                v-model:value="searchText"
+                                placeholder="Поиск"
+                                style="width: 200px"
+                                @search="onSearch"
+                            />
                         </div>
                         <div @click="toggleModal" class="filter__refresh-btn">
                             Добавить {{ currentPlace }}
@@ -114,6 +122,7 @@ const columns = [
   },
 ]
 
+const searchText = ref('')
 const router = useRouter();
 const goToPage = (placeId) => {
   router.push(`/places/` + route.params.id + '/' + placeId);
@@ -204,9 +213,22 @@ const deleteConfirm = (e) => {
     e.stopPropagation();
 }
 
+const onSearch = (txt) => {
+    console.log("search text:", txt)
+    subPlaces.value.data = subPlaces.value.data.filter((it) => it.value.toLowerCase().match(new RegExp(`.*${searchText.value.toLowerCase()}.*`)))
+}
+
+const clearFilter = () => {
+    searchText.value = ''
+    fetchData()
+}
+
+const onTableChange = (e) => {
+    console.log("e", e)
+}
 
 onMounted(() => {
-  fetchData();
+    fetchData();
 })
 
 const fetchData = async () => {
@@ -227,5 +249,3 @@ const fetchData = async () => {
     }
 }
 </script>
-<style>
-</style>

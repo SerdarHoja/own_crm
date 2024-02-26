@@ -8,8 +8,8 @@ class ClientService {
     return axios.get(API_URL + '/user/data/', { headers: authHeader() });
   }
 
-  getClients() {
-    return axios.get(API_URL + '/clients/list/', { headers: authHeader() });
+  getClients(param) {
+    return axios.get(API_URL + '/clients/list/?' + param, { headers: authHeader() });
   }
 
   getClientData(param) {

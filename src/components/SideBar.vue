@@ -128,7 +128,7 @@ import {onMounted, ref, computed} from 'vue';
 
 const tasks_alarms = ref([]);
 const cian_alarms = ref([]);
-
+const activeKey = ref('1');
 const red_alarm = computed(() => {
   return tasks_alarms.value.filter(item => item.ALERT_LEVEL === 'red')
 })

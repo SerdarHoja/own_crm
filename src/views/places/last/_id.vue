@@ -194,7 +194,6 @@ const update = async () => {
 const onChangeCheckbox = async (row, event) => {
   const id = row.value;
   // const isChecked = event.target.value;
-
   try {
     if (event.target.checked) {
       await myStore.sendCheckboxValue(id);
