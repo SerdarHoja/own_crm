@@ -1,13 +1,15 @@
 import { defineStore } from 'pinia';
 import ObjectsService from '../services/objects.service';
 import { message } from 'ant-design-vue';
+import UserService from "@/services/user.service";
 
 export const useObjectsStore = defineStore('objects', {
   state: () => ({
     countryObjects: [],
     objectBrief: [],
     objectFields: [],
-    commentsList: []
+    commentsList: [],
+    optionData: [],
   }),
   actions: {
     async getObjects(section) {
@@ -86,6 +88,16 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         console.error(error);
         return Promise.reject(error)
+      }
+    },
+    async getOptionsData(code, id, entity) {
+      try {
+        const response = await ObjectsService.getOptionData(code, id, entity);
+        this.optionData = response.data.data;
+        console.log (this.optionData);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
       }
     }
 

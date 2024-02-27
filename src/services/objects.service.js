@@ -78,6 +78,9 @@ class ObjectsService {
         headers:authHeader(),
     });
   }
+   getOptionData(code, id, entity) {
+        return axios.get(API_URL + '/options/list/?prop=' + code + '&id=' + id + '&entity=' + entity, { headers: authHeader() });
+    }
 }
 
 export default new ObjectsService();
