@@ -146,7 +146,7 @@ const router = createRouter({
       component: () => import('../views/objects/_id.vue'),
       meta: {
         layout: 'User',
-        pageTitle: 'Поселки'
+        pageTitle: 'Посёлки'
       }
     },
     {
