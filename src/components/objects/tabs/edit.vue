@@ -93,6 +93,7 @@
                                 v-model:value="row.code"
                                 show-search
                                 :filter-option="filterOption"
+                                @focus="selectOptionsList(row.code, row.id, 'object')"
                                 class="w-full"
                             >
                                 <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
@@ -124,15 +125,15 @@
     import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
+    import {useUserStore} from "@/stores/user.module";
 
     const props = defineProps({
         id: String,
     })
-
+    const optionsData = ref([]);
     const route = useRoute();
     const loading = ref(false);
     const myStore = useObjectsStore();
-
     const formData = reactive({
         id: props.id,
         section: 'country',
@@ -150,7 +151,10 @@
     const onChangeCheckBox = (value, e) => {
         console.log('valva', value,  e)
     }
-
+    const selectOptionsList = async (code, id, entity) => {
+      await myStore.getOptionsData(code, id, entity);
+      optionsData.value = myStore.optionData;
+    };
     const fetchObjectFields = async () => {
         loading.value = true;
         try {
