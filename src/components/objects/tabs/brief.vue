@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-24">
     <div class="w-[30%]">
-      <a-card class="mb-16" v-for="card in objectBrief" :key="card.title">
+      <a-card class="mb-16" :class="card.fields.length > 0 ? 'block' : 'hidden'" v-for="card in objectBrief" :key="card.title">
         <span v-if="card.fields.length > 0">
           {{ card.title }}
           <a-divider />
