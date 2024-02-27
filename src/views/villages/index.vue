@@ -117,7 +117,7 @@
     import { useObjectsStore } from '@/stores/settlements.module.js';
     import { message } from 'ant-design-vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
-    import ObjectItem from '@/components/objects/ObjectItem.vue';
+    import ObjectItem from '@/components/objects/VillageItem.vue';
 
     const myStore = useObjectsStore();
     const loading = ref(false);

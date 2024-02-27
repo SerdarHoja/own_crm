@@ -143,7 +143,7 @@ const router = createRouter({
     {
       path: '/villages/:id',
       name: 'villages:id',
-      component: () => import('../views/objects/_id.vue'),
+      component: () => import('../views/villages/_id.vue'),
       meta: {
         layout: 'User',
         pageTitle: 'Посёлки'
