@@ -54,6 +54,9 @@ class ObjectsService {
     deleteComment(data) {
         return axios.post(API_URL + '/objectcomments/delete/', data, {headers: authHeader()})
     }
+    getOptionData(code, id, entity) {
+        return axios.get(API_URL + '/options/list/?prop=' + code + '&id=' + id + '&entity=' + entity, { headers: authHeader() });
+    }
     
 }
 
