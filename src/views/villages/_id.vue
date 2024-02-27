@@ -25,8 +25,8 @@
 
 <script setup>
     import { ref } from 'vue';
-    import brief from "@/components/objects/tabs/brief.vue";
-    import edit from "@/components/objects/tabs/edit.vue";
+    import brief from "@/components/objects/tabs_village/brief.vue";
+    import edit from "@/components/objects/tabs_village/edit.vue";
     import { useRoute, useRouter } from 'vue-router';
     const activeKey = ref('1');
     const route = useRoute();
