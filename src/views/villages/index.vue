@@ -92,7 +92,7 @@
         <div class="mt-5 p-12">
             <div class="flex gap-5">
                 <div class="w-1/5">
-                    <h4 class="text-[#A5A7A7]">Объект</h4>
+                    <h4 class="text-[#A5A7A7]">Посёлок</h4>
                 </div>
                 <div class="w-1/6">
                     <h4 class="text-[#A5A7A7]">Информация</h4>
@@ -101,14 +101,7 @@
                     <h4 class="text-[#A5A7A7]">Характеристики</h4>
                 </div>
                 <div class="w-1/6">
-                    <h4 class="text-[#A5A7A7]">Контакты</h4>
-                </div>
-                <div class="w-1/6">
                     <h4 class="text-[#A5A7A7]">Статус</h4>
-
-                </div>
-                <div class="w-1/6">
-                    <h4 class="text-[#A5A7A7]">Выгрузка</h4>
 
                 </div>
             </div>
@@ -121,7 +114,7 @@
 </template>
 <script setup>
     import { ref, onMounted, computed } from 'vue'
-    import { useObjectsStore } from '@/stores/objects.module.js';
+    import { useObjectsStore } from '@/stores/settlements.module.js';
     import { message } from 'ant-design-vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
     import ObjectItem from '@/components/objects/ObjectItem.vue';
@@ -140,7 +133,7 @@
     const fetchCountryData = async () => {
         loading.value = true;
         try {
-            await myStore.getObjects('country').then(
+            await myStore.getObjects('settlements').then(
             (response) => {
                 if (response.data.result === 'error') {
                     message.error(response.data.text)
