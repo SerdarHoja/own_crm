@@ -2,6 +2,7 @@
   <div class="w-full">
     <main id="app" v-cloak>
       <div class="filter">
+        <a-button @click="goBack">Назад</a-button>
         <div class="filter__task --w-refresh hidden-desktop">
           <div class="filter__refresh">
             <div @click="update" class="filter__refresh-btn">Обновить</div>
@@ -205,6 +206,10 @@ const onChangeCheckbox = async (row, event) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+const goBack = () => {
+  router.go(-1);
 };
 
 const handleBlur = () => {
