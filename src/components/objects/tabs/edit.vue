@@ -65,9 +65,7 @@
                                 class="w-full"
                                 style="width: 100%"
                                 @change="onChangeCheckBox(row.value, $event)"
-                            >
-                            {{ row.name }} - {{ row.code }} - {{ row.value }}
-                            </a-checkbox>
+                            />
                         </a-form-item>
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'static'"
