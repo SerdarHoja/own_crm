@@ -112,6 +112,14 @@
                                 <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
                             </a-radio-group>
                         </a-form-item>
+                        <a-form-item
+                            v-if="row.type == 'stages'"
+                            :label="row.name"
+                            :name="row.name"
+                            :rules="[{ required: row.required, message: 'Required' }]"
+                        >
+                            <stages :stage="row"/>
+                        </a-form-item>
                     </div>
                 </div>
             </a-card>
@@ -123,6 +131,7 @@
     import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
+    import stages from "@/components/objects/stages.vue";
     import {useUserStore} from "@/stores/user.module";
 
     const props = defineProps({
@@ -172,24 +181,24 @@
     };
 
     const updateObject = async () => {
-        loading.value = true;
-        try {
-            await myStore.updateObject(formData.value).then(
-            (response) => {
-                console.log(response)
-                if (response.data.result === 'error') {
-                    message.error(response.data.text)
-                    loading.value = false;
-                } else {
-                    myStore.getObjectBrief('country', props.id)
-                    loading.value = false;
-                }
-            }
-            )
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-            loading.value = false;
-        }
+        // loading.value = true;
+        // try {
+        //     await myStore.updateObject(formData.value).then(
+        //     (response) => {
+        //         console.log(response)
+        //         if (response.data.result === 'error') {
+        //             message.error(response.data.text)
+        //             loading.value = false;
+        //         } else {
+        //             myStore.getObjectBrief('country', props.id)
+        //             loading.value = false;
+        //         }
+        //     }
+        //     )
+        // } catch (error) {
+        //     console.error('Error fetching data in component:', error);
+        //     loading.value = false;
+        // }
     };
 
 
