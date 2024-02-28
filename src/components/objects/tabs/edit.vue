@@ -71,7 +71,7 @@
                             v-if="row.type == 'select' && row.mode == 'static'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{  required: row.required, message: 'Required' }]"
+                            :rules="[{  required: false, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"
@@ -85,7 +85,7 @@
                             v-if="row.type == 'select' && row.mode == 'ajax'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="row.code"
@@ -101,7 +101,7 @@
                             v-if="row.type == 'radio'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-radio-group
                                 v-model:value="formData.fields[row.code]"
