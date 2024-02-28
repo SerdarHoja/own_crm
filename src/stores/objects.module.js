@@ -9,6 +9,7 @@ export const useObjectsStore = defineStore('objects', {
     objectBrief: [],
     objectFields: [],
     commentsList: [],
+    objectStageOptions: [],
     optionData: [],
   }),
   actions: {
@@ -99,7 +100,15 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         return Promise.reject(error);
       }
+    },
+    async getStagesOptions(entity, prop) {
+      try {
+        const response = await ObjectsService.getStagesOptions(entity, prop);  
+          this.objectStageOptions = response.data.data;
+          return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
     }
-
   },
 });
