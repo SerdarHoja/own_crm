@@ -125,6 +125,7 @@
     import { useObjectsStore } from '@/stores/objects.module.js';
     import {useUserStore} from "@/stores/user.module";
 
+
     const props = defineProps({
         id: String,
     })
