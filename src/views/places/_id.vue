@@ -2,15 +2,13 @@
   <div class="w-full mx-5">
     <main id="app" v-cloak>
       <div class="filter">
-        <a-button @click="goBack">Назад</a-button>
         <div class="filter__task --w-refresh hidden-desktop">
           <div class="filter__task-t">
             <p class="filter__text">Фильтр</p>
           </div>
           <div class="filter__refresh flex gap-3">
-            <div @click="clearFilter()" class="filter__refresh-btn">
-              Сбросить
-            </div>
+            <a-button @click="goBack">Назад</a-button>
+            <a-button @click="clearFilter()">Сбросить</a-button>
             <div>
               <a-input-search
                 v-model:value="searchText"
@@ -19,9 +17,7 @@
                 @search="onSearch"
               />
             </div>
-            <div @click="toggleModal" class="filter__refresh-btn">
-              Добавить {{ currentPlace }}
-            </div>
+            <a-button @click="toggleModal">Добавить {{ currentPlace }}</a-button>
             <Modals
               :routeName="route.params.id"
               :open="open"
@@ -258,3 +254,20 @@ const fetchData = async () => {
   }
 };
 </script>
+<style scoped>
+  .filter__refresh-btn{
+    font-size: 1.4rem;
+    border: .1rem solid #d9d9d9;
+    cursor: pointer;
+    height: 3rem;
+    border-radius: .6rem;
+    display: flex!important;
+    align-items: center;
+    padding: 0 1rem;
+    transition: .3s ease-in-out;
+  }
+  .filter__refresh-btn:hover{
+    border-color: #4096ff;
+    background: #ffffff;
+  }
+</style>

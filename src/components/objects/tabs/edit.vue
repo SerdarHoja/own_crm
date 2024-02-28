@@ -8,14 +8,14 @@
             <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
-                <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
+                <div class="flex gap-[1.6rem] flex-wrap">
                     <div v-for="row in card.fields" :key="row.id">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'number'"
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
-                            class="flex flex-col items-start"
+                            class="flex flex-col items-start w-objectEditElem"
                         >
                             <a-input
                                 v-model:value="formData.fields[row.code]"
@@ -29,6 +29,7 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
                             <a-textarea
                                 v-model:value="formData.fields[row.code]"
@@ -43,6 +44,7 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
                             <a-date-picker
                                 v-model:value="formData.fields[row.code]"
@@ -57,6 +59,7 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
                             <a-checkbox
                                 v-model:value="formData.fields[row.code]"
@@ -71,6 +74,7 @@
                             v-if="row.type == 'select' && row.mode == 'static'"
                             :label="row.name"
                             :name="row.name"
+                            class="w-objectEditElem"
                             :rules="[{  required: false, message: 'Required' }]"
                         >
                             <a-select
@@ -85,6 +89,7 @@
                             v-if="row.type == 'select' && row.mode == 'ajax'"
                             :label="row.name"
                             :name="row.name"
+                            class="w-objectEditElem"
                             :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
@@ -102,6 +107,8 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: false, message: 'Required' }]"
+                            :rules="[{ required: row.required, message: 'Required' }]"
+                            class="w-objectEditElem"
                         >
                             <a-radio-group
                                 v-model:value="formData.fields[row.code]"
