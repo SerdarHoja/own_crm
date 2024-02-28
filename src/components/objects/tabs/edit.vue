@@ -8,14 +8,14 @@
             <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
-                <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
+                <div class="flex gap-[1.6rem] flex-wrap">
                     <div v-for="row in card.fields" :key="row.id">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'number'"
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
-                            class="flex flex-col items-start"
+                            class="flex flex-col items-start w-objectEditElem"
                         >
                             <a-input
                                 v-model:value="formData.fields[row.code]"
@@ -29,6 +29,7 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
                             <a-textarea
                                 v-model:value="formData.fields[row.code]"
@@ -43,6 +44,7 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
                             <a-date-picker
                                 v-model:value="formData.fields[row.code]"
@@ -57,6 +59,7 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
                             <a-checkbox
                                 v-model:value="formData.fields[row.code]"
@@ -71,7 +74,8 @@
                             v-if="row.type == 'select' && row.mode == 'static'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{  required: row.required, message: 'Required' }]"
+                            class="w-objectEditElem"
+                            :rules="[{  required: false, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"
@@ -85,7 +89,8 @@
                             v-if="row.type == 'select' && row.mode == 'ajax'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            class="w-objectEditElem"
+                            :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="row.code"
@@ -101,7 +106,9 @@
                             v-if="row.type == 'radio'"
                             :label="row.name"
                             :name="row.name"
+                            :rules="[{ required: false, message: 'Required' }]"
                             :rules="[{ required: row.required, message: 'Required' }]"
+                            class="w-objectEditElem"
                         >
                             <a-radio-group
                                 v-model:value="formData.fields[row.code]"
@@ -111,6 +118,14 @@
                             >
                                 <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
                             </a-radio-group>
+                        </a-form-item>
+                        <a-form-item
+                            v-if="row.type == 'stages'"
+                            :label="row.name"
+                            :name="row.name"
+                            :rules="[{ required: row.required, message: 'Required' }]"
+                        >
+                            <stages :stage="row"/>
                         </a-form-item>
                     </div>
                 </div>
@@ -123,6 +138,7 @@
     import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
+    import stages from "@/components/objects/stages.vue";
     import {useUserStore} from "@/stores/user.module";
 
 
@@ -173,24 +189,24 @@
     };
 
     const updateObject = async () => {
-        loading.value = true;
-        try {
-            await myStore.updateObject(formData.value).then(
-            (response) => {
-                console.log(response)
-                if (response.data.result === 'error') {
-                    message.error(response.data.text)
-                    loading.value = false;
-                } else {
-                    myStore.getObjectBrief('country', props.id)
-                    loading.value = false;
-                }
-            }
-            )
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-            loading.value = false;
-        }
+        // loading.value = true;
+        // try {
+        //     await myStore.updateObject(formData.value).then(
+        //     (response) => {
+        //         console.log(response)
+        //         if (response.data.result === 'error') {
+        //             message.error(response.data.text)
+        //             loading.value = false;
+        //         } else {
+        //             myStore.getObjectBrief('country', props.id)
+        //             loading.value = false;
+        //         }
+        //     }
+        //     )
+        // } catch (error) {
+        //     console.error('Error fetching data in component:', error);
+        //     loading.value = false;
+        // }
     };
 
 
