@@ -141,6 +141,7 @@
     import stages from "@/components/objects/stages.vue";
     import {useUserStore} from "@/stores/user.module";
 
+
     const props = defineProps({
         id: String,
     })
