@@ -106,7 +106,6 @@
                             v-if="row.type == 'radio'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: false, message: 'Required' }]"
                             :rules="[{ required: row.required, message: 'Required' }]"
                             class="w-objectEditElem"
                         >
