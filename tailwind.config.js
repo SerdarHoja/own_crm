@@ -13,7 +13,8 @@ module.exports = {
         'logoW': '6.8rem'
       },
       width:{
-        'mainW': 'calc(100%-24rem)'
+        'mainW': 'calc(100%-24rem)',
+        'w-objectEditElem': '30rem',
       },
       colors:{
         'header-bg': '#F4F6FB',

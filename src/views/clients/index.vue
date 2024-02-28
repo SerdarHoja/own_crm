@@ -12,7 +12,7 @@
       </div>
     </div>
     <a-page-header
-        class="demo-page-header"
+        class="demo-page-header mb-m-base"
         style="border: 1px solid rgb(235, 237, 240)"
         @back="() => $router.go(-1)"
     >
@@ -22,7 +22,7 @@
         </a-button>
       </template>
     </a-page-header>
-    <filters :page="'clients'"/>
+    <filters :page="'clients'" class="flex mb-m-base"/>
     <a-table
         @change="onTableChange($event)"
         :columns="columns"
@@ -339,5 +339,5 @@ const cancel = (e) => {
 
 
 </script>
-<style>
+<style scoped>
 </style>
