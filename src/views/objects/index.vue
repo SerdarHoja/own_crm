@@ -88,6 +88,10 @@
             </a-button> -->
         </template>
     </a-page-header>
+
+    <!-- Добавлен компонент фильтры -->
+    <filters :page="'objects&section=country'"/>
+
     <div class="country-data">
         <div class="mt-5 p-12">
             <div class="flex gap-5">
@@ -125,6 +129,7 @@
     import { message } from 'ant-design-vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
     import ObjectItem from '@/components/objects/ObjectItem.vue';
+    import Filters from '@/components/Filters.vue';
 
     const myStore = useObjectsStore();
     const loading = ref(false);

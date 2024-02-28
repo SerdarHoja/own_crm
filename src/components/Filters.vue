@@ -91,7 +91,11 @@ onMounted(() => {
 });
 
 const filters = computed(() => {
-  return filterStore.filters;
+    if (props.page === 'objects&section=country') {
+        return filterStore.filters.basic;
+    } else {
+        return filterStore.filters;
+    }
 })
 
 // const onChangeInput = (e) => {
