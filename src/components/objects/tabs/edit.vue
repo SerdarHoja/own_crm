@@ -63,11 +63,12 @@
                         >
                             <a-checkbox
                                 v-model:value="formData.fields[row.code]"
+                                v-model:checked="row.checked"
                                 :ref="row.code"
                                 :type="row.html"
                                 class="w-full"
                                 style="width: 100%"
-                                @change="onChangeCheckBox(row.value, $event)"
+                                @change="onChangeCheckBox(row.value, row.code, $event)"
                             />
                         </a-form-item>
                         <a-form-item
@@ -93,17 +94,23 @@
                             :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
-                                v-model:value="row.code"    
+                                v-model:value="formData.fields[row.code]"    
                                 show-search
-                                :filter-option="filterOption"
-                                @focus="selectOptionsList(row.code, row.id, 'object')"
+                                @focus="selectOptionsList(row.code, id, 'object')"
                                 class="w-full"
+                                :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                             >
-                                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                                <a-select-option 
+                                    v-for="option in optionsData" 
+                                    :key="option.id" 
+                                    :value="option.id"
+                                >
+                                    {{ option.value }}
+                                </a-select-option>
                             </a-select>
                         </a-form-item>
                         <a-form-item
-                            v-if="row.type == 'radio'"
+                            v-if="row.type == 'radio' && row.options.length > 0"
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required, message: 'Required' }]"
@@ -113,6 +120,8 @@
                                 v-model:value="formData.fields[row.code]"
                                 :disabled="disabled"
                                 button-style="solid"
+                                optionType="button"
+                                buttonStyle="solid"
                                 :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                             >
                                 <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
@@ -124,7 +133,7 @@
                             :name="row.name"
                             :rules="[{ required: row.required, message: 'Required' }]"
                         >
-                            <stages :stage="row"/>
+                            <stages :stage="row" @change="stageChange(row)"/>
                         </a-form-item>
                     </div>
                 </div>
@@ -152,6 +161,7 @@
         id: props.id,
         section: 'country',
         fields: {},
+        stages: {},
     })
 
     onMounted(() => {
@@ -162,8 +172,25 @@
         return myStore.objectFields;
     })
 
-    const onChangeCheckBox = (value, e) => {
-        console.log('valva', value,  e)
+    const onChangeCheckBox = (value, code, e) => {
+        if (e.target.checked && value) {
+            formData.fields[code] = value;
+        } else if (e.target.checked && !value) {
+            formData.fields[code] = true;
+        } else {
+            formData.fields[code] = false;
+        }
+    }
+
+    const onChangeRadio = (value, code, e) => {
+        console.log('onChangeCheckBox', value, code, e)
+        if (e.target.checked && value) {
+            formData.fields[code] = value;
+        } else if (e.target.checked && !value) {
+            formData.fields[code] = true;
+        } else {
+            formData.fields[code] = false;
+        }
     }
     const selectOptionsList = async (code, id, entity) => {
       await myStore.getOptionsData(code, id, entity);
@@ -188,25 +215,32 @@
     };
 
     const updateObject = async () => {
-        // loading.value = true;
-        // try {
-        //     await myStore.updateObject(formData.value).then(
-        //     (response) => {
-        //         console.log(response)
-        //         if (response.data.result === 'error') {
-        //             message.error(response.data.text)
-        //             loading.value = false;
-        //         } else {
-        //             myStore.getObjectBrief('country', props.id)
-        //             loading.value = false;
-        //         }
-        //     }
-        //     )
-        // } catch (error) {
-        //     console.error('Error fetching data in component:', error);
-        //     loading.value = false;
-        // }
+        console.log(formData)
+        loading.value = true;
+        try {
+            await myStore.updateObject(formData).then(
+            (response) => {
+                console.log(response)
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                    loading.value = false;
+                } else {
+                    myStore.getObjectBrief('country', props.id)
+                    fetchObjectFields();
+                    loading.value = false;
+                }
+            }
+            )
+        } catch (error) {
+            console.error('Error fetching data in component:', error);
+            loading.value = false;
+        }
     };
+
+    const stageChange = (row) => {
+        console.log('stageChange', row) 
+        formData.stages[row.code] = row.value;
+    }
 
 
 </script>

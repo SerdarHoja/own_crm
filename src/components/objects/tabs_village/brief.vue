@@ -22,7 +22,7 @@
 
     import { ref, onMounted, computed, defineProps } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useObjectsStore } from '@/stores/objects.module.js';
+    import { useObjectsStore } from '@/stores/settlements.module';
 
     const props = defineProps({
         id: String,
