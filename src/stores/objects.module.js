@@ -113,6 +113,7 @@ export const useObjectsStore = defineStore('objects', {
     async getObjectList(section) {
       try {
         const response = await ObjectsService.getObjectsFilter(section);
+        console.log(this.countryObjects);
         this.countryObjects = response.data.data;
         return response;
       

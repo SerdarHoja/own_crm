@@ -90,7 +90,6 @@ onMounted(() => {
 });
 
 const filters = computed(() => { 
- 
   return filterStore.filters;
 })
 
