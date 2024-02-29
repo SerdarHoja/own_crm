@@ -23,7 +23,7 @@
 </template>
 <script setup>
     import { ref, onMounted, computed, defineProps } from 'vue';
-    import { useObjectsStore } from '@/stores/settlements.module.js';
+    import { useSettlementsStore } from '@/stores/settlements.module.js';
 
     const props = defineProps({
         id: String,
@@ -32,7 +32,7 @@
     console.log("comments", props.id)
 
     const loading = ref(false);
-    const myStore = useObjectsStore();
+    const myStore = useSettlementsStore();
 
     onMounted(() => {
         fetchComments();
