@@ -88,9 +88,7 @@
                             :rules="[{ required: row.required, message: 'Required' }]"
                         >
                             <a-select
-                                v-model:value="row.code"
                                 show-search
-                                :filter-option="filterOption"
                                 @focus="selectOptionsList(row.code, row.id, 'object')"
                                 class="w-full"
                             >
@@ -122,7 +120,7 @@
 <script setup>
     import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useObjectsStore } from '@/stores/objects.module.js';
+    import { useObjectsStore } from '@/stores/settlements.module';
     import {useUserStore} from "@/stores/user.module";
 
     const props = defineProps({
@@ -143,6 +141,7 @@
     })
 
     const objectFields = computed(() => {
+      console.log (myStore.objectFields);
         return myStore.objectFields;
     })
 
@@ -150,6 +149,7 @@
         console.log('valva', value,  e)
     }
     const selectOptionsList = async (code, id, entity) => {
+      console.log (code);
       await myStore.getOptionsData(code, id, entity);
       optionsData.value = myStore.optionData;
     };
