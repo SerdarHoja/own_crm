@@ -9,7 +9,7 @@
         <div v-for="row in filters" :key="row.id">
             <a-form-item
                 v-if="row.type === 'text' || row.type === 'number'"
-                :label="row.code"
+                :label="row.title"
                 :name="row.code"
             >
                 <a-input
@@ -21,7 +21,7 @@
             </a-form-item>
             <a-form-item
                 v-if="row.type == 'select' && row.mode == 'ajax'"
-                :label="row.code"
+                :label="row.title"
                 :name="row.code"
             >
                 <a-select
