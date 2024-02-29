@@ -90,8 +90,8 @@
     </a-page-header>
 
     <!-- Добавлен компонент фильтры -->
-    <filters
-        :page="'objects&section=country'"
+    <FiltersObject
+        :section="'country'"
         class="gap-y-8"
     />
     <div class="country-data">
