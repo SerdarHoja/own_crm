@@ -86,6 +86,7 @@
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
                         </a-form-item>
+                        
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'ajax'"
                             :label="row.name"
@@ -94,9 +95,8 @@
                             :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
-                                v-model:value="row.code"    
+                                v-model:value="formData.fields[row.code]"    
                                 show-search
-                                :filter-option="filterOption"
                                 @focus="selectOptionsList(row.code, row.id, 'object')"
                                 class="w-full"
                             >
