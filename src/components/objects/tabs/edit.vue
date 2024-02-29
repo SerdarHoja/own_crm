@@ -93,7 +93,7 @@
                             :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
-                                v-model:value="row.code"
+                                v-model:value="row.code"    
                                 show-search
                                 :filter-option="filterOption"
                                 @focus="selectOptionsList(row.code, row.id, 'object')"

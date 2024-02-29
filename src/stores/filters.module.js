@@ -15,5 +15,15 @@ export const useFiltersStore = defineStore('filters', {
         return Promise.reject(error);
       }
     },
+    async getObjectFiltersList(section) {
+      try {
+        const response = await FiltersService.getObjectFilters(section);
+        
+        this.filters = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
   },
 });
