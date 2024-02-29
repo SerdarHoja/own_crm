@@ -7,7 +7,11 @@ class FilterService {
     getFilters(entity) {
         return axios.get(API_URL + '/filter/list/?entity=' + entity, { headers: authHeader() });
     }
+    getObjectFilters(section) {
+        console.log(section)
+        return axios.get(API_URL + '/filter/list/?entity=objects&section=' + section, { headers: authHeader() });
+    }
 }
 
-
 export default new FilterService();
+
