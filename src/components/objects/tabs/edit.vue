@@ -86,7 +86,6 @@
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
                         </a-form-item>
-                        
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'ajax'"
                             :label="row.name"
@@ -97,10 +96,17 @@
                             <a-select
                                 v-model:value="formData.fields[row.code]"    
                                 show-search
-                                @focus="selectOptionsList(row.code, row.id, 'object')"
+                                @focus="selectOptionsList(row.code, id, 'object')"
                                 class="w-full"
+                                :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                             >
-                                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                                <a-select-option 
+                                    v-for="option in optionsData" 
+                                    :key="option.id" 
+                                    :value="option.id"
+                                >
+                                    {{ option.value }}
+                                </a-select-option>
                             </a-select>
                         </a-form-item>
                         <a-form-item
