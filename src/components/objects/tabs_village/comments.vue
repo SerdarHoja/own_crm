@@ -23,7 +23,7 @@
 </template>
 <script setup>
     import { ref, onMounted, computed, defineProps } from 'vue';
-    import { useObjectsStore } from '@/stores/objects.module.js';
+    import { useObjectsStore } from '@/stores/settlements.module.js';
 
     const props = defineProps({
         id: String,
