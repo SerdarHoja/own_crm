@@ -71,7 +71,7 @@
                             v-if="row.type == 'select' && row.mode == 'static'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{  required: row.required, message: 'Required' }]"
+                            :rules="[{  required: row.required && isFormSubmitted, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"
@@ -85,7 +85,7 @@
                             v-if="row.type == 'select' && row.mode == 'ajax'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
                         >
                             <a-select
                                 show-search
@@ -99,7 +99,7 @@
                             v-if="row.type == 'radio'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
                         >
                             <a-radio-group
                                 v-model:value="formData.fields[row.code]"
@@ -129,6 +129,7 @@
     const optionsData = ref([]);
     const route = useRoute();
     const loading = ref(false);
+    const isFormSubmitted = ref(false);
     const myStore = useObjectsStore();
     const formData = reactive({
         id: props.id,
@@ -173,6 +174,7 @@
 
     const updateObject = async () => {
         loading.value = true;
+        isFormSubmitted.value = true;
         try {
             await myStore.updateObject(formData.value).then(
             (response) => {
@@ -189,6 +191,7 @@
         } catch (error) {
             console.error('Error fetching data in component:', error);
             loading.value = false;
+            isFormSubmitted.value = false;
         }
     };
 

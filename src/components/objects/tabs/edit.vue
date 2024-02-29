@@ -156,8 +156,8 @@
     const optionsData = ref([]);
     const route = useRoute();
     const loading = ref(false);
+    const isFormSubmitted = ref(false);
     const myStore = useObjectsStore();
-    const isFormSubmitted = false;
     const formData = reactive({
         id: props.id,
         section: 'country',
@@ -219,6 +219,7 @@
     const updateObject = async () => {
         console.log(formData)
         loading.value = true;
+        isFormSubmitted.value = true;
         try {
             await myStore.updateObject(formData).then(
             (response) => {
@@ -236,6 +237,7 @@
         } catch (error) {
             console.error('Error fetching data in component:', error);
             loading.value = false;
+            isFormSubmitted.value = false;
         }
     };
 
