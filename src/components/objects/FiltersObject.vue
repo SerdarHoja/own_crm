@@ -115,6 +115,7 @@ const handleFinish = async () => {
   }
 };
 
+
 const clearFilter = async () => {
 formData.value.filter = {}
   await objectStore.getObjectList();
