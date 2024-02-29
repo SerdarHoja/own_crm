@@ -25,25 +25,25 @@ class ObjectsService {
   }
 
   updateObject(data) {
-    console.log("data", data);
-
     const fd = new FormData();
     fd.append("id", data.id);
     fd.append("section", data.section);
-
     for (const [key, value] of Object.entries(data.fields)) {
       fd.append(`fields[${key}]`, value);
     }
-
+    for (const [key, value] of Object.entries(data.stages)) {
+      fd.append(`stages[${key}]`, JSON.stringify(value));
+    }
     const url = `${API_URL}/objects/save/`;
 
     // Do not set 'Content-Type' header when using FormData
     const headers = {
       ...authHeader(),
+      'Content-Type': 'application/json',
     };
 
     return axios
-      .post(url, fd, { headers })
+      .post(url,  fd, { headers })
       .then((response) => {
         // Handle the response here
         console.log("Response:", response.data);
