@@ -109,6 +109,17 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
+    },
+    async getObjectList(section) {
+      try {
+        const response = await ObjectsService.getObjectsFilter(section);
+        this.countryObjects = response.data.data;
+        return response;
+      
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
   },
+
 });

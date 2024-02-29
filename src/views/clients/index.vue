@@ -22,7 +22,10 @@
         </a-button>
       </template>
     </a-page-header>
-    <filters :page="'clients'" class="flex mb-m-base"/>
+    <filters
+        :page="'clients'"
+        class="flex mb-m-base gap-y-8"
+    />
     <a-table
         @change="onTableChange($event)"
         :columns="columns"

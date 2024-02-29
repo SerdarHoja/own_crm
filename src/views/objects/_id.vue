@@ -32,3 +32,9 @@
     const id = route.params.id;
     console.log("comp", id)
 </script>
+
+<style>
+.css-dev-only-do-not-override-kqecok.ant-tabs-top >.ant-tabs-nav{
+  margin-bottom: 3.2rem;
+}
+</style>
