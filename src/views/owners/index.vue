@@ -12,7 +12,7 @@
         </div>
       </div>
       <a-page-header
-          class="demo-page-header"
+          class="demo-page-header mb-m-base"
           style="border: 1px solid rgb(235, 237, 240)"
           @back="() => $router.go(-1)"
       >
@@ -22,7 +22,10 @@
               </a-button>
           </template>
       </a-page-header>
-      <filters :page="'owners'"/>
+      <filters
+          :page="'owners'"
+          class="mb-m-base gap-y-8"
+      />
       <a-table
           @change="onTableChange($event)"
           :columns="columns"
