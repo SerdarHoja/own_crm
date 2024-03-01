@@ -29,7 +29,7 @@
       <a-table
           @change="onTableChange($event)"
           :columns="columns"
-          :data-source="owners"
+          :data-source="checkClientsData(owners)"
           :pagination="{
               pageSize: 10,
               total: owners.total,
@@ -334,6 +334,10 @@ const onChangeInputMain = (row, e) => {
     newData.value[row.code] = e.target.value;
     // console.log('newData', newData.value)
     // newData.value[e.target.id] = e.target.value;
+}
+
+const checkClientsData = (data) => {
+  return !Array.isArray(data) ? [] : data;
 }
 
 

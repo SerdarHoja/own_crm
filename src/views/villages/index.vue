@@ -110,19 +110,22 @@
         <div v-for="obj in countryObjects" :key="obj.id">
             <ObjectItem :object="obj" />
         </div>
+        <div v-if="countryObjects.length === 0">
+            Список пуст
+        </div>
     </div>
     </div>
 </template>
 <script setup>
     import { ref, onMounted, computed } from 'vue'
-    import { useObjectsStore } from '@/stores/settlements.module.js';
+    import { useSettlementsStore } from '@/stores/settlements.module.js';
     import { message } from 'ant-design-vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
     import ObjectItem from '@/components/objects/VillageItem.vue';
     import FiltersObject from '@/components/objects/FiltersObject.vue';
 
 
-    const myStore = useObjectsStore();
+    const myStore = useSettlementsStore();
     const loading = ref(false);
 
     onMounted(() => {

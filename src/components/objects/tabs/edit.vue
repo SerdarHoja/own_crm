@@ -76,7 +76,7 @@
                             :label="row.name"
                             :name="row.name"
                             class="w-objectEditElem"
-                            :rules="[{  required: false, message: 'Required' }]"
+                            :rules="[{  required: row.required && isFormSubmitted, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"
@@ -91,7 +91,7 @@
                             :label="row.name"
                             :name="row.name"
                             class="w-objectEditElem"
-                            :rules="[{ required: false, message: 'Required' }]"
+                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"    
@@ -113,7 +113,7 @@
                             v-if="row.type == 'radio' && row.options.length > 0"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
                             class="w-objectEditElem"
                         >
                             <a-radio-group
@@ -131,7 +131,7 @@
                             v-if="row.type == 'stages'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
+                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
                         >
                             <stages :stage="row" @change="stageChange(row)"/>
                         </a-form-item>
@@ -156,6 +156,7 @@
     const optionsData = ref([]);
     const route = useRoute();
     const loading = ref(false);
+    const isFormSubmitted = ref(false);
     const myStore = useObjectsStore();
     const formData = reactive({
         id: props.id,
@@ -171,6 +172,7 @@
     const objectFields = computed(() => {
         return myStore.objectFields;
     })
+    
 
     const onChangeCheckBox = (value, code, e) => {
         if (e.target.checked && value) {
@@ -217,6 +219,7 @@
     const updateObject = async () => {
         console.log(formData)
         loading.value = true;
+        isFormSubmitted.value = true;
         try {
             await myStore.updateObject(formData).then(
             (response) => {
@@ -234,6 +237,7 @@
         } catch (error) {
             console.error('Error fetching data in component:', error);
             loading.value = false;
+            isFormSubmitted.value = false;
         }
     };
 

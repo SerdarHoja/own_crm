@@ -122,6 +122,9 @@
         <div v-for="obj in countryObjects" :key="obj.id">
             <ObjectItem :object="obj" />
         </div>
+        <div v-if="countryObjects.length === 0">
+            Список пуст
+        </div>
     </div>
   </div>
 </template>

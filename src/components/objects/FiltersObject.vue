@@ -62,10 +62,12 @@
 import { onMounted, computed, defineProps, ref } from 'vue';
 import { useFiltersStore } from '@/stores/filters.module.js';
 import { useObjectsStore } from '@/stores/objects.module.js';
+import { useSettlementsStore } from '@/stores/settlements.module.js';
 import qs from 'qs'
 
 const filterStore = useFiltersStore();
 const objectStore = useObjectsStore();
+const settlementsStore = useSettlementsStore();
 const optionsData = ref([])
 
 const props = defineProps({
@@ -108,17 +110,28 @@ const onFocusSelect = async (code, id, entity) => {
 }
 
 const handleFinish = async () => {
-  if (props.section === 'country') {
-    await objectStore.getObjectList(qs.stringify(formData.value));
-  } else if(props.section === 'settlements') {
-    
+  if(props.section === 'country') {
+    console.log(props.section);
+    await objectStore.getObjectList(props.section, qs.stringify(formData.value));
+  }
+  
+  if(props.section === 'settlements') {
+    console.log(props.section);
+    await settlementsStore.getObjectList(props.section, qs.stringify(formData.value));
   }
 };
 
-
 const clearFilter = async () => {
-formData.value.filter = {}
-  await objectStore.getObjectList();
+  formData.value.filter = {}
+  if(props.section === 'country') {
+    console.log(props.section);
+    await objectStore.getObjectList(props.section);
+  }
+  
+  if(props.section === 'settlements') {
+    console.log(props.section);
+    await settlementsStore.getObjectList(props.section);
+  }
 }
 
 const handleFinishFailed = (errors) => {

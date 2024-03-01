@@ -3,7 +3,7 @@ import ObjectsService from '../services/objects.service';
 import { message } from 'ant-design-vue';
 import UserService from "@/services/user.service";
 
-export const useObjectsStore = defineStore('settlements', {
+export const useSettlementsStore = defineStore('settlements', {
   state: () => ({
     countryObjects: [],
     objectBrief: [],
@@ -93,7 +93,15 @@ export const useObjectsStore = defineStore('settlements', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
-
+    },
+    async getObjectList(section, param) {
+      try {
+        const response = await ObjectsService.getObjectsFilter(section, param);
+        this.countryObjects = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
   },
 });

@@ -6,6 +6,7 @@ import UserService from "@/services/user.service";
 export const useObjectsStore = defineStore('objects', {
   state: () => ({
     countryObjects: [],
+    villagesObjects: [],
     objectBrief: [],
     objectFields: [],
     commentsList: [],
@@ -110,12 +111,11 @@ export const useObjectsStore = defineStore('objects', {
         return Promise.reject(error);
       }
     },
-    async getObjectList(section) {
+    async getObjectList(section, param) {
       try {
-        const response = await ObjectsService.getObjectsFilter(section);
+        const response = await ObjectsService.getObjectsFilter(section, param);
         this.countryObjects = response.data.data;
         return response;
-      
       } catch (error) {
         return Promise.reject(error);
       }

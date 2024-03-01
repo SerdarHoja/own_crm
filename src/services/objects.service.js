@@ -88,8 +88,9 @@ class ObjectsService {
         return axios.get(API_URL + '/options/list/?prop=' + code + '&id=' + id + '&entity=' + entity, { headers: authHeader() });
     }
 
-  getObjectsFilter(param) {
-    return axios.get(API_URL + '/objects/list/?section=country&' + param, { headers: authHeader() });
+  getObjectsFilter(section, param) {
+    console.log(param)
+    return axios.get(API_URL + `/objects/list/?section=${section}&` + param, { headers: authHeader() });
   }
 }
 
