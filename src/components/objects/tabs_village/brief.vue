@@ -22,7 +22,7 @@
 
     import { ref, onMounted, computed, defineProps } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useObjectsStore } from '@/stores/settlements.module';
+    import { useSettlementsStore  } from '@/stores/settlements.module';
 
     const props = defineProps({
         id: String,
@@ -31,7 +31,7 @@
     const activeKey = ref('1');
     const route = useRoute();
     const loading = ref(false);
-    const myStore = useObjectsStore();
+    const myStore = useSettlementsStore ();
 
     onMounted(() => {
         fetchObjectBrief();
