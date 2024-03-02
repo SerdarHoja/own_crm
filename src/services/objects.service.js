@@ -86,11 +86,14 @@ class ObjectsService {
   }
    getOptionData(code, id, entity) {
         return axios.get(API_URL + '/options/list/?prop=' + code + '&id=' + id + '&entity=' + entity, { headers: authHeader() });
-    }
-
+  }
+  // Получение данных по фильтрам
   getObjectsFilter(section, param) {
-    console.log(param)
     return axios.get(API_URL + `/objects/list/?section=${section}&` + param, { headers: authHeader() });
+  }
+  // Получение объекта по id
+  getObjectByID(section, id) {
+    return axios.get(API_URL + `/objects/list/?section=${section}&filter%5Bid%5D=${id}`, { headers: authHeader() });
   }
 }
 
