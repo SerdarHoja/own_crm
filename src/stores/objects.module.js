@@ -6,6 +6,7 @@ import UserService from "@/services/user.service";
 export const useObjectsStore = defineStore('objects', {
   state: () => ({
     countryObjects: [],
+    countryCurrentObject: [],
     villagesObjects: [],
     objectBrief: [],
     objectFields: [],
@@ -115,6 +116,16 @@ export const useObjectsStore = defineStore('objects', {
       try {
         const response = await ObjectsService.getObjectsFilter(section, param);
         this.countryObjects = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    // Получение объекта по id
+    async getObjectByID(section, param) {
+      try {
+        const response = await ObjectsService.getObjectByID(section, param);
+        this.countryCurrentObject = response.data.data[0];
         return response;
       } catch (error) {
         return Promise.reject(error);

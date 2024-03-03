@@ -29,7 +29,7 @@
                   v-model:value="formData.filter[row.code]"
                   show-search
                   :filter-option="filterOption"
-                  @focus="onFocusSelect(row.code, row.id, page)"
+                  @focus="onFocusSelect(row.code, row.id)"  
                   class="!w-[30rem]"
               >
                   <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
@@ -82,6 +82,7 @@ const formData = ref({
 const fetchFilters = async () => {
   try {
     await filterStore.getObjectFiltersList(props.section);
+    console.log(filtersCategory)
   } catch (error) {
     console.error('Error fetching data in component:', error);
   }
@@ -104,9 +105,20 @@ const filtersCategory = computed(() => {
 //   console.log("formData", formData.value);
 // }
 
-const onFocusSelect = async (code, id, entity) => {
-  await myStore.getOptionsData(code, id, entity)
-  optionsData.value = myStore.optionData;
+
+const onFocusSelect = async (code, id) => {
+  if(props.section === 'country') {
+    await objectStore.getOptionsData(code, id, 'object')
+    optionsData.value = objectStore.optionData;
+    console.log(objectStore.optionData);
+  }
+  if(props.section === 'settlements') {
+    await settlementsStore.getOptionsData(code, id, 'object')
+    optionsData.value = settlementsStore.optionData;
+    console.log(settlementsStore.optionData);
+  }
+
+  console.log(optionsData.value);
 }
 
 const handleFinish = async () => {

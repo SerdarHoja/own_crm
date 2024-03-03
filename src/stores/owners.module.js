@@ -22,6 +22,7 @@ export const useOwnerStore = defineStore('owner', {
     async getOwnerData(param) {
       try {
         const response = await OwnerService.getOwnerData(param);
+        console.log(response.data.data);
         this.owner = response.data.data;
         return response;
       } catch (error) {
