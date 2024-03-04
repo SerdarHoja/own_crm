@@ -1,6 +1,6 @@
-<template>
-  <AppLayout>
-      <router-view/>
+<template class="font-inter">
+  <AppLayout class="font-inter">
+      <router-view class="font-inter"/>
   </AppLayout>
 </template>
 

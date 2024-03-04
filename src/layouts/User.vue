@@ -1,9 +1,9 @@
-<template>
-  <div class="layout">
+<template class="font-inter">
+  <div class="layout font-inter">
     <HeaderComponent/>
     <div class="flex pt-[5.6rem] h-screen">
-      <SideBar/>
-      <RouterView/>
+      <SideBar class="font-inter"/>
+      <RouterView class="font-inter"/>
     </div>
   </div>
 </template>
