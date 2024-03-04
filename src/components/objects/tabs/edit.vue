@@ -22,6 +22,8 @@
                                 :ref="row.code"
                                 :type="row.html"
                                 class="w-full"
+                                :disabled="row.disabled"
+                                :defaultValue="row.value"
                             />
                         </a-form-item>
                         <a-form-item
@@ -76,12 +78,13 @@
                             :label="row.name"
                             :name="row.name"
                             class="w-objectEditElem"
-                            :rules="[{  required: row.required && isFormSubmitted, message: 'Required' }]"
+                            :rules="[{  required: false, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"
                                 class="w-full"
                                 :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
+                                :disabled="row.disabled"
                             >
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
@@ -91,14 +94,16 @@
                             :label="row.name"
                             :name="row.name"
                             class="w-objectEditElem"
-                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
+                            :rules="[{ required: false, message: 'Required' }]"
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"    
                                 show-search
                                 @focus="selectOptionsList(row.code, id, 'object')"
+                                @select="onSelectVillage"
                                 class="w-full"
                                 :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
+                                :disabled="row.disabled"
                             >
                                 <a-select-option 
                                     v-for="option in optionsData" 
@@ -113,7 +118,7 @@
                             v-if="row.type == 'radio' && row.options.length > 0"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
+                            :rules="[{ required: row.required, message: 'Required' }]"
                             class="w-objectEditElem"
                         >
                             <a-radio-group
@@ -131,7 +136,7 @@
                             v-if="row.type == 'stages'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required && isFormSubmitted, message: 'Required' }]"
+                            :rules="[{ required: row.required, message: 'Required' }]"
                         >
                             <stages :stage="row" @change="stageChange(row)"/>
                         </a-form-item>
@@ -156,7 +161,6 @@
     const optionsData = ref([]);
     const route = useRoute();
     const loading = ref(false);
-    const isFormSubmitted = ref(false);
     const myStore = useObjectsStore();
     const formData = reactive({
         id: props.id,
@@ -165,6 +169,8 @@
         stages: {},
     })
 
+    const villageFields = ref([]);
+
     onMounted(() => {
         fetchObjectFields();
     })
@@ -172,7 +178,6 @@
     const objectFields = computed(() => {
         return myStore.objectFields;
     })
-    
 
     const onChangeCheckBox = (value, code, e) => {
         if (e.target.checked && value) {
@@ -198,6 +203,27 @@
       await myStore.getOptionsData(code, id, entity);
       optionsData.value = myStore.optionData;
     };
+    const onSelectVillage = async (value) => {
+        await myStore.getVillageData(value);
+        villageFields.value = myStore.villageFieldsValue;
+        for (let i = 0; i < myStore.objectFields.length; i++) {
+            if (myStore.objectFields[i]['fields'][4] && myStore.objectFields[i]['fields'][4].code === 'highway') {
+                formData.fields['highway'] = villageFields.value['highway'].options;
+            }
+            if (myStore.objectFields[i]['fields'][5] && myStore.objectFields[i]['fields'][5].code === 'district_id') {
+                formData.fields['district_id'] = villageFields.value['district_id'].options;
+            }
+            if (myStore.objectFields[i]['fields'][6] && myStore.objectFields[i]['fields'][6].code === 'place') {
+                formData.fields['place'] = villageFields.value['place'].options;
+            }
+            if (myStore.objectFields[i]['fields'][7] && myStore.objectFields[i]['fields'][7].code === 'distance_from_mkad') {
+                formData.fields['distance_from_mkad'] = villageFields.value['distance_from_mkad'].value;
+            }
+            if (myStore.objectFields[i]['fields'][0] && myStore.objectFields[i]['fields'][0].code === '"coordinates"') {
+                myStore.objectFields[i]['fields'][0] = villageFields.value['"coordinates"'];
+            }
+        }
+    }
     const fetchObjectFields = async () => {
         loading.value = true;
         try {
@@ -217,9 +243,7 @@
     };
 
     const updateObject = async () => {
-        console.log(formData)
         loading.value = true;
-        isFormSubmitted.value = true;
         try {
             await myStore.updateObject(formData).then(
             (response) => {
@@ -237,7 +261,6 @@
         } catch (error) {
             console.error('Error fetching data in component:', error);
             loading.value = false;
-            isFormSubmitted.value = false;
         }
     };
 

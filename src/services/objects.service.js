@@ -95,6 +95,10 @@ class ObjectsService {
   getObjectByID(section, id) {
     return axios.get(API_URL + `/objects/list/?section=${section}&filter%5Bid%5D=${id}`, { headers: authHeader() });
   }
+
+  getVillageData(id) {
+    return axios.get(API_URL + `/objects/fieldsvillage/?id=${id}`, { headers: authHeader() });
+  }
 }
 
 export default new ObjectsService();
