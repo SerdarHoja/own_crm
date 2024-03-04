@@ -175,24 +175,25 @@
     const updateObject = async () => {
         loading.value = true;
         isFormSubmitted.value = true;
-        try {
-            await myStore.updateObject(formData.value).then(
-            (response) => {
-                console.log(response)
-                if (response.data.result === 'error') {
-                    message.error(response.data.text)
-                    loading.value = false;
-                } else {
-                    myStore.getObjectBrief('settlements', props.id)
-                    loading.value = false;
-                }
-            }
-            )
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-            loading.value = false;
-            isFormSubmitted.value = false;
-        }
+        console.log(formData.value);
+        // try {
+        //     await myStore.updateObject(formData.value).then(
+        //     (response) => {
+        //         console.log(response)
+        //         if (response.data.result === 'error') {
+        //             message.error(response.data.text)
+        //             loading.value = false;
+        //         } else {
+        //             myStore.getObjectBrief('settlements', props.id)
+        //             loading.value = false;
+        //         }
+        //     }
+        //     )
+        // } catch (error) {
+        //     console.error('Error fetching data in component:', error);
+        //     loading.value = false;
+        //     isFormSubmitted.value = false;
+        // }
     };
 
 
