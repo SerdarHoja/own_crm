@@ -1,5 +1,5 @@
 <template>
-    <component :is="this.$route.meta.layoutComponent">
+    <component :is="this.$route.meta.layoutComponent" class="font-inter">
         <slot/>
     </component>
 </template>

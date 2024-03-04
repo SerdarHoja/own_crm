@@ -2,7 +2,7 @@
   <aside class="flex-sidebarFlex pt-[3.1rem] pb-[3.1rem] pl-[1.6rem] pr-[1.6rem] shadow-sidebarBS" id="leftMenu">
     <div class="card-container">
       <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
-        <a-tab-pane key="1" tab="Загородная" class="h-[4rem] text-inherit">
+        <a-tab-pane key="1" tab="Загородная" class="h-[4rem] text-inherit mb-m-base font-[1.4rem]">
           <ul class="sidebar__list sidebar__list--village show">
             <li class="sidebar__list-item">
               <router-link to="/deals/" class="sidebar__list-link gap-3 ">
@@ -164,12 +164,16 @@ const onTabsChange = (key) => {
   background-color: #f4f5f7;
   border: none;
 }
-.css-dev-only-do-not-override-kqecok.ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab-active, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab-active {
-  border-bottom: none;
-  background-color: #4064bf;
+.ant-tabs-tab.ant-tabs-tab-active{
+  border-bottom: none!important;
+  background-color: #4064bf!important;
 }
 .css-dev-only-do-not-override-kqecok.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #ffffff;
+  font-size: 1.4rem;
+}
+:where(.css-dev-only-do-not-override-kqecok).ant-tabs .ant-tabs-tab-btn {
+  font-size: 1.4rem;
 }
 .css-dev-only-do-not-override-kqecok.ant-tabs-top >.ant-tabs-nav::before, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-top >div>.ant-tabs-nav::before {
    border-bottom: none;

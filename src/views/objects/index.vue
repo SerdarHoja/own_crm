@@ -78,7 +78,7 @@
       </div>
     </div> -->
     <a-page-header
-        class="demo-page-header"
+        class="demo-page-header mb-m-base"
         style="border: 1px solid rgb(235, 237, 240)"
         @back="() => $router.go(-1)"
     >
@@ -92,7 +92,7 @@
     <!-- Добавлен компонент фильтры -->
     <FiltersObject
         :section="'country'"
-        class="gap-y-8"
+        class="gap-y-8 flex"
     />
     <div class="country-data">
         <div class="mt-5 p-12">

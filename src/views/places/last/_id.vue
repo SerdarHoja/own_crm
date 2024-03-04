@@ -1,13 +1,9 @@
 <template>
-  <div class="w-full">
+  <div class=" px-[5rem] pt-[3.2rem] pb-[1rem] h-full relative flex-1">
     <main id="app" v-cloak>
-      <div class="filter">
+      <div class="flex gap-x-8">
         <a-button @click="goBack">Назад</a-button>
-        <div class="filter__task --w-refresh hidden-desktop">
-          <div class="filter__refresh">
-            <div @click="update" class="filter__refresh-btn">Обновить</div>
-          </div>
-        </div>
+        <a-button @click="update">Обновить</a-button>
       </div>
       <div class="single__main">
         <div class="">
