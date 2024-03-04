@@ -1,4 +1,4 @@
-<template>
+<template class="font-inter">
       <a-form
         class="w-[430px] bg-white border-[1px] border-solid border-[#D0D5DD] px-8 py-10 rounded-3xl mt-9 mx-auto"
         :model="formState"
