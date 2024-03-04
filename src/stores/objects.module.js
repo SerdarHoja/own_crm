@@ -13,6 +13,7 @@ export const useObjectsStore = defineStore('objects', {
     commentsList: [],
     objectStageOptions: [],
     optionData: [],
+    villageFieldsValue: []
   }),
   actions: {
     async getObjects(section) {
@@ -131,6 +132,16 @@ export const useObjectsStore = defineStore('objects', {
         return Promise.reject(error);
       }
     },
+
+    async getVillageData(id) {
+      try {
+        const response = await ObjectsService.getVillageData(id);
+        this.villageFieldsValue = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
   },
 
 });

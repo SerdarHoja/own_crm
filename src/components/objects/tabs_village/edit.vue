@@ -120,7 +120,7 @@
 <script setup>
     import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useSettlementsStore  } from '@/stores/settlements.module';
+    import { useSettlementsStore } from '@/stores/settlements.module';
     import {useUserStore} from "@/stores/user.module";
 
     const props = defineProps({
@@ -130,7 +130,7 @@
     const route = useRoute();
     const loading = ref(false);
     const isFormSubmitted = ref(false);
-    const myStore = useSettlementsStore ();
+    const myStore = useSettlementsStore();
     const formData = reactive({
         id: props.id,
         section: 'settlements',
