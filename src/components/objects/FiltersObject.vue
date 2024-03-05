@@ -32,7 +32,7 @@
                   @focus="onFocusSelect(row.code, row.id)"  
                   class="!w-[30rem]"
               >
-                  <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                  <a-select-option v-for="option in optionsData" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
               </a-select>
           </a-form-item>
       </div>
@@ -71,7 +71,8 @@ const settlementsStore = useSettlementsStore();
 const optionsData = ref([])
 
 const props = defineProps({
-  section: String
+  section: String,
+  active: String
 });
 
 const formData = ref({
@@ -123,7 +124,7 @@ const onFocusSelect = async (code, id) => {
 
 const handleFinish = async () => {
   if(props.section === 'country') {
-    console.log(props.section);
+    console.log(props.section, formData.value);
     await objectStore.getObjectList(props.section, qs.stringify(formData.value));
   }
   

@@ -13,12 +13,13 @@ export const useObjectsStore = defineStore('objects', {
     commentsList: [],
     objectStageOptions: [],
     optionData: [],
-    villageFieldsValue: []
+    villageFieldsValue: [],
+    countryObjectsType: '1'
   }),
   actions: {
     async getObjects(section) {
       try {
-        const response = await ObjectsService.getObjects(section);
+        const response = await ObjectsService.getObjects(section, this.countryObjectsType);
         if (section === 'country') {
             this.countryObjects = response.data.data;
             return response;

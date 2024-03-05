@@ -3,12 +3,12 @@
     <div class="flex gap-x-[3rem] mb-m-base">
       <div class="text-main-title font-bold">Посёлки</div>
       <div>
-        <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
+        <!-- <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
           <a-tab-pane key="1" tab="Мои" class="h-[4rem] text-inherit">
           </a-tab-pane>
           <a-tab-pane key="2" tab="Все" class="h-[4rem]">
           </a-tab-pane>
-        </a-tabs>
+        </a-tabs> -->
       </div>
     </div>
     <!-- <div class="flex flex-col mb-m-base">

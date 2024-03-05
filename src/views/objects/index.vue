@@ -92,6 +92,7 @@
     <!-- Добавлен компонент фильтры -->
     <FiltersObject
         :section="'country'"
+        :active="activeKey"
         class="gap-y-8 flex"
     />
     <div class="country-data">
@@ -138,6 +139,7 @@
 
     const myStore = useObjectsStore();
     const loading = ref(false);
+    const activeKey = ref('1');
 
     onMounted(() => {
         fetchCountryData();
@@ -165,4 +167,9 @@
             console.error('Error fetching data in component:', error);
         }
     };
+
+    const onTabsChange = () => {
+        myStore.countryObjectsType = activeKey.value
+        fetchCountryData();
+    }
 </script>
