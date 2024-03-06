@@ -25,6 +25,7 @@
                                 class="w-full"
                                 :defaultValue="row.value"
                                 :allowClear='true'
+                                :disabled="row.disabled"
                             />
                         </a-form-item>
                         <a-form-item
@@ -39,6 +40,7 @@
                                 :type="row.html"
                                 class="w-full"
                                 :defaultValue="row.value"
+                                :disabled="row.disabled"
                             >
                             </a-textarea>
                         </a-form-item>
@@ -71,6 +73,7 @@
                                 style="width: 100%"
                                 @change="onChangeCheckBox(row.value, row.code, $event)"
                                 :defaultValue="row.value"
+                                :disabled="row.disabled"
                             />
                         </a-form-item>
                         <a-form-item
@@ -85,6 +88,7 @@
                                 class="w-full"
                                 :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                                 :allowClear='true'
+                                :disabled="row.disabled"
                             >
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
@@ -102,6 +106,7 @@
                                 class="w-full"
                                 :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
                                 :allowClear='true'
+                                :disabled="row.disabled"
                             >
                                 <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
                             </a-select>
