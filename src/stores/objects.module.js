@@ -14,7 +14,7 @@ export const useObjectsStore = defineStore('objects', {
     objectStageOptions: [],
     optionData: [],
     villageFieldsValue: [],
-    countryObjectsType: '1'
+    countryObjectsType: '1',
     newObjectFields: [],
     allNewFields: [],
     photos: [],

@@ -206,6 +206,7 @@
     const onTabsChange = () => {
         myStore.countryObjectsType = activeKey.value
         fetchCountryData();
+    }
 
     const toggleModal = async () => {
         open.value = true;
