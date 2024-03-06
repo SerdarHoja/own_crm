@@ -136,14 +136,14 @@
         class="w-objectEditElem"
     >
         <a-select
-            v-model:value="newObjectType"    
+            v-model:value="newObjectType"
             show-search
             class="w-full"
             @select="handleSelect"
         >
-            <a-select-option 
-                v-for="option in newObjectFieldType[0].options" 
-                :key="option.id" 
+            <a-select-option
+                v-for="option in newObjectFieldType[0].options"
+                :key="option.id"
                 :value="option.id"
             >
                 {{ option.value }}

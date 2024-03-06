@@ -4,8 +4,23 @@
 
 html{
   font-size: 11px;
+  font-family: sans-serif, "Inter", "Helvetica";
 }
-
+body {
+  font-family: 'Roboto', sans-serif;
+}
+:where(.css-dev-only-do-not-override-kqecok)[class^="ant-btn"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-btn"] {
+  font-family: Inter, Helvetica, sans-serif!important;
+}
+:where(.css-dev-only-do-not-override-kqecok)[class^="ant-col"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-col"] {
+  font-family: Inter, Helvetica, sans-serif!important;
+}
+:where(.css-dev-only-do-not-override-kqecok)[class^="ant-row"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-row"] {
+  font-family: Inter, Helvetica, sans-serif!important;
+}
+:where(.css-dev-only-do-not-override-kqecok).ant-form {
+  font-family: Inter, Helvetica, sans-serif!important;
+}
 :where(.css-dev-only-do-not-override-kqecok)[class^="ant-spin"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-spin"] {
   font-family: Inter, Helvetica, sans-serif!important;
   box-sizing: border-box;
