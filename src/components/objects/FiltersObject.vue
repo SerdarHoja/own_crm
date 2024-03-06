@@ -39,8 +39,8 @@
                   v-for="option in optionsData"
                   :key="option.id"
                   :value="option.value"
-              >{{ option.value }}</a-select-option
-              >
+              >{{ option.value }}
+              </a-select-option>
             </a-select>
           </a-form-item>
         </div>
