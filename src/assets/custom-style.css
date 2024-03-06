@@ -66,6 +66,13 @@ span.ant-select-selection-item {
 input#form_item_highway {
     font-size: 1.4rem!important;
 }
+input#form_item_id {
+    height: 3.2rem!important;
+}
+
+
+
+
 
 .ant-row.ant-form-row.css-kqecok {
     flex-direction: column!important;
@@ -74,10 +81,19 @@ input#form_item_highway {
 .ant-tabs-tab {
     font-size: 1.4rem!important;
 }
-
 .css-dev-only-do-not-override-kqecok.ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab {
     border-radius: 0.4rem !important;
 }
+.layout form.ant-form.ant-form-horizontal.css-kqecok{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+}
+
+
+
+
+
 
 :where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #ffffff!important;
@@ -91,5 +107,23 @@ input#form_item_highway {
 }
 :where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
     height: 3.2rem!important;
+}
+:where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-item, :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    line-height: 3rem;
+}
+:where(.css-kqecok).ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab, :where(.css-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab {
+    border-radius: .4rem!important;
+}
+:where(.css-kqecok).ant-tabs-card >.ant-tabs-nav .ant-tabs-tab, :where(.css-kqecok).ant-tabs-card >div>.ant-tabs-nav .ant-tabs-tab {
+    padding: 0.6rem 1.2rem!important;
+}
+:where(.css-kqecok).ant-tabs-top >.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-bottom >.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-top >div>.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-bottom >div>.ant-tabs-nav::before {
+    border-bottom: 0!important;
+}
+:where(.css-kqecok).ant-btn {
+    font-size: 1.4rem!important;
+    height: 3.2rem!important;
+    padding: .4rem 1.5rem!important;
+    border-radius: .4rem!important;
 }
 

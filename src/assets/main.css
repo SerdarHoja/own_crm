@@ -28,9 +28,13 @@ body {
 :where(.css-dev-only-do-not-override-kqecok).ant-tabs {
   font-family: Inter, Helvetica, sans-serif!important;
 }
+:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-family: Inter, Helvetica, sans-serif!important;
+}
 :where(.css-dev-only-do-not-override-kqecok)[class^="ant-spin"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-spin"] {
   font-size: 1.4rem;
 }
+
 
 
 body{
