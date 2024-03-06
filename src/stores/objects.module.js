@@ -14,6 +14,7 @@ export const useObjectsStore = defineStore('objects', {
     objectStageOptions: [],
     optionData: [],
     villageFieldsValue: [],
+    countryObjectsType: '1'
     newObjectFields: [],
     allNewFields: [],
     photos: [],
@@ -21,7 +22,7 @@ export const useObjectsStore = defineStore('objects', {
   actions: {
     async getObjects(section) {
       try {
-        const response = await ObjectsService.getObjects(section);
+        const response = await ObjectsService.getObjects(section, this.countryObjectsType);
         if (section === 'country') {
             this.countryObjects = response.data.data;
             return response;

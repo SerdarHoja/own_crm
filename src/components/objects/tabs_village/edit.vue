@@ -9,6 +9,7 @@
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
                 <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
+                    
                     <div v-for="row in card.fields" :key="row.id">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'number'"
@@ -22,6 +23,8 @@
                                 :ref="row.code"
                                 :type="row.html"
                                 class="w-full"
+                                :defaultValue="row.value"
+                                :allowClear='true'
                             />
                         </a-form-item>
                         <a-form-item
@@ -35,6 +38,7 @@
                                 :ref="row.code"
                                 :type="row.html"
                                 class="w-full"
+                                :defaultValue="row.value"
                             >
                             </a-textarea>
                         </a-form-item>
@@ -50,6 +54,7 @@
                                 :type="row.html"
                                 class="w-full"
                                 style="width: 100%"
+                                :defaultValue="row.value"
                             />
                         </a-form-item>
                         <a-form-item
@@ -64,7 +69,8 @@
                                 :type="row.html"
                                 class="w-full"
                                 style="width: 100%"
-                                @change="onChangeCheckBox(row.value, $event)"
+                                @change="onChangeCheckBox(row.value, row.code, $event)"
+                                :defaultValue="row.value"
                             />
                         </a-form-item>
                         <a-form-item
@@ -75,8 +81,10 @@
                         >
                             <a-select
                                 v-model:value="formData.fields[row.code]"
+                                @focus="selectOptionsList(row.code, row.id, 'object')"
                                 class="w-full"
                                 :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
+                                :allowClear='true'
                             >
                                 <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
@@ -90,7 +98,10 @@
                             <a-select
                                 show-search
                                 @focus="selectOptionsList(row.code, row.id, 'object')"
+                                @select="onSelectVillage"
                                 class="w-full"
+                                :defaultValue="row.options && row.options.length > 0 && row.options.find(item => item.checked === true) ? row.options.find(item => item.checked === true).value : 'Не выбрано'"
+                                :allowClear='true'
                             >
                                 <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
                             </a-select>
@@ -109,6 +120,7 @@
                             >
                                 <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
                             </a-radio-group>
+        
                         </a-form-item>
                     </div>
                 </div>
@@ -136,19 +148,26 @@
         section: 'settlements',
         fields: {},
     })
-
+    const villageFields = ref([]);
     onMounted(() => {
         fetchObjectFields();
     })
 
     const objectFields = computed(() => {
-      console.log (myStore.objectFields);
+        console.log (myStore.objectFields);
         return myStore.objectFields;
     })
 
-    const onChangeCheckBox = (value, e) => {
-        console.log('valva', value,  e)
+    const onChangeCheckBox = (value,code, e) => {
+        if (e.target.checked && value) {
+            formData.fields[code] = value;
+        } else if (e.target.checked && !value) {
+            formData.fields[code] = true;
+        } else {
+            formData.fields[code] = false;
+        }
     }
+
     const selectOptionsList = async (code, id, entity) => {
       console.log (code);
       await myStore.getOptionsData(code, id, entity);
@@ -175,25 +194,39 @@
     const updateObject = async () => {
         loading.value = true;
         isFormSubmitted.value = true;
-        try {
-            await myStore.updateObject(formData.value).then(
-            (response) => {
-                console.log(response)
-                if (response.data.result === 'error') {
-                    message.error(response.data.text)
-                    loading.value = false;
-                } else {
-                    myStore.getObjectBrief('settlements', props.id)
-                    loading.value = false;
+        // await myStore.updateObject(formData)
+        console.log(formData);
+            try {
+                await myStore.updateObject(formData).then(
+                (response) => {
+                    console.log(response)
+                    if (response.data.result === 'error') {
+                        message.error(response.data.text)
+                        loading.value = false;
+                    } else {
+                        myStore.getObjectBrief('settlements', props.id)
+                        loading.value = false;
+                    }
                 }
+                )
+            } catch (error) {
+                console.error('Error fetching data in component:', error);
+                loading.value = false;
+                isFormSubmitted.value = false;
             }
-            )
-        } catch (error) {
-            console.error('Error fetching data in component:', error);
-            loading.value = false;
-            isFormSubmitted.value = false;
-        }
+            
     };
+
+    const clearSelection = (row) => {
+        console.log('1231', row);
+        row.value = 'Не выбран';
+        // formData.fields[code] = null; // Очистить значение поля по его коду
+        // console.log(formData.fields[code]);
+    }
+
+    const onSelectVillage = async (value) => {
+        console.log('value', value);
+    }
 
 
 </script>

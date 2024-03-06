@@ -92,6 +92,7 @@
     <!-- Добавлен компонент фильтры -->
     <FiltersObject
         :section="'country'"
+        :active="activeKey"
         class="gap-y-8 flex"
     />
     <div class="country-data">
@@ -162,6 +163,7 @@
 
     const myStore = useObjectsStore();
     const loading = ref(false);
+    const activeKey = ref('1');
     const open = ref(false);
     const newObjectType = ref(null);
     const router = useRouter();
@@ -201,6 +203,10 @@
         }
     };
 
+    const onTabsChange = () => {
+        myStore.countryObjectsType = activeKey.value
+        fetchCountryData();
+
     const toggleModal = async () => {
         open.value = true;
         await myStore.getFieldsForNewObject('country');
@@ -213,5 +219,6 @@
 
     const handleOk = async () => {
         router.push('/objects/new');
+
     }
 </script>

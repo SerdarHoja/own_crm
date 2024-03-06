@@ -65,6 +65,7 @@ const optionsData = ref([]);
 
 const props = defineProps({
   section: String,
+  active: String
 });
 
 const formData = ref({
@@ -114,12 +115,9 @@ const onFocusSelect = async (code, id) => {
 };
 
 const handleFinish = async () => {
-  if (props.section === "country") {
-    console.log(props.section);
-    await objectStore.getObjectList(
-      props.section,
-      qs.stringify(formData.value)
-    );
+  if(props.section === 'country') {
+    console.log(props.section, formData.value);
+    await objectStore.getObjectList(props.section, qs.stringify(formData.value));
   }
 
   if (props.section === "settlements") {

@@ -4,8 +4,11 @@ import authHeader from "./auth-header";
 const API_URL = "https://crm.web-hands.ru/api/v1";
 
 class ObjectsService {
-  getObjects(section) {
-    return axios.get(API_URL + "/objects/list/?section=" + section, {
+  getObjects(section, type = '') {
+    if(type)
+    type = type === '1' ? '&filter%5Bresp_broker%5D=my' : '';
+    console.log(type, 'cdsvxc')
+    return axios.get(API_URL + "/objects/list/?section=" + section + type, {
       headers: authHeader(),
     });
   }
@@ -25,6 +28,7 @@ class ObjectsService {
   }
 
   updateObject(data) {
+    console.log(data);
     const fd = new FormData();
     fd.append("id", data.id);
     fd.append("section", data.section);
@@ -34,6 +38,40 @@ class ObjectsService {
     for (const [key, value] of Object.entries(data.stages)) {
       fd.append(`stages[${key}]`, JSON.stringify(value));
     }
+    const url = `${API_URL}/objects/save/`;
+
+    // Do not set 'Content-Type' header when using FormData
+    const headers = {
+      ...authHeader(),
+      'Content-Type': 'application/json',
+    };
+
+    return axios
+      .post(url,  fd, { headers })
+      .then((response) => {
+        // Handle the response here
+        console.log("Response:", response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error("Error:", error);
+        throw error; // Propagate the error further if needed
+      });
+  }
+
+  updateObjectTEST(data) {
+    console.log(data);
+    const fd = new FormData();
+    fd.append("id", data.id);
+    fd.append("section", data.section);
+    for (const [key, value] of Object.entries(data.fields)) {
+      fd.append(`fields[${key}]`, value);
+    }
+    // for (const [key, value] of Object.entries(data.stages)) {
+    //   fd.append(`stages[${key}]`, JSON.stringify(value));
+    // }
+    console.log(fd)
     const url = `${API_URL}/objects/save/`;
 
     // Do not set 'Content-Type' header when using FormData
@@ -88,8 +126,9 @@ class ObjectsService {
         return axios.get(API_URL + '/options/list/?prop=' + code + '&id=' + id + '&entity=' + entity, { headers: authHeader() });
   }
   // Получение данных по фильтрам
-  getObjectsFilter(section, param) {
-    return axios.get(API_URL + `/objects/list/?section=${section}&` + param, { headers: authHeader() });
+  getObjectsFilter(section, param, type = '') {
+    type = type === '1' ? '&filter%5Bresp_broker%5D=my' : '';
+    return axios.get(API_URL + `/objects/list/?section=${section}&` + param + type, { headers: authHeader() });
   }
   // Получение объекта по id
   getObjectByID(section, id) {
