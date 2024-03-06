@@ -67,6 +67,7 @@
                         >
                             <a-checkbox
                                 v-model:value="formData.fields[row.code]"
+                                v-model:checked="row.checked"
                                 :ref="row.code"
                                 :type="row.html"
                                 class="w-full"
@@ -164,6 +165,7 @@
     })
 
     const onChangeCheckBox = (value,code, e) => {
+        console.log(value, e);
         if (e.target.checked && value) {
             formData.fields[code] = value;
         } else if (e.target.checked && !value) {
