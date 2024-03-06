@@ -5,6 +5,9 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,vue}",
   ],
   theme: {
+    fontFamily:{
+      sans: ['Inter', 'sans-serif'],
+    },
     fontSize:{
       'main-title': '2.2rem'
     },

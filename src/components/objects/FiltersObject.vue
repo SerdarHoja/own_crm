@@ -2,46 +2,52 @@
   <a-form
     layout="inline"
     :model="formData"
-    class="flex"
+    class="form"
     @finish="handleFinish"
     @finishFailed="handleFinishFailed"
   >
-    <div v-for="(category, index) in filtersCategory" :key="index">
-      <div v-for="row in filters[category]" :key="row.id">
-        <a-form-item
-          v-if="row.type === 'text' || row.type === 'number'"
-          :label="row.title"
-          :name="row.code"
-        >
-          <a-input
-            v-model:value="formData.filter[row.code]"
-            :ref="row.code"
-            :type="row.html"
-            class="!w-[30rem]"
-          />
-        </a-form-item>
-        <a-form-item
-          v-if="row.type == 'select' && row.mode == 'ajax'"
-          :label="row.title"
-          :name="row.code"
-        >
-          <a-select
-            v-model:value="formData.filter[row.code]"
-            show-search
-            :filter-option="filterOption"
-            @focus="onFocusSelect(row.code, row.id)"
-            class="!w-[30rem]"
+    <div class="form__wrap">
+      <div v-for="(category, index) in filtersCategory" :key="index" class="form__block">
+        <div v-for="row in filters[category]" :key="row.id">
+          <a-form-item
+              v-if="row.type === 'text' || row.type === 'number'"
+              :label="row.title"
+              :name="row.code"
+              class="form__elem"
           >
-            <a-select-option
-              v-for="option in optionsData"
-              :key="option.id"
-              :value="option.value"
-              >{{ option.value }}</a-select-option
+            <a-input
+                v-model:value="formData.filter[row.code]"
+                :ref="row.code"
+                :type="row.html"
+                class="!w-[30rem]"
+            />
+          </a-form-item>
+          <a-form-item
+              v-if="row.type == 'select' && row.mode == 'ajax'"
+              :label="row.title"
+              :name="row.code"
+              class="form__elem"
+          >
+            <a-select
+                v-model:value="formData.filter[row.code]"
+                show-search
+                :filter-option="filterOption"
+                @focus="onFocusSelect(row.code, row.id)"
+                class="!w-[30rem]"
             >
-          </a-select>
-        </a-form-item>
+              <a-select-option
+                  v-for="option in optionsData"
+                  :key="option.id"
+                  :value="option.value"
+              >{{ option.value }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </div>
       </div>
     </div>
+
+
 
     <a-form-item>
       <a-button type="primary" html-type="submit"> Поиск </a-button>
