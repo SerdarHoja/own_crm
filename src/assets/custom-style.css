@@ -49,8 +49,8 @@
     margin-inline-end: 0!important;
 }
 .form__elem > div{
-    display: flex;
-    flex-direction: column;
+    display: flex!important;
+    flex-direction: column!important;
 }
 .form__input{
     width: 30rem!important;
@@ -58,31 +58,38 @@
 
 
 label{
-    font-size: 1.4rem;
+    font-size: 1.4rem!important;
 }
 span.ant-select-selection-item {
-    font-size: 1.4rem;
+    font-size: 1.4rem!important;
 }
 input#form_item_highway {
-    font-size: 1.4rem;
+    font-size: 1.4rem!important;
 }
 
 .ant-row.ant-form-row.css-kqecok {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column!important;
+    align-items: flex-start!important;
 }
 .ant-tabs-tab {
-    font-size: 1.4rem;
+    font-size: 1.4rem!important;
+}
+
+.css-dev-only-do-not-override-kqecok.ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab {
+    border-radius: 0.4rem !important;
 }
 
 :where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #ffffff;
+    color: #ffffff!important;
+}
+:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #ffffff!important;
 }
 :where(.css-kqecok).ant-row{
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column!important;
+    align-items: flex-start!important;
 }
 :where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
-    height: 3.2rem;
+    height: 3.2rem!important;
 }
 
