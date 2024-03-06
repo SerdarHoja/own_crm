@@ -8,6 +8,7 @@
                 <edit :id="id"/>
             </a-tab-pane>
             <a-tab-pane key="3" tab="Фотографии">
+                <photos :id="id"/>
             </a-tab-pane>
             <a-tab-pane key="4" tab="Комментарии">
                 <comments :id="id"/>
@@ -26,6 +27,7 @@
     import brief from "@/components/objects/tabs/brief.vue";
     import edit from "@/components/objects/tabs/edit.vue";
     import comments from "@/components/objects/tabs/comments.vue";
+    import photos from "@/components/objects/tabs/photos.vue";
     import owner from "@/components/objects/tabs/owner.vue";
     import { useObjectsStore } from '@/stores/objects.module.js';
     import { useRoute, useRouter } from 'vue-router';

@@ -14,7 +14,10 @@ export const useObjectsStore = defineStore('objects', {
     objectStageOptions: [],
     optionData: [],
     villageFieldsValue: [],
-    countryObjectsType: '1'
+    countryObjectsType: '1',
+    newObjectFields: [],
+    allNewFields: [],
+    photos: [],
   }),
   actions: {
     async getObjects(section) {
@@ -142,7 +145,66 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         return Promise.reject(error);
       }
+    },
+
+    async getFieldsForNewObject(section) {
+      try {
+        const response = await ObjectsService.getFieldsForNewObject(section);
+        this.newObjectFields = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async getFieldsObject(section, id) {
+      try {
+        const response = await ObjectsService.getFieldsObject(section, id);
+        this.allNewFields = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async getObjectPhotos(id) {
+      try {
+        const response = await ObjectsService.getObjectPhotos(id);
+        this.photos = response.data.data
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    
+    async setPhotoAsMain(data) {
+      try {
+        const response = await ObjectsService.setPhotoAsMain(data);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async setPhotoPlan(data) {
+      try {
+        const response = await ObjectsService.setPhotoPlan(data);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
+    async uploadNewPhoto(data) {
+      try {
+        const response = await ObjectsService.uploadNewPhoto(data);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
     }
+
+    
   },
 
 });

@@ -23,6 +23,7 @@
 </template>
 <script setup>
     import { ref, onMounted, computed, defineProps } from 'vue';
+    import { message } from 'ant-design-vue';
     import { useObjectsStore } from '@/stores/objects.module.js';
 
     const props = defineProps({

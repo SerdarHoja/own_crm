@@ -83,9 +83,9 @@
         @back="() => $router.go(-1)"
     >
         <template #extra>
-            <!-- <a-button @click="toggleModal" key="1" type="primary">
-                Добавить собственника
-            </a-button> -->
+            <a-button @click="toggleModal" key="1" type="primary">
+                Добавить
+            </a-button>
         </template>
     </a-page-header>
 
@@ -128,18 +128,45 @@
         </div>
     </div>
   </div>
+  <a-modal v-model:open="open" title="Выберите вариант" @ok="handleOk">
+    <a-form-item
+        v-if="newObjectFieldType && newObjectFieldType[0]"
+        :label="newObjectFieldType[0].name"
+        :name="newObjectFieldType[0].name"
+        class="w-objectEditElem"
+    >
+        <a-select
+            v-model:value="newObjectType"
+            show-search
+            class="w-full"
+            @select="handleSelect"
+        >
+            <a-select-option
+                v-for="option in newObjectFieldType[0].options"
+                :key="option.id"
+                :value="option.id"
+            >
+                {{ option.value }}
+            </a-select-option>
+        </a-select>
+    </a-form-item>
+    {{ allNewFields }}
+  </a-modal>
 </template>
 <script setup>
     import { ref, onMounted, computed } from 'vue'
     import { useObjectsStore } from '@/stores/objects.module.js';
     import { message } from 'ant-design-vue';
-    import { TrashIcon } from '@heroicons/vue/24/solid'
     import ObjectItem from '@/components/objects/ObjectItem.vue';
     import FiltersObject from '@/components/objects/FiltersObject.vue';
+    import { useRouter } from 'vue-router';
 
     const myStore = useObjectsStore();
     const loading = ref(false);
     const activeKey = ref('1');
+    const open = ref(false);
+    const newObjectType = ref(null);
+    const router = useRouter();
 
     onMounted(() => {
         fetchCountryData();
@@ -148,6 +175,14 @@
     const countryObjects = computed(() => {
         console.log(myStore.countryObjects);
         return myStore.countryObjects;
+    })
+
+    const newObjectFieldType = computed(() => {
+        return myStore.newObjectFields;
+    })
+
+    const newObjectFields = computed(() => {
+        return myStore.allNewFields;
     })
 
     const fetchCountryData = async () => {
@@ -171,5 +206,20 @@
     const onTabsChange = () => {
         myStore.countryObjectsType = activeKey.value
         fetchCountryData();
+    }
+
+    const toggleModal = async () => {
+        open.value = true;
+        await myStore.getFieldsForNewObject('country');
+    }
+
+    const handleSelect = async (value) => {
+        console.log("val", value)
+        await myStore.getFieldsObject('settlements', value);
+    }
+
+    const handleOk = async () => {
+        router.push('/objects/new');
+
     }
 </script>

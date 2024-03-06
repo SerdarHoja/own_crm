@@ -1,3 +1,3 @@
-<template class="font-inter">
+<template>
     Main page
 </template>
