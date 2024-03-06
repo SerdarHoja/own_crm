@@ -4,10 +4,10 @@
 
 html{
   font-size: 11px;
-  font-family: sans-serif, "Inter", "Helvetica";
+  font-family: sans-serif, "Inter", "Helvetica"!important;
 }
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif!important;
 }
 :where(.css-dev-only-do-not-override-kqecok)[class^="ant-btn"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-btn"] {
   font-family: Inter, Helvetica, sans-serif!important;
