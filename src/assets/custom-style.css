@@ -57,12 +57,32 @@
 }
 
 
-
-:where(.css-kqecok).ant-row{
-    flex-direction: column;
-    align-items: flex-start;
+label{
+    font-size: 1.4rem;
 }
+span.ant-select-selection-item {
+    font-size: 1.4rem;
+}
+input#form_item_highway {
+    font-size: 1.4rem;
+}
+
 .ant-row.ant-form-row.css-kqecok {
     flex-direction: column;
     align-items: flex-start;
 }
+.ant-tabs-tab {
+    font-size: 1.4rem;
+}
+
+:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #ffffff;
+}
+:where(.css-kqecok).ant-row{
+    flex-direction: column;
+    align-items: flex-start;
+}
+:where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height: 3.2rem;
+}
+
