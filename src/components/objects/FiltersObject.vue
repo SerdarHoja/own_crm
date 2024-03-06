@@ -19,7 +19,7 @@
                 v-model:value="formData.filter[row.code]"
                 :ref="row.code"
                 :type="row.html"
-                class="!w-[30rem]"
+                class="form__input"
             />
           </a-form-item>
           <a-form-item

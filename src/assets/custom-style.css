@@ -48,3 +48,21 @@
 .form__elem{
     margin-inline-end: 0!important;
 }
+.form__elem > div{
+    display: flex;
+    flex-direction: column;
+}
+.form__input{
+    width: 30rem!important;
+}
+
+
+
+:where(.css-kqecok).ant-row{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.ant-row.ant-form-row.css-kqecok {
+    flex-direction: column;
+    align-items: flex-start;
+}
