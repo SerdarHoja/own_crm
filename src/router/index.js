@@ -105,6 +105,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/objects/new',
+      name: 'objects/new',
+      component: () => import('../views/objects/new.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Объекты'
+      }
+    },
+    {
       path: '/deals',
       name: 'deals',
       component: () => import('../views/deals/index.vue'),

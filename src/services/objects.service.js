@@ -99,6 +99,30 @@ class ObjectsService {
   getVillageData(id) {
     return axios.get(API_URL + `/objects/fieldsvillage/?id=${id}`, { headers: authHeader() });
   }
+
+  getFieldsForNewObject(section) {
+    return axios.get(API_URL + `/objects/field/?section=${section}&code=object_view`, { headers: authHeader() });
+  }
+
+  getFieldsObject(section, id) {
+    return axios.get(API_URL + `/objects/fields/?section=${section}&id=${id}`, { headers: authHeader() });
+  }
+
+  getObjectPhotos(id) {
+    return axios.get(API_URL + `/objectsphoto/list/?id=${id}`, { headers: authHeader() });
+  }
+
+  setPhotoAsMain(data) {
+    return axios.post(API_URL + `/objectsphoto/setmain/`, data, { headers: authHeader() });
+  }
+
+  setPhotoPlan(data) {
+    return axios.post(API_URL + `/objectsphoto/setmain/`, data, { headers: authHeader() });
+  }
+
+  uploadNewPhoto(data) {
+    return axios.post(API_URL + `/objectsphoto/add/`, data, { headers: authHeader() });
+  }
 }
 
 export default new ObjectsService();
