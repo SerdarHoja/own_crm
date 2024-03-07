@@ -56,7 +56,9 @@
     width: 30rem!important;
 }
 
-
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+}
 label{
     font-size: 1.4rem!important;
 }
@@ -68,6 +70,10 @@ input#form_item_highway {
 }
 input#form_item_id {
     height: 3.2rem!important;
+}
+p{
+    margin: 0;
+    font-size: 1.4rem!important;
 }
 
 
@@ -125,5 +131,15 @@ input#form_item_id {
     height: 3.2rem!important;
     padding: .4rem 1.5rem!important;
     border-radius: .4rem!important;
+}
+:where(.css-kqecok).ant-input {
+    padding: .4rem 1.1rem!important;
+    font-size: 1.4rem!important;
+    border: .1rem solid #d9d9d9!important;
+    border-radius: .6rem!important;
+}
+:where(.css-kqecok).ant-card .ant-card-body {
+    padding: 2.4rem;
+    border-radius: 0 0 .8rem .8rem;
 }
 
