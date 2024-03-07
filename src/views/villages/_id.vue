@@ -8,7 +8,7 @@
                 <edit :id="id"/>
             </a-tab-pane>
             <a-tab-pane key="3" tab="Фотографии">
-
+                <photos :id="id"/>
             </a-tab-pane>
             <a-tab-pane key="4" tab="Комментарии">
 
@@ -27,6 +27,7 @@
     import { ref } from 'vue';
     import brief from "@/components/objects/tabs_village/brief.vue";
     import edit from "@/components/objects/tabs_village/edit.vue";
+    import photos from "@/components/objects/tabs_village/photos.vue";
     import { useRoute, useRouter } from 'vue-router';
     const activeKey = ref('1');
     const route = useRoute();

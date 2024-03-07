@@ -10,6 +10,7 @@ export const useSettlementsStore = defineStore('settlements', {
     objectFields: [],
     commentsList: [],
     optionData: [],
+    photos: [],
   }),
   actions: {
     async getObjects(section) {
@@ -100,6 +101,15 @@ export const useSettlementsStore = defineStore('settlements', {
       try {
         const response = await ObjectsService.getObjectsFilter(section, param);
         this.countryObjects = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async getObjectPhotos(id) {
+      try {
+        const response = await ObjectsService.getObjectPhotos(id);
+        this.photos = response.data.data
         return response;
       } catch (error) {
         return Promise.reject(error);
