@@ -6,7 +6,10 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import "ant-design-vue/dist/reset.css";
 import VueTheMask from "vue-the-mask";
 import axios from "axios";
-import { createYmaps } from "vue-yandex-maps";
+
+// import YmapPlugin from 'vue-yandex-maps'
+
+// import { createYmaps } from "vue-yandex-maps";
 
 import App from "./App.vue";
 import router from "./router";
@@ -23,8 +26,13 @@ app.use(createPinia());
 app.use(router);
 app.use(Antd);
 app.use(VueTheMask);
-app.use(createYmaps({
-    apikey: import.meta.env.VUE_MAP_KEY,
-  }));
+
+// app.use(YmapPlugin, settings)
+
+// app.use(
+//   createYmaps({
+//     apikey: import.meta.env.VUE_MAP_KEY,
+//   })
+// );
 
 app.mount("#app");

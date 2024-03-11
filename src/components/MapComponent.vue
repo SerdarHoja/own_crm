@@ -13,7 +13,7 @@ export default {
     yandexMap, ymapMarker
   },
   mounted() {
-    yandexMap.ready(() => {
+    ymaps.ready(() => {
       const map = new yandexMap.Map(
         "map",
         {
