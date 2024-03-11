@@ -1,19 +1,20 @@
 <template>
     <div>
         <a-list item-layout="horizontal" :data-source="commentsList">
+            
             <template #renderItem="{ item }">
                 <a-list-item>
                     <template #actions>
-                        <a key="list-loadmore-more" @click="deleteComment(item.id)">Delete</a>
+                        <a key="list-loadmore-more" @click="deleteComment(item?.id)">Delete</a>
                     </template>
                     <a-list-item-meta
                         :description="item.text"
                     >
                         <template #title>
-                            <a href="https://www.antdv.com/">{{ item.broker.name }}</a>
+                            <a href="https://www.antdv.com/">{{ item?.broker?.name }}</a>
                         </template>
                         <template #avatar>
-                            <a-avatar :src="item.broker.picture" />
+                            <a-avatar :src="item?.broker?.picture" />
                         </template>
                     </a-list-item-meta>
                 </a-list-item>
@@ -40,7 +41,8 @@
     })
 
     const commentsList = computed(() => {
-        return myStore.commentsList;
+        console.log('myStore.commentsList', myStore.commentsList);
+        return myStore.commentsList !== "Комментарии не найдены" ? myStore.commentsList : [];
     })
 
     const fetchComments = async () => {
@@ -49,7 +51,7 @@
             await myStore.getComments(props.id).then(
             (response) => {
                 if (response.data.result === 'error') {
-                    message.error(response.data.text)
+                    message.error(response.data.data);
                     loading.value = false;
                 } else {
                     loading.value = false;

@@ -115,7 +115,7 @@
                             </a-select>
                         </a-form-item>
                         <a-form-item
-                            v-if="row.type == 'radio' && row.options.length > 0"
+                            v-if="row.type == 'radio' && row?.options?.length > 0"
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required, message: 'Required' }]"

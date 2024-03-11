@@ -26,6 +26,12 @@ class OwnerService {
   getOwnerFields() {
     return axios.get(API_URL + '/owners/fields/', { headers: authHeader() });
   }
+  addEdbindingObject(data) {
+    return axios.post(API_URL + '/owners/addedbindingobject/', data, { headers: authHeader() });
+  }
+  deleteBindingObject(data) {
+    return axios.post(API_URL + '/owners/deletebindingobject/', data, { headers: authHeader() });
+  }
 }
 
 export default new OwnerService();

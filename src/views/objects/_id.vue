@@ -1,5 +1,10 @@
 <template>
     <div class="p-[4rem] w-full">
+        <router-link to="/objects">
+            <a-button type="primary mb-[1rem]">
+                Назад
+            </a-button>
+        </router-link>
         <a-tabs v-model:activeKey="activeKey" type="card">
             <a-tab-pane key="1" tab="Информация">
                 <brief :id="id"/>
@@ -13,10 +18,10 @@
             <a-tab-pane key="4" tab="Комментарии">
                 <comments :id="id"/>
             </a-tab-pane>
-            <a-tab-pane key="5" tab="Лиды">
-            </a-tab-pane>
+            <!-- <a-tab-pane key="5" tab="Лиды">
+            </a-tab-pane> -->
             <a-tab-pane key="6" tab="Собственник">
-                <owner :id="OwnersID"></owner>
+                <owner :ownerID="OwnersID" :id="id" ></owner>
             </a-tab-pane>
         </a-tabs>
     </div>
@@ -29,8 +34,8 @@
     import comments from "@/components/objects/tabs/comments.vue";
     import photos from "@/components/objects/tabs/photos.vue";
     import owner from "@/components/objects/tabs/owner.vue";
-    import { useObjectsStore } from '@/stores/objects.module.js';
     import { useRoute, useRouter } from 'vue-router';
+    import { useObjectsStore } from '@/stores/objects.module.js';
 
     const myStore = useObjectsStore();
     const activeKey = ref('1');
