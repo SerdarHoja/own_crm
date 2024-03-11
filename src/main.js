@@ -1,26 +1,30 @@
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import VueSweetalert2 from "vue-sweetalert2";
+import Antd from "ant-design-vue";
+import "sweetalert2/dist/sweetalert2.min.css";
+import "ant-design-vue/dist/reset.css";
+import VueTheMask from "vue-the-mask";
+import axios from "axios";
+import { createYmaps } from "vue-yandex-maps";
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import VueSweetalert2 from 'vue-sweetalert2';
-import Antd from 'ant-design-vue';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import 'ant-design-vue/dist/reset.css';
-import VueTheMask from 'vue-the-mask';
-import axios from 'axios'
+import App from "./App.vue";
+import router from "./router";
+import "./assets/main.css";
+import "./assets/style.css";
 
-import App from './App.vue'
-import router from './router'
-import './assets/main.css'
-import './assets/style.css'
+const app = createApp(App);
 
-const app = createApp(App)
-app.config.globalProperties.$axios = axios
-axios.defaults.baseURL = 'https://crm.web-hands.ru/api/v1'
+app.config.globalProperties.$axios = axios;
+axios.defaults.baseURL = "https://crm.web-hands.ru/api/v1";
 
-app.use(VueSweetalert2)
-app.use(createPinia())
-app.use(router)
-app.use(Antd)
-app.use(VueTheMask)
+app.use(VueSweetalert2);
+app.use(createPinia());
+app.use(router);
+app.use(Antd);
+app.use(VueTheMask);
+app.use(createYmaps({
+    apikey: import.meta.env.VUE_MAP_KEY,
+  }));
 
-app.mount('#app')
+app.mount("#app");
