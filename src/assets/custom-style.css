@@ -72,8 +72,16 @@ input#form_item_id {
     height: 3.2rem!important;
 }
 p{
-    margin: 0;
+    margin-bottom: 0!important;
     font-size: 1.4rem!important;
+}
+span.ant-upload-list-item-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+span.anticon.anticon-delete {
+    margin: 0!important;
 }
 
 
@@ -95,6 +103,9 @@ p{
     flex-direction: column;
     row-gap: 3rem;
 }
+.ant-card.css-kqecok.ant-card-bordered{
+    font-size: 1.4rem;
+}
 
 
 
@@ -113,6 +124,7 @@ p{
 }
 :where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
     height: 3.2rem!important;
+    width: 30rem!important;
 }
 :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-item, :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
     line-height: 3rem;
@@ -141,5 +153,29 @@ p{
 :where(.css-kqecok).ant-card .ant-card-body {
     padding: 2.4rem;
     border-radius: 0 0 .8rem .8rem;
+}
+:where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    height: 3rem!important;
+}
+:where(.css-kqecok).ant-form-item .ant-form-item-control-input {
+    min-height: 3.2rem!important;
+}
+:where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
+    font-size: 1.4rem;
+}
+:where(.css-kqecok).ant-input-number .ant-input-number-input {
+    height: 3rem!important;
+    padding: 0 1.1rem!important;
+    border-radius: .4rem!important;
+}
+:where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
+    font-size: 1.4rem!important;
+}
+:where(.css-kqecok).ant-form-item .ant-form-item-control-input {
+    min-height: 3.2rem;
+}
+:where(.css-kqecok).ant-form-item .ant-form-item-control-input-content {
+    display: flex;
+    column-gap: 0.5rem;
 }
 
