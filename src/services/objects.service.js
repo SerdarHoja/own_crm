@@ -106,6 +106,12 @@ class ObjectsService {
     });
   }
 
+  addComment(data) {
+    return axios.post(API_URL + "/objectcomments/add/", data, {
+      headers: authHeader(),
+    });
+  }
+  
   updateCheckboxValue(id, isChecked) {
     const data = {
       id: id,
