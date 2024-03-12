@@ -99,6 +99,14 @@ const filtersCategory = computed(() => {
   return getAllKeys(filterStore.filters);
 });
 
+const categoryFilters = computed(() => {
+  const result = {};
+  for (const category of filtersCategory.value) {
+    result[category] = filters.value[category].filter(row => row.type === 'text' || row.type === 'number' || (row.type === 'select' && row.mode === 'ajax'));
+  }
+  return result;
+});
+
 // const onChangeInput = (e) => {
 //   console.log("formData", formData.value);
 // }
