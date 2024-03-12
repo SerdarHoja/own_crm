@@ -63,7 +63,7 @@
                             :rules="[{ required: row.required }]"
                             class="w-objectEditElem"
                         >
-                            <a-checkbox
+                            <!-- <a-checkbox
                                 v-model:value="formData.fields[row.code]"
                                 v-model:checked="row.checked"
                                 :ref="row.code"
@@ -71,7 +71,11 @@
                                 class="w-full"
                                 style="width: 100%"
                                 @change="onChangeCheckBox(row.value, row.code, $event)"
-                            />
+                            /> -->
+                            <a-radio-group v-model:value="row.checked" @change="onChangeCheckBox(row.value, row.code, $event)">
+                                <a-radio-button :value="true">Да</a-radio-button>
+                                <a-radio-button :value="false">Нет</a-radio-button>
+                            </a-radio-group>
                         </a-form-item>
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'static'"
@@ -115,7 +119,7 @@
                             </a-select>
                         </a-form-item>
                         <a-form-item
-                            v-if="row.type == 'radio' && row?.options?.length > 0"
+                            v-if="row.type == 'radio' && row.options && row.options.length > 0"
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required, message: 'Required' }]"
@@ -190,7 +194,6 @@
     }
 
     const onChangeRadio = (value, code, e) => {
-        console.log('onChangeCheckBox', value, code, e)
         if (e.target.checked && value) {
             formData.fields[code] = value;
         } else if (e.target.checked && !value) {
@@ -268,7 +271,6 @@
         console.log('stageChange', row) 
         formData.stages[row.code] = row.value;
     }
-
 
 </script>
 <style>
