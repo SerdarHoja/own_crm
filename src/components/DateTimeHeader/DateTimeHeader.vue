@@ -1,21 +1,27 @@
 <template>
-  <div class="flex">
-    <!-- <IconClock/> -->
+  <div class="header__clock">
+    <IconClock/>
+    <p>{{ currentDay }},</p>
     <p>{{ currentTime }}</p>
   </div>
 </template>
+
 <script>
+import IconClock from "@/components/icons/IconClock.vue";
 import { ref, onMounted } from 'vue';
 
-// import IconClock from "@/components/icons/IconClock.vue";
-
 export default {
+  components: {IconClock},
   setup() {
     const currentDay = ref('');
     const currentTime = ref('');
 
     const updateTimeAndDay = () => {
       const now = new Date();
+
+      const daysOfWeek = ['Воск', 'Пон', 'Вт', 'Ср', 'Чт', 'Пят', 'Суб'];
+      const dayOfWeekIndex = now.getDay();
+      currentDay.value = daysOfWeek[dayOfWeekIndex];
 
       const hours = now.getHours();
       const minutes = now.getMinutes();
