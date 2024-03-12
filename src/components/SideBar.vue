@@ -5,7 +5,7 @@
         <a-tab-pane key="1" tab="Загородная" class="h-[4rem] text-inherit mb-m-base font-[1.4rem]">
           <ul class="sidebar__list sidebar__list--village show">
             <li class="sidebar__list-item">
-              <router-link to="/deals/" class="sidebar__list-link gap-3 ">
+              <router-link to="/deals/" class="sidebar__list-link gap-3">
                 <IconDeals class="w-10 h-10"/>
                 Сделки
               </router-link>
@@ -180,5 +180,9 @@ const onTabsChange = (key) => {
 }
 .css-dev-only-do-not-override-kqecok.ant-tabs-top >.ant-tabs-nav, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-bottom >.ant-tabs-nav, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-top >div>.ant-tabs-nav, :where(.css-dev-only-do-not-override-kqecok).ant-tabs-bottom >div>.ant-tabs-nav {
   margin: 0;
+}
+
+.router-link-exact-active {
+  color: #4064bf;
 }
 </style>

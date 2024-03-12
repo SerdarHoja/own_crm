@@ -83,10 +83,11 @@
         @back="() => $router.go(-1)"
     >
         <template #extra>
-            <!-- <a-button @click="toggleModal" key="1" type="primary">
-                Добавить собственника
-            </a-button> -->
+            <a-button @click="toggleModal" key="1" type="primary">
+                Добавить поселок
+            </a-button>
         </template>
+        
     </a-page-header>
     <FiltersObject :section="'settlements'"/>
     <div class="country-data">
