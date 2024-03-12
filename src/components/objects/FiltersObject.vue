@@ -8,46 +8,31 @@
   >
     <div class="form__wrap">
       <div v-for="(category, index) in filtersCategory" :key="index" class="form__block">
-        <div v-for="row in filters[category]" :key="row.id">
+        <div v-for="row in categoryFilters[category]" :key="row.id">
           <a-form-item
-              v-if="row.type === 'text' || row.type === 'number'"
-              :label="row.title"
-              :name="row.code"
-              class="form__elem"
+            :label="row.title"
+            :name="row.code"
+            class="form__elem"
           >
-            <a-input
-                v-model:value="formData.filter[row.code]"
-                :ref="row.code"
-                :type="row.html"
-                class="form__input"
-            />
-          </a-form-item>
-          <a-form-item
-              v-if="row.type == 'select' && row.mode == 'ajax'"
-              :label="row.title"
-              :name="row.code"
-              class="form__elem"
-          >
-            <a-select
+            <!-- Рендерим инпуты или выпадающие списки только для фильтров, относящихся к текущей категории и удовлетворяющих условиям, пришлось в template все оборачивать -->
+            <template v-if="row.type === 'text' || row.type === 'number'">
+              <a-input v-model:value="formData.filter[row.code]" :ref="row.code" :type="row.html" class="form__input" />
+            </template>
+            <template v-else-if="row.type === 'select' && row.mode === 'ajax'">
+              <a-select
                 v-model:value="formData.filter[row.code]"
                 show-search
                 :filter-option="filterOption"
                 @focus="onFocusSelect(row.code, row.id)"
                 class="!w-[30rem]"
-            >
-              <a-select-option
-                  v-for="option in optionsData"
-                  :key="option.id"
-                  :value="option.value"
-              >{{ option.value }}
-              </a-select-option>
-            </a-select>
+              >
+                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+              </a-select>
+            </template>
           </a-form-item>
         </div>
       </div>
     </div>
-
-
 
     <a-form-item>
       <a-button type="primary" html-type="submit"> Поиск </a-button>
@@ -97,6 +82,14 @@ const filters = computed(() => {
 
 const filtersCategory = computed(() => {
   return getAllKeys(filterStore.filters);
+});
+
+const categoryFilters = computed(() => {
+  const result = {};
+  for (const category of filtersCategory.value) {
+    result[category] = filters.value[category].filter(row => row.type === 'text' || row.type === 'number' || (row.type === 'select' && row.mode === 'ajax'));
+  }
+  return result;
 });
 
 // const onChangeInput = (e) => {
