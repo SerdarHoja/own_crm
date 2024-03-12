@@ -1,24 +1,24 @@
 <template>
-    <div class="">
+    <div class="text-[1.4rem]">
         <div v-if="loading" class="flex justify-center items-center">
             <a-spin />
         </div>
         <div v-else>
-            <div>ФИО: {{ `${ownerData?.name}  ${ownerData?.second_name}` }}</div>
-            <div>Телефон: {{ ownerData?.phone }}</div>
-            <div>Почта: {{ ownerData?.email }}</div>
-            <div>Описание: {{ ownerData?.about }}</div>
-            <div>ID: {{ ownerID }}</div>
-            <div>Роль: {{ ownerData?.role }}</div>
-            <div>
-                <a-button 
+            <div class="mb-m-base/4">ФИО:  <span class="text-[2rem] font-bold">{{ `${ownerData?.name} ${ownerData?.second_name}` }}</span> </div>
+            <div class="mb-m-base/4">Телефон: {{ ownerData?.phone }}</div>
+            <div class="mb-m-base/4">Почта: {{ ownerData?.email }}</div>
+            <div class="mb-m-base/4">Описание: {{ ownerData?.about }}</div>
+            <div class="mb-m-base/4">ID: {{ ownerID }}</div>
+            <div class="mb-m-base/4">Роль: {{ ownerData?.role }}</div>
+            <div class="mb-m-base/4">
+                <a-button
                     type="primary"
                     @click="deleteOwner"
                 >
                 Отвязать собственка
                 </a-button>
             </div>
-            <div>Cписок всех собственников:</div>
+            <div class="mb-m-base/4">Cписок всех собственников:</div>
             <a-select
                 show-search
                 class="!w-[30rem]"
@@ -96,17 +96,17 @@ const addEdbindingObject = async (value) => {
 
         if(response.data.result === 'error') {
             message.error(response.data.data);
-        } 
-        
+        }
+
         if(response.data.result === "success") {
             fetchObjectFields(value);
             ownerID.value = value;
             message.success(response.data.data);
-        }      
+        }
     } catch (error) {
         console.error('Error fetching data in component:', error);
     }
-} 
+}
 
 const deleteOwner = async () => {
     try {
@@ -118,13 +118,13 @@ const deleteOwner = async () => {
 
         if(response.data.result === 'error') {
             message.error(response.data.data);
-        } 
-        
+        }
+
         if(response.data.result === "success") {
             message.success(response.data.data);
             ownerData.value = [];
             ownerID.value = '';
-        } 
+        }
     } catch (error) {
         console.error('Error fetching data in component:', error);
     }
@@ -134,5 +134,7 @@ const deleteOwner = async () => {
 </script>
 
 <style>
-
+div{
+  color:#253858;
+}
 </style>

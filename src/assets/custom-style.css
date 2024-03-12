@@ -7,6 +7,7 @@
     flex: 1 1 0%;
     height: 100%;
     position: relative;
+    overflow: auto;
 }
 .title__block{
     display: flex;
@@ -53,7 +54,7 @@
     flex-direction: column!important;
 }
 .form__input{
-    width: 30rem!important;
+    width: 28rem!important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -69,7 +70,7 @@ input#form_item_highway {
     font-size: 1.4rem!important;
 }
 input#form_item_id {
-    height: 3.2rem!important;
+    height: 4rem!important;
 }
 p{
     margin-bottom: 0!important;
@@ -85,9 +86,56 @@ span.anticon.anticon-delete {
 }
 
 
+.ant-card-body{
+    font-family: sans-serif, "Inter", "Helvetica"!important;
+    color: #253858;
+}
+#rc-tabs-2-panel-1 .ant-card-body{
+    padding: 0!important;
+    border-top: none!important;
+    border-right: none!important;
+    border-bottom: none!important;
+    border-left: none!important;
+}
+#rc-tabs-2-panel-1 .ant-card{
+    border: 0!important;
+}
+.ant-input{
+    height: 4rem!important;
+    width: 28rem!important;
+}
+.ant-select{
+    height: 4rem!important;
+    width: 28rem!important;
+}
+.ant-form-item-control-input-content{
+    height: 4rem!important;
+}
+.ant-select-selector{
+    height: 100% !important;
+}
+.ant-select-selection-search-input{
+    height: 4rem!important;
+}
+.ant-form-item.css-kqecok{
+    width: 28rem!important;
+}
+.ant-input{
+    width: 28rem!important;
+}
 
 
-
+.ant-modal-body:where(.css-dev-only-do-not-override-kqecok).ant-row {
+    align-items: center;
+}
+.ant-modal-body .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok {
+    align-items: center;
+}
+.header__clock{
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
 .ant-row.ant-form-row.css-kqecok {
     flex-direction: column!important;
     align-items: flex-start!important;
@@ -122,10 +170,6 @@ span.anticon.anticon-delete {
     flex-direction: column!important;
     align-items: flex-start!important;
 }
-:where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
-    height: 3.2rem!important;
-    width: 30rem!important;
-}
 :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-item, :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
     line-height: 3rem;
 }
@@ -140,7 +184,7 @@ span.anticon.anticon-delete {
 }
 :where(.css-kqecok).ant-btn {
     font-size: 1.4rem!important;
-    height: 3.2rem!important;
+    height: 4rem!important;
     padding: .4rem 1.5rem!important;
     border-radius: .4rem!important;
 }
@@ -154,28 +198,37 @@ span.anticon.anticon-delete {
     padding: 2.4rem;
     border-radius: 0 0 .8rem .8rem;
 }
-:where(.css-kqecok).ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
-    height: 3rem!important;
-}
-:where(.css-kqecok).ant-form-item .ant-form-item-control-input {
-    min-height: 3.2rem!important;
-}
 :where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
     font-size: 1.4rem;
 }
 :where(.css-kqecok).ant-input-number .ant-input-number-input {
-    height: 3rem!important;
+    height: 4rem!important;
     padding: 0 1.1rem!important;
     border-radius: .4rem!important;
 }
 :where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
     font-size: 1.4rem!important;
 }
-:where(.css-kqecok).ant-form-item .ant-form-item-control-input {
-    min-height: 3.2rem;
-}
 :where(.css-kqecok).ant-form-item .ant-form-item-control-input-content {
     display: flex;
     column-gap: 0.5rem;
 }
+:where(.css-dev-only-do-not-override-kqecok).ant-input {
+    padding: .4rem 1.1rem;
+    font-size: 1.4rem;
+    border: .1rem solid #d9d9d9;
+    border-radius: .4rem;
+}
+:where(.css-dev-only-do-not-override-kqecok).ant-form-item .ant-form-item-control-input {
+    min-height: 4rem!important;
+}
+:where(.css-dev-only-do-not-override-kqecok).ant-form-item .ant-form-item-control-input {
+    min-height: 4rem!important;
+}
 
+.objects-detail__info-subtitle{
+    font-size: 1.4rem;
+    color: #253858;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+}
