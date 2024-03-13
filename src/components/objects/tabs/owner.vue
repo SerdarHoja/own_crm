@@ -4,33 +4,57 @@
             <a-spin />
         </div>
         <div v-else>
-            <div class="mb-m-base/4">ФИО:  <span class="text-[2rem] font-bold">{{ `${ownerData?.name} ${ownerData?.second_name}` }}</span> </div>
-            <div class="mb-m-base/4">Телефон: {{ ownerData?.phone }}</div>
-            <div class="mb-m-base/4">Почта: {{ ownerData?.email }}</div>
-            <div class="mb-m-base/4">Описание: {{ ownerData?.about }}</div>
-            <div class="mb-m-base/4">ID: {{ ownerID }}</div>
-            <div class="mb-m-base/4">Роль: {{ ownerData?.role }}</div>
-            <div class="mb-m-base/4">
-                <a-button
-                    type="primary"
-                    @click="deleteOwner"
+            <div>
+                <a-form-item
+                    :label="'Cписок всех собственников:'"
+                    class="mb-3"
                 >
-                Отвязать собственка
-                </a-button>
+                    <a-select
+                        show-search
+                        class="!w-[30rem]"
+                        @focus="ownersList"
+                        @change="handleSelect"
+                    >
+                        <a-select-option
+                            v-for="owner in owners"
+                            :key="owner.id"
+                            :value="owner.id"
+                        >{{ owner.fio }}
+                        </a-select-option>
+                    </a-select>
+                </a-form-item>
             </div>
-            <div class="mb-m-base/4">Cписок всех собственников:</div>
-            <a-select
-                show-search
-                class="!w-[30rem]"
-                @change="handleSelect"
-            >
-                <a-select-option
-                    v-for="owner in owners"
-                    :key="owner.id"
-                    :value="owner.id"
-                >{{ owner.fio }}
-                </a-select-option>
-            </a-select>
+
+            <div v-for="owner in ownerData" :key="owner.id" class="flex items-center justify-between">
+                <div >
+                    <div class="mb-m-base/4">ФИО:  <span class="text-[2rem] font-bold">{{ owner?.fio }}</span> </div>
+                    <div class="mb-m-base/4">Телефон: {{ owner?.phone }}</div>
+                    <div class="mb-m-base/4">Почта: {{ owner?.email }}</div>
+                    <div class="mb-m-base/4">Описание: {{ owner?.about }}</div>
+                    <div class="mb-m-base/4">ID: {{ owner?.id }}</div>
+                    <div class="mb-m-base/4">
+                        <a-button
+                            type="primary"
+                            @click="deleteOwner(owner?.id)"
+                        >
+                        Отвязать собственка
+                        </a-button>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold">Объекты:</div>
+                    <ul>
+                        <li v-for="object in owner.data?.data" :key="object.id" class="mb-4">
+                            <div>id: {{ object.id }}</div>
+                            <div>Cтатус</div>
+                            <div>Категория</div>
+                            <div>Стоимость  {{ object.price.number }}</div>
+                            <div>Тип объекта</div>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -40,41 +64,55 @@
 import { ref, onMounted, computed, defineProps } from 'vue';
 import { useRoute } from 'vue-router';
 import { useOwnerStore } from '@/stores/owners.module.js';
-import ownerService from '@/services/owners.service.js';
+import { useObjectsStore } from '@/stores/objects.module.js';
+
+
 import { message } from 'ant-design-vue';
 
 
-const myStore = useOwnerStore();
+const myStoreOwner = useOwnerStore();
+const myStoreObjects = useObjectsStore();
 const loading = ref(true);
-const ownerData = ref();
 const owners = ref(null);
-const ownerID = ref(props.ownerID);
 
 const props = defineProps({
-    ownerID: String,
     id: String,
 })
 
 onMounted(() => {
-    fetchObjectFields(props.ownerID);
-    fetchOwners();
+    fetchObjectFields()
 })
 
-const fetchObjectFields = async (id) => {
+const ownerData = computed(() => {
+    return myStoreObjects.countryCurrentObject.owners;
+})
+
+const fetchObjectFields = async () => {
     try {
-        await myStore.getOwnerData(id)
-        ownerData.value = myStore.owner
+        await myStoreObjects.getObjectByID('country', props.id)
+        ownerData.value = myStoreObjects.countryCurrentObject.owners
+        addObjectOnOwner(ownerData.value)
         loading.value = false;
     } catch (error) {
         console.error('Error fetching data in component:', error);
     }
 };
 
-const fetchOwners = async () => {
+const addObjectOnOwner = async (data) => {
+    data.forEach(async item => {
+        try {
+            item.data = await myStoreObjects.getListByOwner(item.id)
+        } catch (error) {
+            console.error('Error fetching data in component:', error);
+        }
+    });
+    myStoreObjects.listByOwner = data?.data
+};
+
+const ownersList = async () => {
     try {
-        await myStore.getOwnersList('');
-        owners.value = myStore.owners;
-        console.log('res', owners)
+        await myStoreOwner.getOwnersList('');
+        owners.value = myStoreOwner.owners;
     } catch (error) {
         console.error('Error fetching data in component:', error);
     }
@@ -82,48 +120,44 @@ const fetchOwners = async () => {
 
 
 const handleSelect = async (value) => {
-    console.log("Выбранный элемент:", value);
     addEdbindingObject(value)
 }
 
 const addEdbindingObject = async (value) => {
     try {
-        const response = await ownerService.addEdbindingObject({
+        const response = await myStoreOwner.addEdbindingObject({
             id_owner: value,
             id_object:props.id,
             section:"country"
         })
-
-        if(response.data.result === 'error') {
-            message.error(response.data.data);
+        if(response.result === 'error') {
+            message.error(response.data);
         }
 
-        if(response.data.result === "success") {
-            fetchObjectFields(value);
-            ownerID.value = value;
-            message.success(response.data.data);
+        if(response.result === "success") {
+            fetchObjectFields();
+            message.success(response.data);
         }
     } catch (error) {
         console.error('Error fetching data in component:', error);
     }
 }
 
-const deleteOwner = async () => {
+const deleteOwner = async (id) => {
     try {
-        const response = await ownerService.deleteBindingObject({
-            id_owner: ownerID.value,
+        const response = await myStoreOwner.deleteBindingObject({
+            id_owner: id,
             id_object:props.id,
             section:"country"
         })
-
-        if(response.data.result === 'error') {
-            message.error(response.data.data);
+        
+        if(response.result === 'error') {
+            message.error(response.data);
         }
 
-        if(response.data.result === "success") {
-            message.success(response.data.data);
-            ownerData.value = [];
-            ownerID.value = '';
+        if(response.result === "success") {
+            fetchObjectFields();
+            message.success(response.data);
         }
     } catch (error) {
         console.error('Error fetching data in component:', error);

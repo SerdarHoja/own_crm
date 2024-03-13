@@ -106,6 +106,12 @@ class ObjectsService {
     });
   }
 
+  addComment(data) {
+    return axios.post(API_URL + "/objectcomments/add/", data, {
+      headers: authHeader(),
+    });
+  }
+  
   updateCheckboxValue(id, isChecked) {
     const data = {
       id: id,
@@ -161,6 +167,10 @@ class ObjectsService {
 
   uploadNewPhoto(data) {
     return axios.post(API_URL + `/objectsphoto/add/`, data, { headers: authHeader() });
+  }
+  
+  listByOwner(id) {
+    return axios.get(API_URL + `/objects/listbyowner/?owner=${id}`, { headers: authHeader() });
   }
 }
 

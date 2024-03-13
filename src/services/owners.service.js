@@ -32,6 +32,7 @@ class OwnerService {
   deleteBindingObject(data) {
     return axios.post(API_URL + '/owners/deletebindingobject/', data, { headers: authHeader() });
   }
+
 }
 
 export default new OwnerService();

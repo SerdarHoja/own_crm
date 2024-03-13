@@ -18,6 +18,7 @@ export const useObjectsStore = defineStore('objects', {
     newObjectFields: [],
     allNewFields: [],
     photos: [],
+    listByOwner: [],
   }),
   actions: {
     async getObjects(section) {
@@ -84,6 +85,22 @@ export const useObjectsStore = defineStore('objects', {
             console.error('Error fetching data:', response.statusText);
             message.error(response.data.data);
         }
+        return response;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
+
+    async addComment(data) {
+      try {
+        const response = await ObjectsService.addComment(data);
+        if (response.data.code === 200) {
+            message.success(response.data.data);
+        } else {
+            console.error('Error fetching data:', response.statusText);
+            message.error(response.data.data);
+        }
+        return response;
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -202,7 +219,17 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
+    },
+
+    async getListByOwner(id) {
+      try {
+        const response = await ObjectsService.listByOwner(id);
+        this.listByOwner = response.data;
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
 
     
   },

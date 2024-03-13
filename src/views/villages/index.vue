@@ -82,12 +82,6 @@
         style="border: 1px solid rgb(235, 237, 240)"
         @back="() => $router.go(-1)"
     >
-        <template #extra>
-            <a-button @click="toggleModal" key="1" type="primary">
-                Добавить поселок
-            </a-button>
-        </template>
-        
     </a-page-header>
     <FiltersObject :section="'settlements'"/>
     <div class="country-data">
@@ -134,6 +128,7 @@
     })
 
     const countryObjects = computed(() => {
+        console.log('21321321',myStore.countryObjects);
         return myStore.countryObjects;
     })
 

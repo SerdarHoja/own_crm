@@ -21,7 +21,7 @@
             <!-- <a-tab-pane key="5" tab="Лиды">
             </a-tab-pane> -->
             <a-tab-pane key="6" tab="Собственник">
-                <owner :ownerID="OwnersID" :id="id" ></owner>
+                <owner :id="id" ></owner>
             </a-tab-pane>
         </a-tabs>
     </div>
@@ -35,25 +35,17 @@
     import photos from "@/components/objects/tabs/photos.vue";
     import owner from "@/components/objects/tabs/owner.vue";
     import { useRoute, useRouter } from 'vue-router';
-    import { useObjectsStore } from '@/stores/objects.module.js';
 
-    const myStore = useObjectsStore();
     const activeKey = ref('1');
     const route = useRoute();
 
     const id = route.params.id;
-    const OwnersID = ref();
 
     console.log("comp", id)
     
     onMounted(() => {
-        fetchObjectFields();
     })
 
-    const fetchObjectFields = async () => {
-        await myStore.getObjectByID('country', id)
-        OwnersID.value = myStore.countryCurrentObject.owners[0].id
-    };
 
 </script>
 
