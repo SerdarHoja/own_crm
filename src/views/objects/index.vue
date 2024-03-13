@@ -95,6 +95,27 @@
         :active="activeKey"
         class="gap-y-8 flex"
     />
+
+    <div class="flex gap-x-[3rem] items-center">
+      <div>
+        Найдено: <span>622</span>
+      </div>
+      <div class="flex gap-x-[1rem] items-center">
+        <IconCell class="cursor-pointer"/>
+        <IconLine class="cursor-pointer"/>
+      </div>
+      <a-space class="mr-12">
+        <a-button size="middle" class="flex items-center gap-1">
+          Сбросить всё
+          <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M18 11.5C18 15.366 14.866 18.5 11 18.5C7.13401 18.5 4 15.366 4 11.5C4 7.63401 7.13401 4.5 11 4.5C14.866 4.5 18 7.63401 18 11.5ZM11 12.2071L8.35355 14.8536L7.64645 14.1464L10.2929 11.5L7.64645 8.85355L8.35355 8.14645L11 10.7929L13.6464 8.14645L14.3536 8.85355L11.7071 11.5L14.3536 14.1464L13.6464 14.8536L11 12.2071Z" fill="#4064BF"/>
+          </svg>
+        </a-button>
+      </a-space>
+
+
+    </div>
+
     <div class="country-data">
         <div class="mt-5 p-12">
             <div class="flex gap-5">
@@ -116,7 +137,6 @@
                 </div>
                 <div class="w-1/6">
                     <h4 class="text-[#A5A7A7]">Выгрузка</h4>
-
                 </div>
             </div>
         </div>
@@ -159,6 +179,8 @@
     import { message } from 'ant-design-vue';
     import ObjectItem from '@/components/objects/ObjectItem.vue';
     import FiltersObject from '@/components/objects/FiltersObject.vue';
+    import IconCell from "@/components/icons/IconCell.vue";
+    import IconLine from "@/components/icons/IconLine.vue";
     import { useRouter } from 'vue-router';
 
     const myStore = useObjectsStore();

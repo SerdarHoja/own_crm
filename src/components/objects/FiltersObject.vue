@@ -33,14 +33,18 @@
         </div>
       </div>
     </div>
-
+  </a-form>
+  <div class="form__btns">
     <a-form-item>
       <a-button type="primary" html-type="submit"> Поиск </a-button>
     </a-form-item>
     <a-form-item>
       <a-button type="primary" danger @click="clearFilter"> Очистить </a-button>
     </a-form-item>
-  </a-form>
+    <a-form-item>
+      <a-button type="primary" danger @click="clearFilter"> Открыть фильтр </a-button>
+    </a-form-item>
+  </div>
 </template>
 <script setup>
 import { onMounted, computed, defineProps, ref } from "vue";
