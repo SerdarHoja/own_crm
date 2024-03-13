@@ -3,12 +3,12 @@
     <div class="flex gap-x-[3rem] mb-m-base">
       <div class="text-main-title font-bold">Посёлки</div>
       <div>
-        <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
+        <!-- <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
           <a-tab-pane key="1" tab="Мои" class="h-[4rem] text-inherit">
           </a-tab-pane>
           <a-tab-pane key="2" tab="Все" class="h-[4rem]">
           </a-tab-pane>
-        </a-tabs>
+        </a-tabs> -->
       </div>
     </div>
     <!-- <div class="flex flex-col mb-m-base">
@@ -82,11 +82,6 @@
         style="border: 1px solid rgb(235, 237, 240)"
         @back="() => $router.go(-1)"
     >
-        <template #extra>
-            <!-- <a-button @click="toggleModal" key="1" type="primary">
-                Добавить собственника
-            </a-button> -->
-        </template>
     </a-page-header>
     <FiltersObject :section="'settlements'"/>
     <div class="country-data">
@@ -110,19 +105,22 @@
         <div v-for="obj in countryObjects" :key="obj.id">
             <ObjectItem :object="obj" />
         </div>
+        <div v-if="countryObjects.length === 0">
+            Список пуст
+        </div>
     </div>
     </div>
 </template>
 <script setup>
     import { ref, onMounted, computed } from 'vue'
-    import { useObjectsStore } from '@/stores/settlements.module.js';
+    import { useSettlementsStore } from '@/stores/settlements.module.js';
     import { message } from 'ant-design-vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
     import ObjectItem from '@/components/objects/VillageItem.vue';
     import FiltersObject from '@/components/objects/FiltersObject.vue';
 
 
-    const myStore = useObjectsStore();
+    const myStore = useSettlementsStore();
     const loading = ref(false);
 
     onMounted(() => {
@@ -130,6 +128,7 @@
     })
 
     const countryObjects = computed(() => {
+        console.log('21321321',myStore.countryObjects);
         return myStore.countryObjects;
     })
 

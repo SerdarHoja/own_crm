@@ -22,6 +22,7 @@ export const useOwnerStore = defineStore('owner', {
     async getOwnerData(param) {
       try {
         const response = await OwnerService.getOwnerData(param);
+        console.log(response.data.data);
         this.owner = response.data.data;
         return response;
       } catch (error) {
@@ -66,6 +67,25 @@ export const useOwnerStore = defineStore('owner', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
+    },
+    
+    async addEdbindingObject(data) {
+      try {
+        const response = await OwnerService.addEdbindingObject(data);
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    
+    async deleteBindingObject(data) {
+      try {
+        const response = await OwnerService.deleteBindingObject(data);
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
   },
 });

@@ -22,6 +22,11 @@
     <a-space class="mr-12">
       <!-- <a-button size="middle" type="primary">+ Новая сделка</a-button> -->
     </a-space>
+    <a-space class="mr-12">
+      <a-button key="1" type="primary" v-if="showAddVillagesButton">
+          Добавить поселок
+      </a-button>
+    </a-space>
     <DateTimeHeader class="mr-12"/>
     <div class="mr-12 flex items-center"><IconDollar/> <span class="usd">{{ currencyDataUSD }}</span></div>
     <div class="mr-12 flex items-center"><IconEuro/> <span class="eur">{{ currencyDataEURO }}</span></div>
@@ -30,7 +35,7 @@
   </header>
 </template>
 <script setup>
-import {onMounted, ref, computed} from 'vue';
+import {onMounted, ref, computed, watch} from 'vue';
 import {BellIcon} from '@heroicons/vue/24/solid'
 import {useHeaderDataStore} from '../stores/headerData.module.js';
 import {useAuthStore} from '../stores/auth.module.js';
@@ -41,6 +46,7 @@ import NotificationHeader from "@/components/NotificationHeader/NotificationHead
 import UserHeader from "@/components/UserHeader/UserHeader.vue";
 import IconDollar from "@/components/icons/IconDollar.vue";
 import IconEuro from "@/components/icons/IconEuro.vue";
+import {useSettlementsStore} from '../stores/settlements.module.js';
 
 const currencyDataEURO = ref(null);
 const currencyDataUSD = ref(null);
@@ -48,8 +54,11 @@ const store = useHeaderDataStore();
 const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
+const settlementsStore = useSettlementsStore();
 import {message} from 'ant-design-vue';
 const searchText = ref('');
+const showAddVillagesButton = ref(false);
+// import {  watch } from 'vue';
 
 const onSearch = () => {
   console.log('searchText', searchText.value);
@@ -63,6 +72,16 @@ onMounted(() => {
   fetchMe();
   fetchCurrencyData()
 })
+
+watch(
+  () => router.currentRoute.value.path, (newParams) => {
+        if(newParams === '/villages/') {
+          showAddVillagesButton.value = true;
+        } else {
+            showAddVillagesButton.value = false;
+          }
+      }
+    );
 
 const fetchMe = async () => {
   try {

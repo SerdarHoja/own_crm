@@ -3,13 +3,14 @@ import ObjectsService from '../services/objects.service';
 import { message } from 'ant-design-vue';
 import UserService from "@/services/user.service";
 
-export const useObjectsStore = defineStore('settlements', {
+export const useSettlementsStore = defineStore('settlements', {
   state: () => ({
     countryObjects: [],
     objectBrief: [],
     objectFields: [],
     commentsList: [],
     optionData: [],
+    photos: [],
   }),
   actions: {
     async getObjects(section) {
@@ -43,8 +44,10 @@ export const useObjectsStore = defineStore('settlements', {
     },
 
     async updateObject(data) {
+      console.log(data)
       try {
-        const response = await ObjectsService.updateObject(data);
+        const response = await ObjectsService.updateObjectTEST(data);
+        console.log(response);
         return response
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -93,7 +96,24 @@ export const useObjectsStore = defineStore('settlements', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
-
+    },
+    async getObjectList(section, param) {
+      try {
+        const response = await ObjectsService.getObjectsFilter(section, param);
+        this.countryObjects = response.data.data;
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async getObjectPhotos(id) {
+      try {
+        const response = await ObjectsService.getObjectPhotos(id);
+        this.photos = response.data.data
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
   },
 });

@@ -103,6 +103,7 @@ const filters = computed(() => {
 // }
 
 const onFocusSelect = async (code, id, entity) => {
+    console.log(code, id, entity)
     await myStore.getOptionsData(code, id, entity)
     optionsData.value = myStore.optionData;
 }

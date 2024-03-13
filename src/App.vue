@@ -1,6 +1,6 @@
-<template>
-  <AppLayout>
-      <router-view/>
+<template class="font-inter">
+  <AppLayout class="font-inter">
+      <router-view class="font-inter"/>
   </AppLayout>
 </template>
 
@@ -11,6 +11,10 @@ import {lifecycleLoggerMixin} from "@/mixins/lifecycleLoggerMixin.js";
 export default {
   name: 'App',
   components: {AppLayout},
-  mixins: [lifecycleLoggerMixin]
+  mixins: [lifecycleLoggerMixin],
+  mounted() {
+    document.body.style.fontFamily = "Inter, sans-serif";
+  }
 }
+
 </script>

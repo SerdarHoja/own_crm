@@ -29,7 +29,7 @@
     <a-table
         @change="onTableChange($event)"
         :columns="columns"
-        :data-source="clients.data"
+        :data-source="checkClientsData(clients.data)"
         :pagination="{
                 pageSize: 10,
                 total: clients.total,
@@ -340,6 +340,10 @@ const cancel = (e) => {
   console.log(e);
 };
 
+
+const checkClientsData = (data) => {
+  return !Array.isArray(data) ? [] : data;
+}
 
 </script>
 <style scoped>

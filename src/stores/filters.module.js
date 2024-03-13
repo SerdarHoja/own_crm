@@ -18,7 +18,6 @@ export const useFiltersStore = defineStore('filters', {
     async getObjectFiltersList(section) {
       try {
         const response = await FiltersService.getObjectFilters(section);
-        
         this.filters = response.data.data;
         return response;
       } catch (error) {

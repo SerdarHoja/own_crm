@@ -1,18 +1,22 @@
 <template>
-    <div class="p-8" id="app" v-cloak>
-        <div>
-            <a-spin :spinning="loading">
-              <div class="single__main-slider --info show-flex">
-                  <div class="flex flex-wrap gap-[1.6rem]" >
-                      <router-link :to="'/places/' + place.code" class="w-[27rem] p-[4rem] flex flex-col items-center justify-center gap-y-4 border-solid border-2 border-placesBorder rounded-[.8rem]"
-                      v-for="(place,code) in places" :key="code">
-                        <img src="../../assets/img/places-elem-doc.svg" alt="icon">
-                        {{ place.title }}</router-link>
-                  </div>
-              </div>
-            </a-spin>
-        </div>
+  <div class="main" style="width: calc(100vh - 24rem);">
+    <div class="title__block">
+      <div class="title">Справочники</div>
     </div>
+    <div id="app" v-cloak>
+      <div>
+        <a-spin :spinning="loading">
+          <div class="places__list" >
+            <router-link :to="'/places/' + place.code" class="places__item"
+                         v-for="(place,code) in places" :key="code">
+              <img src="../../assets/img/places-elem-doc.svg" alt="icon" class="w-[2.8rem] h-[2.8rem]">
+              <div class="font-bold font-[1.4rem]">{{ place.title }}</div>
+            </router-link>
+          </div>
+        </a-spin>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup>
 import { onMounted, computed, ref } from 'vue';
@@ -49,8 +53,5 @@ const fetchData = async () => {
 }
 
 </script>
-<style scoped>
-  .single__main {
-    height: calc(100vh - 70px);
-  }
+<style>
 </style>

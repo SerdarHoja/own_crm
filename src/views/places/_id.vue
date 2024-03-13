@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full mx-5">
+  <div class="main">
     <main id="app" v-cloak>
-      <div class="filter">
+      <div class="title__block">
         <div class="filter__task --w-refresh hidden-desktop">
           <div class="filter__task-t">
             <p class="filter__text">Фильтр</p>
