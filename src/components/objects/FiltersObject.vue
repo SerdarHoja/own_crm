@@ -3,6 +3,7 @@
     layout="inline"
     :model="formData"
     class="form"
+    v-if="showFilter"
     @finish="handleFinish"
     @finishFailed="handleFinishFailed"
   >
@@ -42,7 +43,7 @@
       <a-button type="primary" danger @click="clearFilter"> Очистить </a-button>
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" danger @click="clearFilter"> Открыть фильтр </a-button>
+      <a-button type="primary" danger @click="showFilter = !showFilter"> Открыть фильтр </a-button>
     </a-form-item>
   </div>
 </template>
@@ -57,6 +58,7 @@ const filterStore = useFiltersStore();
 const objectStore = useObjectsStore();
 const settlementsStore = useSettlementsStore();
 const optionsData = ref([]);
+const showFilter = ref(true);
 
 const props = defineProps({
   section: String,
