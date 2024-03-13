@@ -123,6 +123,9 @@ span.anticon.anticon-delete {
 .ant-input{
     width: 28rem!important;
 }
+.loyout .ant-input{
+    height: 100%;
+}
 
 
 .ant-modal-body:where(.css-dev-only-do-not-override-kqecok).ant-row {
