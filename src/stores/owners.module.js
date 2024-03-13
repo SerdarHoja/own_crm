@@ -67,6 +67,25 @@ export const useOwnerStore = defineStore('owner', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
+    },
+    
+    async addEdbindingObject(data) {
+      try {
+        const response = await OwnerService.addEdbindingObject(data);
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    
+    async deleteBindingObject(data) {
+      try {
+        const response = await OwnerService.deleteBindingObject(data);
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+
   },
 });

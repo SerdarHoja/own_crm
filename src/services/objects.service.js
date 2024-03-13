@@ -168,6 +168,10 @@ class ObjectsService {
   uploadNewPhoto(data) {
     return axios.post(API_URL + `/objectsphoto/add/`, data, { headers: authHeader() });
   }
+  
+  listByOwner(id) {
+    return axios.get(API_URL + `/objects/listbyowner/?owner=${id}`, { headers: authHeader() });
+  }
 }
 
 export default new ObjectsService();

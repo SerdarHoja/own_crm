@@ -18,6 +18,7 @@ export const useObjectsStore = defineStore('objects', {
     newObjectFields: [],
     allNewFields: [],
     photos: [],
+    listByOwner: [],
   }),
   actions: {
     async getObjects(section) {
@@ -218,7 +219,17 @@ export const useObjectsStore = defineStore('objects', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
+    },
+
+    async getListByOwner(id) {
+      try {
+        const response = await ObjectsService.listByOwner(id);
+        this.listByOwner = response.data;
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
 
     
   },
