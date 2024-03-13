@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <a-card v-if="card.title === 'Карта'">
-                    <MapComponent></MapComponent>
+                    <!-- <MapComponent></MapComponent> -->
                 </a-card>
             </a-card>
         </div>
