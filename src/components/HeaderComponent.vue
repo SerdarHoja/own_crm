@@ -23,8 +23,8 @@
       <!-- <a-button size="middle" type="primary">+ Новая сделка</a-button> -->
     </a-space>
     <a-space class="mr-12">
-      <a-button key="1" type="primary" v-if="showAddVillagesButton">
-          Добавить поселок
+      <a-button key="1" type="primary" v-if="showAddVillagesButton" @click="goAddNewVillages">
+          Добавить поселок  
       </a-button>
     </a-space>
     <DateTimeHeader class="mr-12"/>
@@ -58,7 +58,6 @@ const settlementsStore = useSettlementsStore();
 import {message} from 'ant-design-vue';
 const searchText = ref('');
 const showAddVillagesButton = ref(false);
-// import {  watch } from 'vue';
 
 const onSearch = () => {
   console.log('searchText', searchText.value);
@@ -71,17 +70,21 @@ const getMyData = computed(() => {
 onMounted(() => {
   fetchMe();
   fetchCurrencyData()
+  checkLink();
+
 })
 
+const checkLink = () => {
+  if(router.currentRoute.value.path.includes('villages')) {
+    showAddVillagesButton.value = true;
+  } else {
+    showAddVillagesButton.value = false;
+  }
+}
+
 watch(
-  () => router.currentRoute.value.path, (newParams) => {
-        if(newParams === '/villages/') {
-          showAddVillagesButton.value = true;
-        } else {
-            showAddVillagesButton.value = false;
-          }
-      }
-    );
+  () => router.currentRoute.value.path, (newParams) => checkLink()
+  );
 
 const fetchMe = async () => {
   try {
@@ -118,6 +121,10 @@ const fetchCurrencyData = async () => {
   }
 }
 
+
+const goAddNewVillages = () => {
+  router.push("/villages/new/");
+}
 
 const onLogout = () => {
   authStore.logout();
