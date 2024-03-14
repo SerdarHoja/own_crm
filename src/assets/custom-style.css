@@ -44,7 +44,10 @@
 }
 .form__btns{
     display: flex;
-    gap: 2rem;
+}
+.form__btns .ant-form-item{
+    width: max-content;
+    margin-right: 1.6rem;
 }
 .form__block{
     display: flex;
@@ -128,11 +131,13 @@ span.anticon.anticon-delete {
 .ant-input{
     width: 28rem!important;
 }
-.loyout .ant-input{
+.layout .ant-input{
     height: 100%;
 }
-
-
+.ant-modal-body .ant-select-selection-item{
+    height: max-content;
+    margin: auto;
+}
 .ant-modal-body:where(.css-dev-only-do-not-override-kqecok).ant-row {
     align-items: center;
 }
@@ -203,11 +208,27 @@ span.anticon.anticon-delete {
     border-radius: .6rem!important;
 }
 :where(.css-kqecok).ant-card .ant-card-body {
-    padding: 2.4rem;
-    border-radius: 0 0 .8rem .8rem;
+    padding: .5rem 0!important;
+    border-radius: 0;
+}
+:where(.css-kqecok).ant-card-bordered {
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    border-left: none;
+    border-right: none;
+}
+:where(.css-dev-only-do-not-override-kqecok).ant-card .ant-card-body {
+    padding: .5rem 0;
+    border-radius: 0;
 }
 :where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
     font-size: 1.4rem;
+}
+:where(.css-dev-only-do-not-override-kqecok).ant-card-bordered {
+    border-top: .1rem solid #f0f0f0;
+    border-bottom: .1rem solid #f0f0f0;
+    border-left: none;
+    border-right: none;
 }
 :where(.css-kqecok).ant-input-number .ant-input-number-input {
     height: 4rem!important;
@@ -291,4 +312,9 @@ span.anticon.anticon-delete {
 .owner-data__objects-subtitle {
     margin-bottom: 1.6rem;
     font-weight: 600;
+}
+
+
+.cards-objects:where(.css-dev-only-do-not-override-kqecok)[class^="ant-card"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-card"] {
+    font-size: 1.4rem;
 }
