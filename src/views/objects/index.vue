@@ -31,37 +31,41 @@
         <IconLine class="cursor-pointer"/>
       </div>
     </div>
-    <div class="country-data">
-      <div class="mt-5 p-12">
-        <div class="flex gap-5">
-          <div class="w-1/5">
-            <h4 class="text-[#A5A7A7]">Объект</h4>
-          </div>
-          <div class="w-1/6">
-            <h4 class="text-[#A5A7A7]">Информация</h4>
-          </div>
-          <div class="w-1/6">
-            <h4 class="text-[#A5A7A7]">Характеристики</h4>
-          </div>
-          <div class="w-1/6">
-            <h4 class="text-[#A5A7A7]">Контакты</h4>
-          </div>
-          <div class="w-1/6">
-            <h4 class="text-[#A5A7A7]">Статус</h4>
+    <div class="main-content js-height">
+      <div class="cards-objects__list">
+        <div class="country-data">
+          <div class="mt-5 p-12">
+            <div class="flex gap-5">
+              <div class="w-1/5">
+                <h4 class="text-[#A5A7A7]">Объект</h4>
+              </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Информация</h4>
+              </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Характеристики</h4>
+              </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Контакты</h4>
+              </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Статус</h4>
 
+              </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Выгрузка</h4>
+              </div>
+            </div>
           </div>
-          <div class="w-1/6">
-            <h4 class="text-[#A5A7A7]">Выгрузка</h4>
+          <div class="flex flex-col gap-[.8rem]">
+            <div v-for="obj in countryObjects" :key="obj.id">
+              <ObjectItem :object="obj"/>
+            </div>
+          </div>
+          <div v-if="countryObjects.length === 0">
+            Список пуст
           </div>
         </div>
-      </div>
-      <div class="flex flex-col gap-[.8rem]">
-        <div v-for="obj in countryObjects" :key="obj.id">
-          <ObjectItem :object="obj"/>
-        </div>
-      </div>
-      <div v-if="countryObjects.length === 0">
-        Список пуст
       </div>
     </div>
   </div>
@@ -161,4 +165,49 @@ const handleOk = async () => {
   router.push('/objects/new');
 
 }
+
 </script>
+//Вычисление высоты контента
+<script>
+export default {
+  mounted() {
+    this.layout(); // Вызываем метод layout при монтировании компонента
+    window.addEventListener('resize', this.layout); // Добавляем обработчик события resize
+  },
+  methods: {
+    layout() {
+      const setHeight = () => {
+        document.querySelectorAll('.js-height').forEach((element) => {
+          let countHeight = 0;
+          Array.from(element.parentNode.children).forEach((child) => {
+            if (!child.classList.contains('cards__arr') && !child.classList.contains('js-height')) {
+              countHeight += child.offsetHeight;
+            }
+          });
+          element.style.height = `calc(100% - ${countHeight}px - 5.6rem)`;
+        });
+      };
+
+      // Вызываем setHeight
+      setHeight();
+    },
+    // Дополнительный метод для обновления высоты после динамических изменений
+    updateLayout() {
+      // Вызываем layout после динамических изменений на странице
+      this.layout();
+    },
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.layout); // Удаляем обработчик события при уничтожении компонента
+  },
+};
+</script>
+
+<style>
+  .cards-objects__list{
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+</style>
+
