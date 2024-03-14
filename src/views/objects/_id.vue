@@ -1,5 +1,5 @@
 <template>
-    <div class="p-[4rem] w-full">
+    <div class="main">
         <router-link to="/objects">
             <a-button type="primary mb-[1rem]">
                 Назад
@@ -42,7 +42,7 @@
     const id = route.params.id;
 
     console.log("comp", id)
-    
+
     onMounted(() => {
     })
 

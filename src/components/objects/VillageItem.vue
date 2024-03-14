@@ -1,38 +1,52 @@
 <template>
-    <div>
+    <div class="cards-villages">
         <a-card
             :extra="extra"
             style="width: 100%;"
             @click="goToDetails"
-        >   
+        >
             <div class="flex gap-5">
-                <div class="w-1/5 flex gap-4">
-                    <img class="w-[120px] h-[80px] rounded-2xl" :src="object.picture" alt="">
-                    <div>
-                        <h6 class="font-bold text-2xl text-slate-900" v-if="object.name">{{ object.name }}, <span v-if="object.distance_from_mkad">{{ object.distance_from_mkad.value + ' км' }}</span></h6>
-                        <p class="text-xl mt-8 text-slate-600" v-if="object.district_id">{{ object.district_id.value }}</p>
-                        <p class="text-xl mt-8 text-slate-600" >{{ `${object.highway.name} ${object.highway.value}`  }}</p>
-                        <p class="text-xl mt-8 text-slate-600">{{`${object.place.name} ${object.place.value}`}}</p>
-                        <p class="text-xl mt-8 text-slate-600">{{ object.id + ' | ' + object.date_create.date }}</p>    
+                <div class="w-1/5 flex">
+                    <img
+                        class="w-[15rem] h-[10rem] rounded-[.4rem] mr-[1.6rem]"
+                        :src="object.picture"
+                        alt=""
+                    />
+                    <div class="flex flex-col justify-center">
+                        <div class="font-bold" v-if="object.name">
+                          {{ object.name }},
+                          <span v-if="object.distance_from_mkad">
+                            {{ object.distance_from_mkad.value + ' км' }}
+                          </span>
+                        </div>
+                        <p v-if="object.district_id">{{ object.district_id.value }}</p>
+                        <p >{{ `${object.highway.name} ${object.highway.value}`  }}</p>
+                        <p >{{`${object.place.name} ${object.place.value}`}}</p>
+                        <p >{{ object.id + ' | ' + object.date_create.date }}</p>
                     </div>
                 </div>
-                <div class="w-1/6">
-                    <p class="text-xl mt-8 text-slate-600">{{`${object.land_area.name} ${object.land_area.value} м2`}}</p>
-                    <p class="text-xl text-slate-600" v-if="object.deal_view">{{ object.deal_view.value }}</p>
-                    <p class="text-xl text-slate-600">{{ object.price.currency + " " +  object.price.formated}}</p>
+                <div class="w-1/6 flex flex-col gap-[.5rem] justify-center">
+                    <p>{{`${object.land_area.name} ${object.land_area.value} м2`}}</p>
+                    <p v-if="object.deal_view">{{ object.deal_view.value }}</p>
+                    <p>{{ object.price.currency + " " +  object.price.formated}}</p>
                     <div class="flex gap-4 items-center">
-                        <img :src="object.broker.picture" class="w-10 h-10 rounded-full" alt="">
+                        <img :src="object.broker.picture" class="w-[1.8rem] h-[1.8rem] rounded-full" alt="">
                         <p class="text-xl text-slate-600">{{ object.broker.fio }}</p>
                     </div>
-                    <div class="!border border-solid !border-slate-900 !text-slate-900 p-4" v-if="object.actual_date">{{ object.actual_date.value }}</div>
+                    <div class="!border border-solid !border-slate-900 !text-slate-900 py-[.6rem] px-[1.2rem] w-max" v-if="object.actual_date">{{ object.actual_date.value }}</div>
                 </div>
-                <div class="w-1/6 text-xl">
-                  <span v-if="object.house_number">{{ object.house_number.name }}: {{ object.house_number.value }} |</span> <span v-if="object.flat_area">{{ object.flat_area.name }} : {{ object.flat_area.value }} |</span> <span v-if="object.floors_count">{{ object.floors_count.name }}: {{ object.floors_count.value }} | </span><span v-if="object.rooms_count">{{ object.rooms_count.name }}: {{ object.rooms_count.value }}</span>
+                <div class="w-1/6 flex justify-center">
+                  <div class="m-auto">
+                    <span v-if="object.house_number">{{ object.house_number.name }}: {{ object.house_number.value }} |</span>
+                    <span v-if="object.flat_area">{{ object.flat_area.name }} : {{ object.flat_area.value }} |</span>
+                    <span v-if="object.floors_count">{{ object.floors_count.name }}: {{ object.floors_count.value }} | </span>
+                    <span v-if="object.rooms_count">{{ object.rooms_count.name }}: {{ object.rooms_count.value }}</span>
+                  </div>
                 </div>
-                <div class="w-1/6">
-                    <p class="text-xl text-slate-600">{{ object.owners[0] ? object.owners[0].fio : '' }}</p>
-                    <p class="text-xl text-slate-600">{{ object.owners[0] ? object.owners[0].phone : '' }}</p>
-                    <p class="text-xl text-slate-600">{{ object.owners[0] ? object.owners[0].email : '' }}</p>
+                <div class="w-1/6 flex flex-col justify-center">
+                    <p>{{ object.owners[0] ? object.owners[0].fio : '' }}</p>
+                    <p>{{ object.owners[0] ? object.owners[0].phone : '' }}</p>
+                    <p>{{ object.owners[0] ? object.owners[0].email : '' }}</p>
                 </div>
                 <div class="w-1/6" v-if="object.status">
                     {{ object.status.value }}
@@ -54,7 +68,7 @@
                     </div>
                 </div>
             </div>
-        </a-card>      
+        </a-card>
     </div>
 </template>
 <script setup>
@@ -77,3 +91,10 @@ const goToDetails = () => {
   router.push("/villages/" + props.object.id);
 };
 </script>
+
+<style scoped>
+.cards-villages{
+  color: #253858!important;
+  font-size: 1.4rem!important;
+}
+</style>
