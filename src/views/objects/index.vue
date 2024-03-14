@@ -98,7 +98,7 @@
 
     <div class="flex gap-x-[3rem] items-center">
       <div>
-        Найдено: <span>622</span>
+        Найдено: <span>{{myStore.countryObjects.length}}</span>
       </div>
       <div class="flex gap-x-[1rem] items-center">
         <IconCell class="cursor-pointer"/>
