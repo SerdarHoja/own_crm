@@ -117,7 +117,7 @@
                   alt=""
               />
             </p>
-              >
+              <p>
                 <img
                     class="w-10 h-10"
                     src="http://level-crm.deus.team//img/sprite.svg#icon-domclick"
