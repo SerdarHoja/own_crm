@@ -132,14 +132,6 @@
                                 <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
                             </a-radio-group>
                         </a-form-item>
-                        <a-form-item
-                            v-if="row.type == 'stages'"
-                            :label="row.name"
-                            :name="row.name"
-                            :rules="[{ required: row.required, message: 'Required' }]"
-                        >
-                            <stages :stage="row" @change="stageChange(row)"/>
-                        </a-form-item>
                     </div>
                 </div>
             </a-card>
@@ -150,8 +142,7 @@
 <script setup>
     import { ref, onMounted, computed, reactive } from 'vue';
     import { useRoute } from 'vue-router';
-    import { useObjectsStore } from '@/stores/objects.module.js';
-    import stages from "@/components/objects/stages.vue";
+    import { useSettlementsStore } from '@/stores/settlements.module.js';
     import {useUserStore} from "@/stores/user.module";
 
 
@@ -161,14 +152,14 @@
     const optionsData = ref([]);
     const route = useRoute();
     const loading = ref(false);
-    const myStore = useObjectsStore();
+    const myStore = useSettlementsStore();
     const formData = reactive({
-        id: props.id,
-        section: 'country',
+        section: 'settlements',
         fields: {},
-        stages: {},
     })
-
+    if(props.id && props.id !== undefined){
+      formData.id = props.id
+    }
     const villageFields = ref([]);
 
     onMounted(() => {
@@ -176,7 +167,7 @@
     })
 
     const objectFields = computed(() => {
-        return myStore.allNewFields;
+      return myStore.objectFields;
     })
 
     const onChangeCheckBox = (value, code, e) => {
@@ -227,9 +218,9 @@
     const fetchObjectFields = async () => {
         loading.value = true;
         try {
-            await myStore.getObjectFields('country', props.id).then(
+            await myStore.getObjectFields('settlements', props.id).then(
             (response) => {
-                if (response.data.result === 'error') {
+              if (response.data.result === 'error') {
                     message.error(response.data.text)
                     loading.value = false;
                 } else {
@@ -245,16 +236,15 @@
     const updateObject = async () => {
         loading.value = true;
         try {
-            await myStore.updateObject(formData).then(
+          await myStore.updateObject(formData).then(
             (response) => {
                 console.log(response)
                 if (response.data.result === 'error') {
                     message.error(response.data.text)
                     loading.value = false;
                 } else {
-                    myStore.getObjectBrief('country', props.id)
-                    fetchObjectFields();
-                    loading.value = false;
+                  //делаем редирект на страницу созданного поселка
+                  document.location.href=('/villages/'+response.id)
                 }
             }
             )
@@ -263,13 +253,6 @@
             loading.value = false;
         }
     };
-
-    const stageChange = (row) => {
-        console.log('stageChange', row) 
-        formData.stages[row.code] = row.value;
-    }
-
-
 </script>
 <style>
 .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok{
