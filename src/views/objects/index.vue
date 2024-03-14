@@ -163,10 +163,10 @@
         >
             <a-select-option
                 v-for="option in newObjectFieldType[0].options"
-                :key="option.id"
+                :key="option.code"
                 :value="option.id"
             >
-                {{ option.value }}
+                {{ option.value }} 
             </a-select-option>
         </a-select>
     </a-form-item>
@@ -235,9 +235,9 @@
         await myStore.getFieldsForNewObject('country');
     }
 
-    const handleSelect = async (value) => {
-        console.log("val", value)
-        await myStore.getFieldsObject('settlements', value);
+    const handleSelect = async (value, option) => {
+        console.log("val", value, option);
+        await myStore.getFieldsObject(option.key, value);
     }
 
     const handleOk = async () => {
