@@ -1,11 +1,7 @@
 <template>
   <div class="cards-objects">
-    <a-card
-        :extra="extra"
-        style="width:
-        100%" @click="goToDetails"
-    >
-
+    <a-card :extra="extra" style="width:
+        100%" @click="goToDetails">
       <div class="flex gap-5">
         <div class="w-1/5 flex">
           <img
@@ -92,11 +88,7 @@
                   alt=""
               />
             </p>
-            <p
-                v-if="
-                object.upload_domclick && object.upload_domclick.value === 'Да'
-              "
-            >
+            <p v-if="object.upload_domclick && object.upload_domclick.value === 'Да'">
               <img
                   class="w-10 h-10"
                   src="/src/assets/img/sprite.svg#icon-domclick"
@@ -117,30 +109,6 @@
                   alt=""
               />
             </p>
-              <p>
-                <img
-                    class="w-10 h-10"
-                    src="http://level-crm.deus.team//img/sprite.svg#icon-domclick"
-                    alt=""
-                />
-              </p>
-              <p
-                  v-if="object.upload_yandex && object.upload_yandex.value === 'Да'"
-              >
-                <img
-                    class="w-10 h-10"
-                    src="http://level-crm.deus.team//img/sprite.svg#icon-yandex"
-                    alt=""
-                />
-              </p>
-              <p v-if="object.upload_cian && object.upload_cian.value === 'да'">
-                <img
-                    class="w-10 h-10"
-                    src="http://level-crm.deus.team//img/sprite.svg#icon-cian"
-                    alt=""
-                />
-              </p>
-            </div>
           </div>
         </div>
       </div>
