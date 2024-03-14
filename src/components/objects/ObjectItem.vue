@@ -14,7 +14,7 @@
           <div class="flex flex-col justify-center">
             <div class="font-bold" v-if="object.name">
               {{ object.name }},
-              <span v-if="object.distance_from_mkad">
+              <span v-if="object.distance_from_mkad.value != 'null'">
                 {{object.distance_from_mkad.value + " км" }}
               </span>
             </div>
@@ -38,6 +38,7 @@
               :src="object.broker.picture"
               class="w-[1.8rem] h-[1.8rem] rounded-full"
               alt=""
+              v-if="object.broker.picture"
             />
             <p v-if="object.broker.fio">{{ object.broker.fio }}</p>
           </div>
@@ -50,18 +51,18 @@
         </div>
         <div class="w-1/6 flex justify-center">
           <div class="m-auto">
-            <span v-if="object.house_number"
+            <span v-if="object.house_number.value"
             >{{ object.house_number.name }}:
             {{ object.house_number.value }} |</span
             >
-            <span v-if="object.flat_area"
-            >{{ object.flat_area.name }} : {{ object.flat_area.value }} |</span
+            <span v-if="object.flat_area.value"
+            >{{ object.flat_area.name }} : {{ object.flat_area.value }} м<sup>2</sup> |</span
             >
-            <span v-if="object.floors_count"
+            <span v-if="object.floors_count.value"
             >{{ object.floors_count.name }}:
             {{ object.floors_count.value }} | </span
             >
-            <span v-if="object.rooms_count"
+            <span v-if="object.rooms_count.value"
             >{{ object.rooms_count.name }}: {{ object.rooms_count.value }}</span
             >
           </div>
@@ -77,7 +78,7 @@
             {{ object.owners[0] ? object.owners[0].email : "" }}
           </p>
         </div>
-        <div class="w-1/6 flex flex-col justify-center" v-if="object.status">
+        <div class="w-1/6 flex flex-col justify-center" v-if="object.status.value">
           {{ object.status.value }}
         </div>
         <div class="w-1/6">
@@ -85,7 +86,7 @@
             <p v-if="object.upload_avito && object.upload_avito.value === 'Да'">
               <img
                 class="w-10 h-10"
-                src="http://level-crm.deus.team//img/sprite.svg#icon-avito"
+                src="/src/assets/img/sprite.svg#icon-avito"
                 alt=""
               />
             </p>
@@ -96,7 +97,7 @@
             >
               <img
                 class="w-10 h-10"
-                src="http://level-crm.deus.team//img/sprite.svg#icon-domclick"
+                src="/src/assets/img/sprite.svg#icon-domclick"
                 alt=""
               />
             </p>
@@ -105,14 +106,14 @@
             >
               <img
                 class="w-10 h-10"
-                src="http://level-crm.deus.team//img/sprite.svg#icon-yandex"
+                src="/src/assets/img/sprite.svg#icon-yandex"
                 alt=""
               />
             </p>
             <p v-if="object.upload_cian && object.upload_cian.value === 'да'">
               <img
                 class="w-10 h-10"
-                src="http://level-crm.deus.team//img/sprite.svg#icon-cian"
+                src="/src/assets/img/sprite.svg#icon-cian"
                 alt=""
               />
             </p>
