@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
+        <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Сохранить</a-button>
         <div v-if="loading" class="flex justify-center items-center">
             <a-spin />
         </div>
