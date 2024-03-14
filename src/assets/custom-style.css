@@ -4,10 +4,8 @@
     padding-bottom: 1rem;
     padding-left: 5rem;
     padding-right: 5rem;
-    flex: 1 1 0%;
+    flex: 1;
     height: 100%;
-    position: relative;
-    overflow: auto;
 }
 .title__block{
     display: flex;
@@ -46,7 +44,7 @@
     display: flex;
 }
 .form__btns .ant-form-item{
-    width: max-content;
+    width: max-content!important;
     margin-right: 1.6rem;
 }
 .form__block{
@@ -167,12 +165,24 @@ span.anticon.anticon-delete {
 .ant-card.css-kqecok.ant-card-bordered{
     font-size: 1.4rem;
 }
+.ant-radio-button-wrapper.ant-radio-button-wrapper-checked.ant-radio-button-wrapper-in-form-item.css-dev-only-do-not-override-kqecok {
+    height: 4rem;
+    border-start-start-radius: .4rem;
+    border-end-start-radius: .4rem;
+}
+.ant-radio-button-wrapper.ant-radio-button-wrapper-in-form-item.css-dev-only-do-not-override-kqecok{
+    height: 4rem;
+    border-start-end-radius: .4rem;
+    border-end-end-radius: .4rem;
+}
 
 
 
 
 
-
+:where(.css-kqecok).ant-radio-button-wrapper {
+    height: 4rem!important;
+}
 :where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #ffffff!important;
 }
@@ -217,20 +227,20 @@ span.anticon.anticon-delete {
     border-left: none;
     border-right: none;
 }
-:where(.css-dev-only-do-not-override-kqecok).ant-card .ant-card-body {
-    padding: .5rem 0;
-    border-radius: 0!important;
-}
+/*:where(.css-dev-only-do-not-override-kqecok).ant-card .ant-card-body {*/
+/*    padding: .5rem 0;*/
+/*    border-radius: 0!important;*/
+/*}*/
 :where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
     font-size: 1.4rem;
 }
-:where(.css-dev-only-do-not-override-kqecok).ant-card-bordered {
-    border-top: .1rem solid #f0f0f0;
-    border-bottom: .1rem solid #f0f0f0;
-    border-left: none;
-    border-right: none;
-    border-radius: 0!important;
-}
+/*:where(.css-dev-only-do-not-override-kqecok).ant-card-bordered {*/
+/*    border-top: .1rem solid #f0f0f0;*/
+/*    border-bottom: .1rem solid #f0f0f0;*/
+/*    border-left: none;*/
+/*    border-right: none;*/
+/*    border-radius: 0!important;*/
+/*}*/
 :where(.css-kqecok).ant-input-number .ant-input-number-input {
     height: 4rem!important;
     padding: 0 1.1rem!important;
@@ -318,4 +328,15 @@ span.anticon.anticon-delete {
 
 .cards-objects:where(.css-dev-only-do-not-override-kqecok)[class^="ant-card"], :where(.css-dev-only-do-not-override-kqecok)[class*=" ant-card"] {
     font-size: 1.4rem;
+}
+
+.cards-objects .ant-card-body{
+    padding: .5rem 0!important;
+}
+.cards-objects .ant-card{
+    border-top: .1rem solid #f0f0f0;
+    border-bottom: .1rem solid #f0f0f0;
+    border-left: none;
+    border-right: none;
+    border-radius: 0!important;
 }

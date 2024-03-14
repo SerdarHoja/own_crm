@@ -1,11 +1,11 @@
 <template>
   <div>
     <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
-    <div>
-      <div v-if="loading" class="flex justify-center items-center">
+    <div class="flex justify-between">
+      <div v-if="loading" class="flex justify-center items-center w-[80%]">
         <a-spin/>
       </div>
-      <div v-else>
+      <div v-else class="w-[80%]">
         <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
           <div class="font-bold">{{ card.title }}</div>
           <a-divider/>
@@ -155,6 +155,27 @@
           </div>
         </a-card>
       </div>
+      <div class="w-[15%]">
+        <a-anchor
+            :items="[
+      {
+        key: 'part-1',
+        href: '#part-1',
+        title:  'Part 1',
+      },
+      {
+        key: 'part-2',
+        href: '#part-2',
+        title: 'Part 2',
+      },
+      {
+        key: 'part-3',
+        href: '#part-3',
+        title: 'Part 3',
+      },
+    ]"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -165,6 +186,7 @@ import {useRoute} from 'vue-router';
 import {useObjectsStore} from '@/stores/objects.module.js';
 import stages from "@/components/objects/stages.vue";
 import {useUserStore} from "@/stores/user.module";
+import { h } from 'vue';
 
 
 const props = defineProps({

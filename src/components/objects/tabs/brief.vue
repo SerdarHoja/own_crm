@@ -1,7 +1,8 @@
 <template>
-  <div class="flex gap-24">
-    <div class="w-[30%]">
-      <a-card class="mb-[3.2rem]" :class="card.fields.length > 0 ? 'block' : 'hidden'" v-for="card in objectBrief" :key="card.title">
+  <div class="main-content js-height">
+    <div class="flex gap-24">
+      <div class="w-[30%] h-full overflow-y-auto">
+        <a-card class="mb-[3.2rem]" :class="card.fields.length > 0 ? 'block' : 'hidden'" v-for="card in objectBrief" :key="card.title">
         <span v-if="card.fields.length > 0">
           <div class="objects-detail__info-subtitle">{{ card.title }}</div>
           <div class="text-[1.4rem]">
@@ -11,24 +12,25 @@
             </div>
           </div>
         </span>
-      </a-card>
-    </div>
-    <div class="w-[50%] p-5">
-      <a-carousel :after-change="onChange" arrows>
-        <template #prevArrow>
-          <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
-            <left-circle-outlined />
+        </a-card>
+      </div>
+      <div class="w-[50%] p-5">
+        <a-carousel :after-change="onChange" arrows>
+          <template #prevArrow>
+            <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
+              <left-circle-outlined />
+            </div>
+          </template>
+          <template #nextArrow>
+            <div class="custom-slick-arrow" style="right: 10px">
+              <right-circle-outlined />
+            </div>
+          </template>
+          <div v-for="it in photos" :key="it.id">
+            <img class="w-full" :src="it.pathSmall" alt="">
           </div>
-        </template>
-        <template #nextArrow>
-          <div class="custom-slick-arrow" style="right: 10px">
-            <right-circle-outlined />
-          </div>
-        </template>
-        <div v-for="it in photos" :key="it.id">
-          <img class="w-full" :src="it.pathSmall" alt="">
-        </div>
-      </a-carousel>
+        </a-carousel>
+      </div>
     </div>
   </div>
 </template>
@@ -100,8 +102,6 @@
             console.error('Error fetching data in component:', error);
         }
     };
-
-
 </script>
 
 <style scoped>

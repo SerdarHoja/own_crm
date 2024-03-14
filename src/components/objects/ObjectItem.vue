@@ -3,13 +3,15 @@
     <a-card
         :extra="extra"
         style="width:
-        100%" @click="goToDetails">
+        100%" @click="goToDetails"
+    >
+
       <div class="flex gap-5">
         <div class="w-1/5 flex">
           <img
-            class="w-[15rem] h-[10rem] rounded-[.4rem] mr-[1.6rem]"
-            :src="object.picture"
-            alt=""
+              class="w-[15rem] h-[10rem] rounded-[.4rem] mr-[1.6rem]"
+              :src="object.picture"
+              alt=""
           />
           <div class="flex flex-col justify-center">
             <div class="font-bold" v-if="object.name">
@@ -21,7 +23,7 @@
             <p v-if="object.district_id">
               {{ object.district_id.value }}
             </p>
-            <p>
+            <p class="opacity-[.6]">
               {{ object.id + " | " + object.date_create.date }}
             </p>
           </div>
@@ -43,8 +45,8 @@
             <p v-if="object.broker.fio">{{ object.broker.fio }}</p>
           </div>
           <div
-            class="!border border-solid !border-slate-900 !text-slate-900 py-[.6rem] px-[1.2rem] w-max"
-            v-if="object.actual_date && object.actual_date.value"
+              class="!border border-solid !border-[#2884ff] py-[.6rem] px-[1.2rem] w-max text-[#007aff] rounded-[.4rem]"
+              v-if="object.actual_date && object.actual_date.value"
           >
             {{ object.actual_date.value }}
           </div>
@@ -117,6 +119,30 @@
                 alt=""
               />
             </p>
+              >
+                <img
+                    class="w-10 h-10"
+                    src="http://level-crm.deus.team//img/sprite.svg#icon-domclick"
+                    alt=""
+                />
+              </p>
+              <p
+                  v-if="object.upload_yandex && object.upload_yandex.value === 'Да'"
+              >
+                <img
+                    class="w-10 h-10"
+                    src="http://level-crm.deus.team//img/sprite.svg#icon-yandex"
+                    alt=""
+                />
+              </p>
+              <p v-if="object.upload_cian && object.upload_cian.value === 'да'">
+                <img
+                    class="w-10 h-10"
+                    src="http://level-crm.deus.team//img/sprite.svg#icon-cian"
+                    alt=""
+                />
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -124,8 +150,9 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import {ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+
 const router = useRouter();
 const route = useRoute();
 
@@ -145,8 +172,8 @@ const goToDetails = () => {
 </script>
 
 <style scoped>
-.cards-objects{
-  color: #253858!important;
-  font-size: 1.4rem!important;
+.cards-objects {
+  color: #253858 !important;
+  font-size: 1.4rem !important;
 }
 </style>
