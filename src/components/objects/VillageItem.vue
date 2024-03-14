@@ -91,3 +91,10 @@ const goToDetails = () => {
   router.push("/villages/" + props.object.id);
 };
 </script>
+
+<style scoped>
+.cards-villages{
+  color: #253858!important;
+  font-size: 1.4rem!important;
+}
+</style>
