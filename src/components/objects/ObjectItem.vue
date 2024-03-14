@@ -45,7 +45,7 @@
             <p v-if="object.broker.fio">{{ object.broker.fio }}</p>
           </div>
           <div
-              class="!border border-solid !border-[#2884ff] py-[.6rem] px-[1.2rem] w-max text-[#007aff] rounded-[.4rem]
+              class="!border border-solid !border-[#2884ff] py-[.6rem] px-[1.2rem] w-max text-[#007aff] rounded-[.4rem]"
               v-if="object.actual_date && object.actual_date.value"
           >
             {{ object.actual_date.value }}
