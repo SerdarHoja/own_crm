@@ -220,6 +220,14 @@ export const useObjectsStore = defineStore('objects', {
         return Promise.reject(error);
       }
     },
+    async removePhoto(data) {
+      try {
+        const response = await ObjectsService.removePhoto(data);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
 
     async getListByOwner(id) {
       try {

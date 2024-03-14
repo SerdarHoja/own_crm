@@ -104,6 +104,22 @@ export const useSettlementsStore = defineStore('settlements', {
         return Promise.reject(error);
       }
     },
+    async uploadNewPhoto(data) {
+      try {
+        const response = await ObjectsService.uploadNewPhoto(data);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async removePhoto(data) {
+      try {
+        const response = await ObjectsService.removePhoto(data);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
     async getObjectPhotos(id) {
       try {
         const response = await ObjectsService.getObjectPhotos(id);

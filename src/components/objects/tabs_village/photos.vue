@@ -104,9 +104,25 @@
         previewTitle.value = file.name || file.url.substring(file.url.lastIndexOf('/') + 1);
         previewId.value = file.uid;
     }
-    
+
     const handleRemove = (file) => {
-        fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
+      fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
+      removePhoto(file.uid);
+    }
+    const removePhoto = async (id) => {
+      const data = new FormData();
+      data.append('idObject', props.id);
+      data.append('idPhoto', id);
+      await myStore.removePhoto(data).then(
+          (response) => {
+            if (response.data.result === 'error') {
+              message.error(response.data.text)
+            } else {
+              fetchPhotos();
+              handleCancel();
+            }
+          }
+      )
     }
 
     const setAsMain = async (id) => {

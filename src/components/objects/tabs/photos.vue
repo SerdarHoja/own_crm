@@ -107,8 +107,24 @@
     
     const handleRemove = (file) => {
         fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
+      removePhoto(file.uid);
     }
-
+    const removePhoto = async (id) => {
+      const data = new FormData();
+      data.append('idObject', props.id);
+      data.append('idPhoto', id);
+      await myStore.removePhoto(data).then(
+          (response) => {
+            console.log (response.data.result);
+            if (response.data.result === 'error') {
+              message.error(response.data.text)
+            } else {
+              fetchPhotos();
+              handleCancel();
+            }
+          }
+      )
+    }
     const setAsMain = async (id) => {
         const data = new FormData();
         data.append('idObject', props.id);
