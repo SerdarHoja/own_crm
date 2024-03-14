@@ -1,6 +1,9 @@
 <template>
   <div class="cards-objects">
-    <a-card :extra="extra" style="width: 100%" @click="goToDetails">
+    <a-card
+        :extra="extra"
+        style="width:
+        100%" @click="goToDetails">
       <div class="flex gap-5">
         <div class="w-1/5 flex">
           <img
@@ -11,9 +14,9 @@
           <div class="flex flex-col justify-center">
             <div class="font-bold" v-if="object.name">
               {{ object.name }},
-              <span v-if="object.distance_from_mkad">{{
-                object.distance_from_mkad.value + " км"
-              }}</span>
+              <span v-if="object.distance_from_mkad">
+                {{object.distance_from_mkad.value + " км" }}
+              </span>
             </div>
             <p v-if="object.district_id">
               {{ object.district_id.value }}

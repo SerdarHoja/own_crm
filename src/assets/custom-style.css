@@ -219,7 +219,7 @@ span.anticon.anticon-delete {
 }
 :where(.css-dev-only-do-not-override-kqecok).ant-card .ant-card-body {
     padding: .5rem 0;
-    border-radius: 0;
+    border-radius: 0!important;
 }
 :where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
     font-size: 1.4rem;
@@ -229,6 +229,7 @@ span.anticon.anticon-delete {
     border-bottom: .1rem solid #f0f0f0;
     border-left: none;
     border-right: none;
+    border-radius: 0!important;
 }
 :where(.css-kqecok).ant-input-number .ant-input-number-input {
     height: 4rem!important;
