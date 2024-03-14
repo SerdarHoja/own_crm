@@ -3,6 +3,7 @@
     layout="inline"
     :model="formData"
     class="form"
+    v-if="showFilter"
     @finish="handleFinish"
     @finishFailed="handleFinishFailed"
   >
@@ -32,19 +33,19 @@
           </a-form-item>
         </div>
       </div>
+      <div class="form__btns">
+        <a-form-item>
+          <a-button type="primary" html-type="submit"> Поиск </a-button>
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" danger @click="clearFilter"> Очистить </a-button>
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" danger @click="clearFilter"> Открыть фильтр </a-button>
+        </a-form-item>
+      </div>
     </div>
   </a-form>
-  <div class="form__btns">
-    <a-form-item>
-      <a-button type="primary" html-type="submit"> Поиск </a-button>
-    </a-form-item>
-    <a-form-item>
-      <a-button type="primary" danger @click="clearFilter"> Очистить </a-button>
-    </a-form-item>
-    <a-form-item>
-      <a-button type="primary" danger @click="clearFilter"> Открыть фильтр </a-button>
-    </a-form-item>
-  </div>
 </template>
 <script setup>
 import { onMounted, computed, defineProps, ref } from "vue";
@@ -57,6 +58,7 @@ const filterStore = useFiltersStore();
 const objectStore = useObjectsStore();
 const settlementsStore = useSettlementsStore();
 const optionsData = ref([]);
+const showFilter = ref(true);
 
 const props = defineProps({
   section: String,
@@ -118,6 +120,7 @@ const onFocusSelect = async (code, id) => {
 };
 
 const handleFinish = async () => {
+  console.log('2321321');
   if(props.section === 'country') {
     console.log(props.section, formData.value);
     await objectStore.getObjectList(props.section, qs.stringify(formData.value));

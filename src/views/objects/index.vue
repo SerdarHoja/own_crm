@@ -169,7 +169,7 @@
         </a-select-option>
       </a-select>
     </a-form-item>
-    {{ allNewFields }}
+
   </a-modal>
 </template>
 <script setup>

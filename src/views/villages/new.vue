@@ -8,7 +8,7 @@
             <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
-                <form class="flex gap-[1.6rem] flex-wrap">
+                <div class="flex gap-[1.6rem] flex-wrap">
                     <div v-for="row in card.fields" :key="row.id">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'number'"
@@ -63,10 +63,15 @@
                             :rules="[{ required: row.required }]"
                             class="w-objectEditElem"
                         >
-                            <a-radio-group v-model:value="row.checked" @change="onChangeCheckBox(row.value, row.code, $event)">
-                                <a-radio-button :value="true">Да</a-radio-button>
-                                <a-radio-button :value="false">Нет</a-radio-button>
-                            </a-radio-group>
+                            <a-checkbox
+                                v-model:value="formData.fields[row.code]"
+                                v-model:checked="row.checked"
+                                :ref="row.code"
+                                :type="row.html"
+                                class="w-full"
+                                style="width: 100%"
+                                @change="onChangeCheckBox(row.value, row.code, $event)"
+                            />
                         </a-form-item>
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'static'"
@@ -136,7 +141,7 @@
                             <stages :stage="row" @change="stageChange(row)"/>
                         </a-form-item>
                     </div>
-                </form>
+                </div>
             </a-card>
         </div>
     </div>

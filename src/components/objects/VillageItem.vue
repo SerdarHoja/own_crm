@@ -11,10 +11,13 @@
                     <div>
                         <h6 class="font-bold text-2xl text-slate-900" v-if="object.name">{{ object.name }}, <span v-if="object.distance_from_mkad">{{ object.distance_from_mkad.value + ' км' }}</span></h6>
                         <p class="text-xl mt-8 text-slate-600" v-if="object.district_id">{{ object.district_id.value }}</p>
-                        <p class="text-xl mt-8 text-slate-600">{{ object.id + ' | ' + object.date_create.date }}</p>
+                        <p class="text-xl mt-8 text-slate-600" >{{ `${object.highway.name} ${object.highway.value}`  }}</p>
+                        <p class="text-xl mt-8 text-slate-600">{{`${object.place.name} ${object.place.value}`}}</p>
+                        <p class="text-xl mt-8 text-slate-600">{{ object.id + ' | ' + object.date_create.date }}</p>    
                     </div>
                 </div>
                 <div class="w-1/6">
+                    <p class="text-xl mt-8 text-slate-600">{{`${object.land_area.name} ${object.land_area.value} м2`}}</p>
                     <p class="text-xl text-slate-600" v-if="object.deal_view">{{ object.deal_view.value }}</p>
                     <p class="text-xl text-slate-600">{{ object.price.currency + " " +  object.price.formated}}</p>
                     <div class="flex gap-4 items-center">
@@ -55,22 +58,22 @@
     </div>
 </template>
 <script setup>
-    import { ref } from 'vue'
-    import { useRoute, useRouter } from 'vue-router';
-    const router = useRouter();
-    const route = useRoute();
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 
-    const props = defineProps({
-        object: Object,
-    })
+const props = defineProps({
+  object: Object,
+});
 
-    const open = ref(false);
+const open = ref(false);
 
-    const showModal = () => {
-        open.value = true;
-    };
+const showModal = () => {
+  open.value = true;
+};
 
-    const goToDetails = () => {
-        router.push('/villages/' + props.object.id);
-    }
+const goToDetails = () => {
+  router.push("/villages/" + props.object.id);
+};
 </script>

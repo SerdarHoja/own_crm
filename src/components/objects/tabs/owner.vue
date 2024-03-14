@@ -40,7 +40,7 @@
           <div>
             <a-button
                 type="primary"
-                @click="deleteOwner(owner?.id)"
+                @click="deleteOwner(owner?.id, props.id)"
             >
               Отвязать собственка
             </a-button>
@@ -79,9 +79,12 @@
                     </div>
                   </div>
                 </div>
-                <a-space wrap>
-                  <a-button type="primary">Удалить</a-button>
-                </a-space>
+                <!-- <a-space wrap>
+                  <a-button 
+                    type="primary"
+                    @click="deleteOwner(owner?.id, object.id)"
+                  >Удалить</a-button>
+                </a-space> -->
               </div>
             </div>
           </div>
@@ -175,11 +178,11 @@ const addEdbindingObject = async (value) => {
   }
 }
 
-const deleteOwner = async (id) => {
+const deleteOwner = async (ownerID, objectID) => {
   try {
     const response = await myStoreOwner.deleteBindingObject({
-      id_owner: id,
-      id_object: props.id,
+      id_owner: ownerID,
+      id_object: objectID,
       section: "country"
     })
 

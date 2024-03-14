@@ -64,18 +64,16 @@
                             :label="row.name"
                             :name="row.name"
                             :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
                         >
-                            <a-checkbox
-                                v-model:value="formData.fields[row.code]"
+                            <a-radio-group 
+                                v-model:value="row.checked" 
                                 v-model:checked="row.checked"
-                                :ref="row.code"
-                                :type="row.html"
-                                class="w-full"
-                                style="width: 100%"
                                 @change="onChangeCheckBox(row.value, row.code, $event)"
-                                :defaultValue="row.value"
-                                :disabled="row.disabled"
-                            />
+                            >
+                                <a-radio-button :value="true">Да</a-radio-button>
+                                <a-radio-button :value="false">Нет</a-radio-button>
+                            </a-radio-group>
                         </a-form-item>
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'static'"
@@ -102,6 +100,7 @@
                         >
                             <a-select
                                 show-search
+                                v-model:value="formData.fields[row.code]"
                                 @focus="selectOptionsList(row.code, row.id, 'object')"
                                 @select="onSelectVillage"
                                 class="w-full"
@@ -109,7 +108,7 @@
                                 :allowClear='true'
                                 :disabled="row.disabled"
                             >
-                                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
                             </a-select>
                         </a-form-item>
                         <a-form-item
@@ -130,6 +129,9 @@
                         </a-form-item>
                     </div>
                 </div>
+                <a-card v-if="card.title === 'Карта'">
+                    <!-- <MapComponent></MapComponent> -->
+                </a-card>
             </a-card>
         </div>
     </div>
@@ -140,6 +142,7 @@
     import { useRoute } from 'vue-router';
     import { useSettlementsStore } from '@/stores/settlements.module';
     import {useUserStore} from "@/stores/user.module";
+    import MapComponent from "@/components/MapComponent.vue"
 
     const props = defineProps({
         id: String,
@@ -164,16 +167,16 @@
         return myStore.objectFields;
     })
 
-    const onChangeCheckBox = (value,code, e) => {
-        console.log(value, e);
-        if (e.target.checked && value) {
+    const onChangeCheckBox = (value, code, e) => {
+        if (e.target.value && value) {
             formData.fields[code] = value;
-        } else if (e.target.checked && !value) {
+        } else if (e.target.value && !value) {
             formData.fields[code] = true;
         } else {
             formData.fields[code] = false;
         }
     }
+
 
     const selectOptionsList = async (code, id, entity) => {
       console.log (code);
