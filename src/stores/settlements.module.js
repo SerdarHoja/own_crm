@@ -11,6 +11,8 @@ export const useSettlementsStore = defineStore('settlements', {
     commentsList: [],
     optionData: [],
     photos: [],
+    newObjectFields: [],
+    allNewFields: [],
   }),
   actions: {
     async getObjects(section) {
@@ -42,12 +44,9 @@ export const useSettlementsStore = defineStore('settlements', {
         return Promise.reject(error);
       }
     },
-
     async updateObject(data) {
-      console.log(data)
       try {
         const response = await ObjectsService.updateObjectTEST(data);
-        console.log(response);
         return response
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -91,7 +90,6 @@ export const useSettlementsStore = defineStore('settlements', {
       try {
         const response = await ObjectsService.getOptionData(code, id, entity);
         this.optionData = response.data.data;
-        console.log (this.optionData);
         return response;
       } catch (error) {
         return Promise.reject(error);

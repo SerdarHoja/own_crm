@@ -15,21 +15,21 @@
                     <div class="flex flex-col justify-center">
                         <div class="font-bold" v-if="object.name">
                           {{ object.name }},
-                          <span v-if="object.distance_from_mkad">
+                          <span v-if="object.distance_from_mkad.value">
                             {{ object.distance_from_mkad.value + ' км' }}
                           </span>
                         </div>
-                        <p v-if="object.district_id">{{ object.district_id.value }}</p>
-                        <p >{{ `${object.highway.name} ${object.highway.value}`  }}</p>
-                        <p >{{`${object.place.name} ${object.place.value}`}}</p>
-                        <p >{{ object.id + ' | ' + object.date_create.date }}</p>
+                        <p v-if="object.district_id.value">{{ object.district_id.value }}</p>
+                        <p v-if="object.highway.value">{{`${object.highway.value}`}} ш.</p>
+                        <p v-if="object.place.value">{{`${object.place.value}`}}</p>
+                        <p>{{ object.id + ' | ' + object.date_create.date }}</p>
                     </div>
                 </div>
                 <div class="w-1/6 flex flex-col gap-[.5rem] justify-center">
-                    <p>{{`${object.land_area.name} ${object.land_area.value} м2`}}</p>
-                    <p v-if="object.deal_view">{{ object.deal_view.value }}</p>
-                    <p>{{ object.price.currency + " " +  object.price.formated}}</p>
-                    <div class="flex gap-4 items-center">
+                    <p v-if="object.land_area.value">{{`${object.land_area.value} м2`}}</p>
+                    <p v-if="object.deal_view">{{`${ object.deal_view.value}` }}</p>
+                    <p v-if="object.price.formated">{{ object.price.currency + " " +  object.price.formated}}</p>
+                    <div class="flex gap-4 items-center" v-if="object.broker.fio">
                         <img :src="object.broker.picture" class="w-[1.8rem] h-[1.8rem] rounded-full" alt="">
                         <p class="text-xl text-slate-600">{{ object.broker.fio }}</p>
                     </div>
@@ -37,10 +37,7 @@
                 </div>
                 <div class="w-1/6 flex justify-center">
                   <div class="m-auto">
-                    <span v-if="object.house_number">{{ object.house_number.name }}: {{ object.house_number.value }} |</span>
                     <span v-if="object.flat_area">{{ object.flat_area.name }} : {{ object.flat_area.value }} |</span>
-                    <span v-if="object.floors_count">{{ object.floors_count.name }}: {{ object.floors_count.value }} | </span>
-                    <span v-if="object.rooms_count">{{ object.rooms_count.name }}: {{ object.rooms_count.value }}</span>
                   </div>
                 </div>
                 <div class="w-1/6 flex flex-col justify-center">
@@ -50,22 +47,6 @@
                 </div>
                 <div class="w-1/6" v-if="object.status">
                     {{ object.status.value }}
-                </div>
-                <div class="w-1/6">
-                    <div class="flex gap-5 items-center">
-                        <p v-if="object.upload_avito && object.upload_avito.value === 'Да'">
-                            <img class="w-10 h-10" src="http://level-crm.deus.team//img/sprite.svg#icon-avito" alt="">
-                        </p>
-                        <p v-if="object.upload_domclick && object.upload_domclick.value === 'Да'">
-                            <img class="w-10 h-10" src="http://level-crm.deus.team//img/sprite.svg#icon-domclick" alt="">
-                        </p>
-                        <p v-if="object.upload_yandex && object.upload_yandex.value === 'Да'">
-                            <img class="w-10 h-10" src="http://level-crm.deus.team//img/sprite.svg#icon-yandex" alt="">
-                        </p>
-                        <p v-if="object.upload_cian && object.upload_cian.value === 'да'">
-                            <img class="w-10 h-10" src="http://level-crm.deus.team//img/sprite.svg#icon-cian" alt="">
-                        </p>
-                    </div>
                 </div>
             </div>
         </a-card>

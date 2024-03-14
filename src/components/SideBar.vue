@@ -4,18 +4,18 @@
       <a-tabs v-model:activeKey="activeKey" @change="onTabsChange" type="card" class="h-[4rem] text-inherit">
         <a-tab-pane key="1" tab="Загородная" class="h-[4rem] text-inherit mb-m-base font-[1.4rem]">
           <ul class="sidebar__list sidebar__list--village show">
-            <li class="sidebar__list-item" data-to="deals">
-              <router-link to="/deals/" class="sidebar__list-link gap-3">
-                <IconDeals class="w-10 h-10"/>
-                Сделки
-              </router-link>
-            </li>
-            <li class="sidebar__list-item" data-to="tasks">
-              <router-link to="/tasks/" class="sidebar__list-link gap-3">
-                <IconTasks class="w-10 h-10"/>
-                Задачи
-              </router-link>
-            </li>
+<!--            <li class="sidebar__list-item" data-to="deals">-->
+<!--              <router-link to="/deals/" class="sidebar__list-link gap-3">-->
+<!--                <IconDeals class="w-10 h-10"/>-->
+<!--                Сделки-->
+<!--              </router-link>-->
+<!--            </li>-->
+<!--            <li class="sidebar__list-item" data-to="tasks">-->
+<!--              <router-link to="/tasks/" class="sidebar__list-link gap-3">-->
+<!--                <IconTasks class="w-10 h-10"/>-->
+<!--                Задачи-->
+<!--              </router-link>-->
+<!--            </li>-->
             <li class="sidebar__list-item" data-to="owners">
               <router-link to="/owners/" class="sidebar__list-link gap-3">
                 <IconOwners class="w-10 h-10"/>
@@ -48,50 +48,50 @@
             </li>
           </ul>
         </a-tab-pane>
-        <a-tab-pane key="2" tab="Городская" class="h-[4rem]">
-          <li class="sidebar__list-item" data-to="deals">
-            <router-link to="/deals/" class="sidebar__list-link gap-3 ">
-              <IconDeals class="w-10 h-10"/>
-              Сделки
-            </router-link>
-          </li>
-          <li class="sidebar__list-item" data-to="tasks">
-            <router-link to="/tasks/" class="sidebar__list-link gap-3">
-              <IconTasks class="w-10 h-10"/>
-              Задачи
-            </router-link>
-          </li>
-          <li class="sidebar__list-item" data-to="owners">
-            <router-link to="/owners/" class="sidebar__list-link gap-3">
-              <IconOwners class="w-10 h-10"/>
-              Собственники
-            </router-link>
-          </li>
-          <li class="sidebar__list-item" data-to="clients">
-            <router-link to="/clients/" class="sidebar__list-link gap-3">
-              <IconClients class="w-10 h-10"/>
-              Клиенты
-            </router-link>
-          </li>
-          <li class="sidebar__list-item" data-to="objects">
-            <router-link to="/objects/" class="sidebar__list-link gap-3">
-              <IconObjects class="w-10 h-10"/>
-              Объекты
-            </router-link>
-          </li>
-          <li class="sidebar__list-item" data-to="villages">
-            <router-link to="/villages/" class="sidebar__list-link gap-3">
-              <IconVillages class="w-10 h-10"/>
-              Посёлки
-            </router-link>
-          </li>
-          <li class="sidebar__list-item" data-to="places">
-            <router-link to="/places/" class="sidebar__list-link gap-3">
-              <IconDirectory class="w-10 h-10"/>
-              Справочники
-            </router-link>
-          </li>
-        </a-tab-pane>
+<!--        <a-tab-pane key="2" tab="Городская" class="h-[4rem]">-->
+<!--          <li class="sidebar__list-item" data-to="deals">-->
+<!--            <router-link to="/deals/" class="sidebar__list-link gap-3 ">-->
+<!--              <IconDeals class="w-10 h-10"/>-->
+<!--              Сделки-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li class="sidebar__list-item" data-to="tasks">-->
+<!--            <router-link to="/tasks/" class="sidebar__list-link gap-3">-->
+<!--              <IconTasks class="w-10 h-10"/>-->
+<!--              Задачи-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li class="sidebar__list-item" data-to="owners">-->
+<!--            <router-link to="/owners/" class="sidebar__list-link gap-3">-->
+<!--              <IconOwners class="w-10 h-10"/>-->
+<!--              Собственники-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li class="sidebar__list-item" data-to="clients">-->
+<!--            <router-link to="/clients/" class="sidebar__list-link gap-3">-->
+<!--              <IconClients class="w-10 h-10"/>-->
+<!--              Клиенты-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li class="sidebar__list-item" data-to="objects">-->
+<!--            <router-link to="/objects/" class="sidebar__list-link gap-3">-->
+<!--              <IconObjects class="w-10 h-10"/>-->
+<!--              Объекты-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li class="sidebar__list-item" data-to="villages">-->
+<!--            <router-link to="/villages/" class="sidebar__list-link gap-3">-->
+<!--              <IconVillages class="w-10 h-10"/>-->
+<!--              Посёлки-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--          <li class="sidebar__list-item" data-to="places">-->
+<!--            <router-link to="/places/" class="sidebar__list-link gap-3">-->
+<!--              <IconDirectory class="w-10 h-10"/>-->
+<!--              Справочники-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--        </a-tab-pane>-->
       </a-tabs>
     </div>
   </aside>

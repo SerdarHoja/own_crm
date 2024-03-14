@@ -28,9 +28,9 @@ class ObjectsService {
   }
 
   updateObject(data) {
-    console.log(data);
     const fd = new FormData();
-    fd.append("id", data.id);
+    if(data.id && data.id !== undefined)
+      fd.append("id", data.id);
     fd.append("section", data.section);
     for (const [key, value] of Object.entries(data.fields)) {
       fd.append(`fields[${key}]`, value);
@@ -61,9 +61,9 @@ class ObjectsService {
   }
 
   updateObjectTEST(data) {
-    console.log(data);
     const fd = new FormData();
-    fd.append("id", data.id);
+    if(data.id && data.id !== undefined)
+      fd.append("id", data.id);
     fd.append("section", data.section);
     for (const [key, value] of Object.entries(data.fields)) {
       fd.append(`fields[${key}]`, value);
@@ -71,7 +71,6 @@ class ObjectsService {
     // for (const [key, value] of Object.entries(data.stages)) {
     //   fd.append(`stages[${key}]`, JSON.stringify(value));
     // }
-    console.log(fd)
     const url = `${API_URL}/objects/save/`;
 
     // Do not set 'Content-Type' header when using FormData
@@ -79,7 +78,6 @@ class ObjectsService {
       ...authHeader(),
       'Content-Type': 'application/json',
     };
-
     return axios
       .post(url,  fd, { headers })
       .then((response) => {
