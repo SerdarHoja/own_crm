@@ -14,7 +14,23 @@
         </span>
       </a-card>
     </div>
-    <div>Slider</div>
+    <div class="w-[50%] p-5">
+      <a-carousel :after-change="onChange" arrows>
+        <template #prevArrow>
+          <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
+            <left-circle-outlined />
+          </div>
+        </template>
+        <template #nextArrow>
+          <div class="custom-slick-arrow" style="right: 10px">
+            <right-circle-outlined />
+          </div>
+        </template>
+        <div v-for="it in photos" :key="it.id">
+          <img class="w-full" :src="it.pathSmall" alt="">
+        </div>
+      </a-carousel>
+    </div>
   </div>
 </template>
 
@@ -35,16 +51,39 @@
 
     onMounted(() => {
         fetchObjectBrief();
+        fetchPhotos();
     })
 
     const objectBrief = computed(() => {
         return myStore.objectBrief;
     })
 
+    const photos = computed(() => {
+        return myStore.photos;
+    })
+
     const fetchObjectBrief = async () => {
         loading.value = true;
         try {
             await myStore.getObjectBrief('settlements', props.id).then(
+            (response) => {
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                    loading.value = false;
+                } else {
+                    loading.value = false;
+                }
+            }
+            )
+        } catch (error) {
+            console.error('Error fetching data in component:', error);
+        }
+    };
+
+    const fetchPhotos = async () => {
+        loading.value = true;
+        try {
+            await myStore.getObjectPhotos(props.id).then(
             (response) => {
                 if (response.data.result === 'error') {
                     message.error(response.data.text)

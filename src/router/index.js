@@ -159,6 +159,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/villages/new',
+      name: 'villages/new',
+      component: () => import('../views/villages/new.vue'),
+      meta: {
+        layout: 'User',
+        pageTitle: 'Посёлки'
+      }
+    },
+    {
       path: '/setting',
       name: 'setting',
       component: () => import('../views/setting/index.vue'),

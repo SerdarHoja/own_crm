@@ -192,9 +192,9 @@ const objectFields = computed(() => {
 })
 
 const onChangeCheckBox = (value, code, e) => {
-  if (e.target.checked && value) {
+  if (e.target.value && value) {
     formData.fields[code] = value;
-  } else if (e.target.checked && !value) {
+  } else if (e.target.value && !value) {
     formData.fields[code] = true;
   } else {
     formData.fields[code] = false;
