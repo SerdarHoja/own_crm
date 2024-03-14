@@ -24,19 +24,27 @@
           </div>
         </div>
         <div class="w-1/6">
-          <p class="text-xl text-slate-600" v-if="object.deal_view && object.deal_view.value">
-            {{ object.deal_view.value }}
-          </p>
-          <p class="text-xl text-slate-600" v-if="object.price && object.price.currency && object.price.formated">
-            {{ object.price.currency + " " + object.price.formated }}
-          </p>
+          <p
+          class="text-xl text-slate-600"
+          v-if="object.deal_view && object.deal_view.value"
+          >
+          {{ object.deal_view.value }}
+        </p>
+        <p
+        class="text-xl text-slate-600"
+        v-if="object.price && object.price.currency && object.price.formated"
+          >
+          {{ object.price.currency + " " + object.price.formated }}
+        </p>
           <div class="flex gap-4 items-center" v-if="object.broker">
             <img
               :src="object.broker.picture"
               class="w-10 h-10 rounded-full"
               alt=""
             />
-            <p class="text-xl text-slate-600" v-if="object.broker.fio">{{ object.broker.fio }}</p>
+            <p class="text-xl text-slate-600" v-if="object.broker.fio">
+              {{ object.broker.fio }}
+            </p>
           </div>
           <div
             class="!border border-solid !border-slate-900 !text-slate-900 p-4"

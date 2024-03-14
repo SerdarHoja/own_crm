@@ -58,22 +58,22 @@
     </div>
 </template>
 <script setup>
-    import { ref } from 'vue'
-    import { useRoute, useRouter } from 'vue-router';
-    const router = useRouter();
-    const route = useRoute();
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 
-    const props = defineProps({
-        object: Object,
-    })
+const props = defineProps({
+  object: Object,
+});
 
-    const open = ref(false);
+const open = ref(false);
 
-    const showModal = () => {
-        open.value = true;
-    };
+const showModal = () => {
+  open.value = true;
+};
 
-    const goToDetails = () => {
-        router.push('/villages/' + props.object.id);
-    }
+const goToDetails = () => {
+  router.push("/villages/" + props.object.id);
+};
 </script>
