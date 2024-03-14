@@ -6,7 +6,7 @@
       @remove="handleRemove"
       @change="handleChange"
     >
-      <div v-if="fileList.length < 8">
+      <div>
         <plus-outlined />
         <div style="margin-top: 8px">Upload</div>
       </div>
