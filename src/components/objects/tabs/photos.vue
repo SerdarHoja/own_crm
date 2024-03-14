@@ -160,7 +160,7 @@
     const handleChange = async ({fileList, file}) => {
         const data = new FormData();
         data.append('idObject', props.id);
-        data.append('photo', fileList[fileList.length - 1].originFileObj);
+        data.append('photo[]', fileList[fileList.length - 1].originFileObj);
         await myStore.uploadNewPhoto(data).then(
             (response) => {
                 if (response.data.result === 'error') {
