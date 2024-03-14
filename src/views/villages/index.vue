@@ -37,7 +37,7 @@
     </div>
 </template>
 <script setup>
-    import { ref, onMounted, computed } from 'vue'
+    import { ref, onMounted, computed, onUnmounted  } from 'vue'
     import { useSettlementsStore } from '@/stores/settlements.module.js';
     import { message } from 'ant-design-vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
@@ -49,6 +49,10 @@
     const loading = ref(false);
     onMounted(() => {
         fetchCountryData();
+        myStore.showAddVillagesButton = true;
+    })
+    onUnmounted(() => {
+        myStore.showAddVillagesButton = false;
     })
 
     const countryObjects = computed(() => {
