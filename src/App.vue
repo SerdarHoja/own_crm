@@ -14,7 +14,9 @@ export default {
   mixins: [lifecycleLoggerMixin],
   mounted() {
     document.body.style.fontFamily = "Inter, sans-serif";
+    // window.addEventListener('beforeunload', localStorage.setItem('test', '213213213'));
   }
+  
 }
 
 </script>
