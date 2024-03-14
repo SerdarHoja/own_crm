@@ -162,7 +162,7 @@
       >
         <a-select-option
             v-for="option in newObjectFieldType[0].options"
-            :key="option.id"
+            :key="option.code"
             :value="option.id"
         >
           {{ option.value }}
