@@ -30,8 +30,8 @@
     <div class="main-content js-height">
       <div class="cards-objects__list">
         <div class="country-data">
-          <div class="mt-5 p-12">
-            <div class="flex gap-5">
+          <div class="mt-5 py-12">
+            <div class="grid grid-col-cast gap-5">
               <div class="w-1/5">
                 <h4 class="text-[#A5A7A7]">Объект</h4>
               </div>
@@ -210,6 +210,9 @@ export default {
     height: 100%;
     overflow-y: auto;
     scrollbar-width: none;
+  }
+  .grid-col-cast{
+    grid-template-columns: 24% 14% 18% 15% 10% 14%;
   }
 </style>
 

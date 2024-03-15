@@ -10,8 +10,8 @@
       </div>
     </div>
     <div class="country-data">
-        <div class="mt-5 p-12">
-            <div class="flex gap-5">
+        <div class="mt-5 py-12">
+            <div class="grid grid-col-cast gap-5">
                 <div class="w-1/5">
                     <h4 class="text-[#A5A7A7]">Посёлок</h4>
                 </div>
@@ -27,9 +27,11 @@
                 </div>
             </div>
         </div>
+      <div class="flex flex-col gap-[.8rem]">
         <div v-for="obj in countryObjects" :key="obj.id">
-            <ObjectItem :object="obj" />
+          <ObjectItem :object="obj" />
         </div>
+      </div>
         <div v-if="countryObjects.length === 0">
             Список пуст
         </div>
