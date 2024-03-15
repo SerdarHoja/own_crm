@@ -19,7 +19,7 @@ export default {
     const updateTimeAndDay = () => {
       const now = new Date();
 
-      const daysOfWeek = ['Воск', 'Пон', 'Вт', 'Ср', 'Чт', 'Пят', 'Суб'];
+      const daysOfWeek = ['Вск', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
       const dayOfWeekIndex = now.getDay();
       currentDay.value = daysOfWeek[dayOfWeekIndex];
 

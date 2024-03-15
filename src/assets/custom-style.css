@@ -340,3 +340,6 @@ span.anticon.anticon-delete {
     border-right: none;
     border-radius: 0!important;
 }
+.grid-col-cast{
+    grid-template-columns: 24% 14% 18% 15% 10% 14%;
+}
