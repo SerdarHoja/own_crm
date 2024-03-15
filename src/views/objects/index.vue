@@ -11,11 +11,6 @@
 <!--        </a-tabs>-->
 <!--      </div>-->
     </div>
-    <a-button class="absolute z-50 top-3 right-[400px]" @click="toggleModal" key="1" type="primary">
-
-      Добавить объект
-    </a-button> -->
-
     <!-- Добавлен компонент фильтры -->
     <FiltersObject
         :section="'country'"
