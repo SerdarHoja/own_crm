@@ -139,6 +139,39 @@ class ObjectsService {
     return axios.get(API_URL + `/objects/list/?section=${section}&filter%5Bid%5D=${id}`, { headers: authHeader() });
   }
 
+  async createObject(data) {
+    const fd = new FormData();
+    if(data.section && data.section !== undefined) {
+      fd.append("section", data.section);
+    }
+    for (const [key, value] of Object.entries(data.fields)) {
+      fd.append(`fields[${key}]`, value);
+    }
+    for (const [key, value] of Object.entries(data.stages)) {
+      fd.append(`stages[${key}]`, JSON.stringify(value));
+    }
+    const url = `${API_URL}/objects/save/`;
+
+    // Do not set 'Content-Type' header when using FormData
+    const headers = {
+      ...authHeader(),
+      'Content-Type': 'application/json',
+    };
+
+    return axios
+      .post(url,  fd, { headers })
+      .then((response) => {
+        // Handle the response here
+        console.log("Response:", response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error("Error:", error);
+        throw error; // Propagate the error further if needed
+      });
+  }
+
   getVillageData(id) {
     return axios.get(API_URL + `/objects/fieldsvillage/?id=${id}`, { headers: authHeader() });
   }

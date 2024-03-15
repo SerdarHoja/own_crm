@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
+        <a-button @click="createObject" class="mb-m-base/2 mt-2.5">Save</a-button>
         <div v-if="loading" class="flex justify-center items-center">
             <a-spin />
         </div>
@@ -159,8 +159,7 @@
     const myStore = useObjectsStore();
     const isFormSubmitted = ref(false);
     const formData = reactive({
-        id: props.id,
-        section: 'country',
+        section: myStore.pageType,
         fields: {},
         stages: {},
     })
@@ -242,11 +241,12 @@
         }
     };
 
+
     const updateObject = async () => {
         isFormSubmitted.value = true;
         loading.value = true;
         try {
-            await myStore.updateObject(formData).then(
+            await myStore.createObject(formData).then(
             (response) => {
                 console.log(response)
                 if (response.data.result === 'error') {

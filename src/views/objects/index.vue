@@ -11,7 +11,8 @@
 <!--        </a-tabs>-->
 <!--      </div>-->
     </div>
-    <!-- <a-button @click="toggleModal" key="1" type="primary">
+    <a-button class="absolute z-50 top-3 right-[400px]" @click="toggleModal" key="1" type="primary">
+
       Добавить объект
     </a-button> -->
 
@@ -87,7 +88,7 @@
             :key="option.code"
             :value="option.id"
         >
-          {{ option.value }}
+          {{ option.value }} - {{ option.code }} - {{ option.id }}
         </a-select-option>
       </a-select>
     </a-form-item>
@@ -122,7 +123,6 @@ onUnmounted(() => {
 
 
 const countryObjects = computed(() => {
-  console.log(myStore.countryObjects);
   return myStore.countryObjects;
 })
 
@@ -162,14 +162,15 @@ const toggleModal = async () => {
   await myStore.getFieldsForNewObject('country');
 }
 
-const handleSelect = async (value) => {
-  console.log("val", value)
-  await myStore.getFieldsObject('settlements', value);
+const nextPageType = ref('')
+const handleSelect = async (value, option) => {
+  nextPageType.value = option.key;
+  await myStore.getFieldsObject(option.key, option.value);
 }
 
 const handleOk = async () => {
   router.push('/objects/new');
-
+  myStore.pageType = nextPageType.value;
 }
 
 </script>
