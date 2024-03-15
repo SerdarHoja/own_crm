@@ -11,9 +11,7 @@
                     <div class="flex flex-col justify-center">
                         <div class="font-bold" v-if="object.name">
                           {{ object.name }},
-                          <span v-if="object.distance_from_mkad.value">
-                            {{ object.distance_from_mkad.value + ' км' }}
-                          </span>
+                          <span v-if="object.distance_from_mkad.value">{{ object.distance_from_mkad.value + ' км' }}</span>
                         </div>
                         <p v-if="object.district_id.value">{{ object.district_id.value }}</p>
                         <p v-if="object.highway.value">{{`${object.highway.value}`}} ш.</p>
@@ -22,33 +20,17 @@
                     </div>
                 </div>
                 <div class=" flex flex-col gap-[.5rem] justify-center">
-                    <p v-if="object.land_area.value">{{`${object.land_area.value} м2`}}</p>
-                    <p v-if="object.deal_view">{{`${ object.deal_view.value}` }}</p>
-                    <p v-if="object.price.formated">{{ object.price.currency + " " +  object.price.formated}}</p>
-                    <div class="flex gap-4 items-center" v-if="object.broker.fio">
-                        <img :src="object.broker.picture" class="w-[1.8rem] h-[1.8rem] rounded-full" alt="">
-                        <p class="text-xl text-slate-600">{{ object.broker.fio }}</p>
-                    </div>
-                    <div class="!border border-solid !border-slate-900 !text-slate-900 py-[.6rem] px-[1.2rem] w-max" v-if="object.actual_date">{{ object.actual_date.value }}</div>
+                    <p v-if="object.land_area.value">{{`${object.land_area.value} сот.`}}</p>
+                    <p v-if="object.price.formated">от {{ object.price.currency + " " +  object.price.formated}}</p>
                 </div>
                 <div class=" flex justify-center">
                   <div class="m-auto">
-                    <span v-if="object.flat_area">{{ object.flat_area.name }} : {{ object.flat_area.value }} |</span>
+                    <p v-if="object.open_water.value">{{`${object.open_water.name}`}}: {{`${object.open_water.value}`}}</p>
+                    <p v-if="object.security.value">{{`${object.security.name}`}}: {{`${object.security.value}`}}</p>
                   </div>
                 </div>
-                <div class=" flex flex-col justify-center gap-[.5rem]">
-                    <p class="flex gap-[.5rem]">
-                      <IconContPerson/>
-                      {{ object.owners[0] ? object.owners[0].fio : '' }}
-                    </p>
-                    <p class="flex gap-[.5rem]">
-                      <IconContPhone/>
-                      {{ object.owners[0] ? object.owners[0].phone : '' }}
-                    </p>
-                    <p>{{ object.owners[0] ? object.owners[0].email : '' }}</p>
-                </div>
-                <div class="" v-if="object.status">
-                    {{ object.status.value }}
+                <div class=" flex justify-center" >
+                  <div class="m-auto" v-if="object.active == 'Y'">Опубликован</div>
                 </div>
             </div>
         </a-card>
