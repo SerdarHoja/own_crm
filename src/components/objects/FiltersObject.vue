@@ -4,7 +4,6 @@
     :model="formData"
     class="form"
     v-if="showFilter"
-    @finish="handleFinish"
     @finishFailed="handleFinishFailed"
   >
     <div class="form__wrap">
@@ -37,7 +36,7 @@
   </a-form>
   <div class="form__btns">
     <a-form-item>
-      <a-button type="primary" html-type="submit"> Поиск </a-button>
+      <a-button type="primary" html-type="submit" @click="handleFinish"> Поиск </a-button>
     </a-form-item>
     <a-form-item>
       <a-button type="primary" danger @click="clearFilter"> Очистить </a-button>
@@ -120,30 +119,21 @@ const onFocusSelect = async (code, id) => {
 };
 
 const handleFinish = async () => {
-  console.log('2321321');
   if(props.section === 'country') {
-    console.log(props.section, formData.value);
     await objectStore.getObjectList(props.section, qs.stringify(formData.value));
   }
 
   if (props.section === "settlements") {
-    console.log(props.section);
-    await settlementsStore.getObjectList(
-      props.section,
-      qs.stringify(formData.value)
-    );
+    await settlementsStore.getObjectList(props.section,qs.stringify(formData.value));
   }
 };
 
 const clearFilter = async () => {
   formData.value.filter = {};
   if (props.section === "country") {
-    console.log(props.section);
     await objectStore.getObjectList(props.section);
   }
-
   if (props.section === "settlements") {
-    console.log(props.section);
     await settlementsStore.getObjectList(props.section);
   }
 };
