@@ -13,6 +13,7 @@ export const useSettlementsStore = defineStore('settlements', {
     photos: [],
     newObjectFields: [],
     allNewFields: [],
+    showAddVillagesButton: false
   }),
   actions: {
     async getObjects(section) {

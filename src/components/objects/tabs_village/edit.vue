@@ -9,13 +9,12 @@
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
                 <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
-                    
                     <div v-for="row in card.fields" :key="row.id">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'number'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required }]"
+                            :rules="[{ required: row.required && isFormSubmitted }]"
                             class="flex flex-col items-start"
                         >
                             <a-input
@@ -129,9 +128,10 @@
                         </a-form-item>
                     </div>
                 </div>
-                <a-card v-if="card.title === 'Карта'">
-                    <!-- <MapComponent></MapComponent> -->
-                </a-card>
+                <MapComponent 
+                    v-if="card.title === 'Карта'"
+                    :dataMap="card.fields"
+                ></MapComponent>
             </a-card>
         </div>
     </div>

@@ -14,7 +14,7 @@
                             v-if="row.type === 'text' || row.type === 'number'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required }]"
+                            :rules="[{ required: row.required && isFormSubmitted}]"
                             class="flex flex-col items-start w-objectEditElem"
                         >
                             <a-input
@@ -143,7 +143,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, computed, reactive } from 'vue';
+    import { ref, onMounted, computed, reactive, onUnmounted } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
     import stages from "@/components/objects/stages.vue";
@@ -157,6 +157,7 @@
     const route = useRoute();
     const loading = ref(false);
     const myStore = useObjectsStore();
+    const isFormSubmitted = ref(false);
     const formData = reactive({
         section: myStore.pageType,
         fields: {},
@@ -167,8 +168,12 @@
 
     onMounted(() => {
         fetchObjectFields();
+        myStore.showAddObjectButton = true;
     })
 
+    onUnmounted(() => {
+        myStore.showAddObjectButton = false;
+    })
     const objectFields = computed(() => {
         return myStore.allNewFields;
     })
@@ -236,7 +241,9 @@
         }
     };
 
-    const createObject = async () => {
+
+    const updateObject = async () => {
+        isFormSubmitted.value = true;
         loading.value = true;
         try {
             await myStore.createObject(formData).then(

@@ -23,7 +23,12 @@
       <!-- <a-button size="middle" type="primary">+ Новая сделка</a-button> -->
     </a-space>
     <a-space class="mr-12">
-      <a-button key="1" type="primary" v-if="showAddVillagesButton" @click="goAddNewVillages">
+      <a-button key="1" type="primary" v-if="objectStoreStore.showAddObjectButton" @click="toggleAddObjectModal">
+        Добавить объект 
+      </a-button>
+    </a-space>
+    <a-space class="mr-12">
+      <a-button key="2" type="primary" v-if="settlementsStore.showAddVillagesButton" @click="goAddNewVillages">
           Добавить поселок  
       </a-button>
     </a-space>
@@ -46,7 +51,8 @@ import NotificationHeader from "@/components/NotificationHeader/NotificationHead
 import UserHeader from "@/components/UserHeader/UserHeader.vue";
 import IconDollar from "@/components/icons/IconDollar.vue";
 import IconEuro from "@/components/icons/IconEuro.vue";
-import {useSettlementsStore} from '../stores/settlements.module.js';
+import { useSettlementsStore } from '../stores/settlements.module.js';
+import { useObjectsStore } from '../stores/objects.module.js';
 
 const currencyDataEURO = ref(null);
 const currencyDataUSD = ref(null);
@@ -55,9 +61,10 @@ const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 const settlementsStore = useSettlementsStore();
+const objectStoreStore = useObjectsStore(); 
+
 import {message} from 'ant-design-vue';
 const searchText = ref('');
-const showAddVillagesButton = ref(false);
 
 const onSearch = () => {
   console.log('searchText', searchText.value);
@@ -70,21 +77,11 @@ const getMyData = computed(() => {
 onMounted(() => {
   fetchMe();
   fetchCurrencyData()
-  checkLink();
-
 })
 
-const checkLink = () => {
-  if(router.currentRoute.value.path.includes('villages')) {
-    showAddVillagesButton.value = true;
-  } else {
-    showAddVillagesButton.value = false;
-  }
-}
 
-watch(
-  () => router.currentRoute.value.path, (newParams) => checkLink()
-  );
+
+
 
 const fetchMe = async () => {
   try {
@@ -110,6 +107,8 @@ const fetchCurrencyData = async () => {
         (response) => {
           if (response.data.result === 'error') {
             message.error(response.data.text)
+            localStorage.removeItem('user');
+            router.push('/login');
           } else {
             currencyDataEURO.value = response.data.data.EUR;
             currencyDataUSD.value = response.data.data.USD;
@@ -119,6 +118,12 @@ const fetchCurrencyData = async () => {
   } catch (error) {
     console.error('Error fetching data in component:', error);
   }
+}
+
+
+const toggleAddObjectModal = async () => {
+  objectStoreStore.openAddObjectModal = true;
+  await objectStoreStore.getFieldsForNewObject('country');
 }
 
 

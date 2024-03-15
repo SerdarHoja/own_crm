@@ -12,8 +12,9 @@
 <!--      </div>-->
     </div>
     <a-button class="absolute z-50 top-3 right-[400px]" @click="toggleModal" key="1" type="primary">
+
       Добавить объект
-    </a-button>
+    </a-button> -->
 
     <!-- Добавлен компонент фильтры -->
     <FiltersObject
@@ -69,7 +70,7 @@
       </div>
     </div>
   </div>
-  <a-modal v-model:open="open" title="Выберите вариант" @ok="handleOk">
+  <a-modal v-model:open="myStore.openAddObjectModal" title="Выберите вариант" @ok="handleOk">
     <a-form-item
         v-if="newObjectFieldType && newObjectFieldType[0]"
         :label="newObjectFieldType[0].name"
@@ -95,7 +96,7 @@
   </a-modal>
 </template>
 <script setup>
-import {ref, onMounted, computed} from 'vue'
+import {ref, onMounted, onUnmounted, computed} from 'vue'
 import {useObjectsStore} from '@/stores/objects.module.js';
 import {message} from 'ant-design-vue';
 import ObjectItem from '@/components/objects/ObjectItem.vue';
@@ -113,7 +114,13 @@ const router = useRouter();
 
 onMounted(() => {
   fetchCountryData();
+  myStore.showAddObjectButton = true;
 })
+
+onUnmounted(() => {
+    myStore.showAddObjectButton = false;
+})
+
 
 const countryObjects = computed(() => {
   return myStore.countryObjects;

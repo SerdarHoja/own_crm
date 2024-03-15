@@ -58,6 +58,7 @@ import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
+
 const props = defineProps({
   object: Object,
 });

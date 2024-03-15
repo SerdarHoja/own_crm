@@ -19,7 +19,9 @@ export const useObjectsStore = defineStore('objects', {
     allNewFields: [],
     photos: [],
     listByOwner: [],
-    pageType: ''
+    pageType: '',
+    showAddObjectButton: false,
+    openAddObjectModal: false
   }),
   actions: {
     async getObjects(section) {
