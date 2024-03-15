@@ -34,8 +34,8 @@ class ObjectsService {
     fd.append("section", data.section);
     for (const [key, value] of Object.entries(data.fields)) {
       if (key === 'coordinates' && Array.isArray(value)) {
-        fd.append(`fields[${key}][0][lat]`, value[0]);
-        fd.append(`fields[${key}][0][long]`, value[1]);
+        fd.append(`fields[${key}][lat]`, value[0]);
+        fd.append(`fields[${key}][long]`, value[1]);
       } else {
         fd.append(`fields[${key}]`, value);
       }
