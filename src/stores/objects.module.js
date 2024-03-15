@@ -19,6 +19,7 @@ export const useObjectsStore = defineStore('objects', {
     allNewFields: [],
     photos: [],
     listByOwner: [],
+    pageType: ''
   }),
   actions: {
     async getObjects(section) {
@@ -59,11 +60,20 @@ export const useObjectsStore = defineStore('objects', {
 
     async updateObject(data) {
       try {
-        const response = await ObjectsService.updateObject(data);
-        return response
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
+          const response = await ObjectsService.updateObject(data);
+          return response
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+    },
+
+    async createObject(data) {
+      try {
+          const response = await ObjectsService.createObject(data);
+          return response
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
     },
 
     async getComments(id) {
@@ -215,6 +225,12 @@ export const useObjectsStore = defineStore('objects', {
     async uploadNewPhoto(data) {
       try {
         const response = await ObjectsService.uploadNewPhoto(data);
+        if (response.data.result === 'success') {
+            message.success("Фото успешно загружено");
+        } else {
+            console.error('Error fetching data:', response.statusText);
+            message.error(response.data.data);
+        }
         return response;
       } catch (error) {
         return Promise.reject(error);
