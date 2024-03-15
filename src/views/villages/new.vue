@@ -14,7 +14,7 @@
                             v-if="row.type === 'text' || row.type === 'number'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required }]"
+                            :rules="[{ required: row.required && isFormSubmitted }]"
                             class="flex flex-col items-start w-objectEditElem"
                         >
                             <a-input
@@ -56,7 +56,7 @@
                                 style="width: 100%"
                             />
                         </a-form-item>
-                        <a-form-item
+                        <!-- <a-form-item
                             v-if="row.type === 'checkbox'"
                             :label="row.name"
                             :name="row.name"
@@ -72,7 +72,25 @@
                                 style="width: 100%"
                                 @change="onChangeCheckBox(row.value, row.code, $event)"
                             />
+                        </a-form-item> -->
+
+                        <a-form-item
+                            v-if="row.type === 'checkbox'"
+                            :label="row.name"
+                            :name="row.name"
+                            :rules="[{ required: row.required }]"
+                            class="w-objectEditElem"
+                        >
+                            <a-radio-group 
+                                v-model:value="row.checked" 
+                                v-model:checked="row.checked"
+                                @change="onChangeCheckBox(row.value, row.code, $event)"
+                            >
+                                <a-radio-button :value="true">Да</a-radio-button>
+                                <a-radio-button :value="false">Нет</a-radio-button>
+                            </a-radio-group>
                         </a-form-item>
+
                         <a-form-item
                             v-if="row.type == 'select' && row.mode == 'static'"
                             :label="row.name"
@@ -140,7 +158,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, computed, reactive } from 'vue';
+    import { ref, onMounted, computed, reactive, onUnmounted } from 'vue';
     import { useRoute } from 'vue-router';
     import { useSettlementsStore } from '@/stores/settlements.module.js';
     import {useUserStore} from "@/stores/user.module";
@@ -157,6 +175,8 @@
         section: 'settlements',
         fields: {},
     })
+    const isFormSubmitted = ref(false);
+
     if(props.id && props.id !== undefined){
       formData.id = props.id
     }
@@ -164,6 +184,11 @@
 
     onMounted(() => {
         fetchObjectFields();
+        myStore.showAddVillagesButton = true;
+    })
+
+    onUnmounted(() => {
+        myStore.showAddVillagesButton = false;
     })
 
     const objectFields = computed(() => {
@@ -171,9 +196,9 @@
     })
 
     const onChangeCheckBox = (value, code, e) => {
-        if (e.target.checked && value) {
+        if (e.target.value && value) {
             formData.fields[code] = value;
-        } else if (e.target.checked && !value) {
+        } else if (e.target.value && !value) {
             formData.fields[code] = true;
         } else {
             formData.fields[code] = false;
@@ -235,6 +260,7 @@
 
     const updateObject = async () => {
         loading.value = true;
+        isFormSubmitted.value = true;
         try {
           await myStore.updateObject(formData).then(
             (response) => {

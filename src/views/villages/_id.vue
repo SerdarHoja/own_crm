@@ -20,7 +20,8 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted, onUnmounted  } from 'vue';
+    import { useSettlementsStore } from '@/stores/settlements.module.js';
     import brief from "@/components/objects/tabs_village/brief.vue";
     import edit from "@/components/objects/tabs_village/edit.vue";
     import photos from "@/components/objects/tabs_village/photos.vue";
@@ -29,4 +30,13 @@
     const route = useRoute();
 
     const id = route.params.id;
+
+    const myStore = useSettlementsStore();
+    onMounted(() => {
+        myStore.showAddVillagesButton = true;
+    })
+    onUnmounted(() => {
+        myStore.showAddVillagesButton = false;
+    })
+
 </script>
