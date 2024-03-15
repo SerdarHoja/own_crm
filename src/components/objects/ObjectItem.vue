@@ -1,9 +1,8 @@
 <template>
   <div class="cards-objects">
-    <a-card :extra="extra" style="width:
-        100%" @click="goToDetails">
-      <div class="flex gap-5">
-        <div class="w-1/5 flex">
+    <a-card :extra="extra" style="width: 100%" @click="goToDetails">
+      <div class="grid gap-5 grid-col-cast">
+        <div class="flex">
           <img
               class="w-[15rem] h-[10rem] rounded-[.4rem] mr-[1.6rem]"
               :src="object.picture"
@@ -19,12 +18,12 @@
             <p v-if="object.district_id">
               {{ object.district_id.value }}
             </p>
-            <p class="opacity-[.6]">
+            <p class="opacity-[.6] mt-[1rem]">
               {{ object.id + " | " + object.date_create.date }}
             </p>
           </div>
         </div>
-        <div class="w-1/6 flex flex-col gap-[.5rem] justify-center">
+        <div class="flex flex-col gap-[.5rem] justify-center">
           <p v-if="object.deal_view && object.deal_view.value">
             {{ object.deal_view.value }}
           </p>
@@ -47,8 +46,8 @@
             {{ object.actual_date.value }}
           </div>
         </div>
-        <div class="w-1/6 flex justify-center">
-          <div class="m-auto">
+        <div class="flex">
+          <div class="my-auto">
             <span v-if="object.house_number.value"
             >{{ object.house_number.name }}:
             {{ object.house_number.value }} |</span
@@ -65,21 +64,23 @@
             >
           </div>
         </div>
-        <div class="w-1/6 flex flex-col justify-center">
-          <p>
+        <div class="flex flex-col justify-center gap-[.5rem]">
+          <p class="flex gap-[.5rem]">
+            <IconContPerson/>
             {{ object.owners[0] ? object.owners[0].fio : "" }}
           </p>
-          <p>
+          <p class="flex gap-[.5rem]">
+            <IconContPhone/>
             {{ object.owners[0] ? object.owners[0].phone : "" }}
           </p>
           <p>
             {{ object.owners[0] ? object.owners[0].email : "" }}
           </p>
         </div>
-        <div class="w-1/6 flex flex-col justify-center" v-if="object.status.value">
+        <div class="flex flex-col justify-center" v-if="object.status.value">
           {{ object.status.value }}
         </div>
-        <div class="w-1/6">
+        <div class="flex items-center">
           <div class="flex gap-5 items-center">
             <p v-if="object.upload_avito && object.upload_avito.value === 'Да'">
               <img
@@ -118,6 +119,8 @@
 <script setup>
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
+import IconContPerson from "@/components/icons/IconContPerson.vue";
+import IconContPhone from "@/components/icons/IconContPhone.vue";
 
 const router = useRouter();
 const route = useRoute();

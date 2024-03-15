@@ -1,12 +1,8 @@
 <template>
-    <div class="cards-villages">
-        <a-card
-            :extra="extra"
-            style="width: 100%;"
-            @click="goToDetails"
-        >
-            <div class="flex gap-5">
-                <div class="w-1/5 flex">
+    <div class="cards-objects">
+        <a-card :extra="extra" style="width: 100%;" @click="goToDetails">
+            <div class="grid grid-col-cast gap-5">
+                <div class=" flex">
                     <img
                         class="w-[15rem] h-[10rem] rounded-[.4rem] mr-[1.6rem]"
                         :src="object.picture"
@@ -22,10 +18,10 @@
                         <p v-if="object.district_id.value">{{ object.district_id.value }}</p>
                         <p v-if="object.highway.value">{{`${object.highway.value}`}} ш.</p>
                         <p v-if="object.place.value">{{`${object.place.value}`}}</p>
-                        <p>{{ object.id + ' | ' + object.date_create.date }}</p>
+                        <p class="opacity-[.6] mt-[1rem]">{{ object.id + ' | ' + object.date_create.date }}</p>
                     </div>
                 </div>
-                <div class="w-1/6 flex flex-col gap-[.5rem] justify-center">
+                <div class=" flex flex-col gap-[.5rem] justify-center">
                     <p v-if="object.land_area.value">{{`${object.land_area.value} м2`}}</p>
                     <p v-if="object.deal_view">{{`${ object.deal_view.value}` }}</p>
                     <p v-if="object.price.formated">{{ object.price.currency + " " +  object.price.formated}}</p>
@@ -35,17 +31,23 @@
                     </div>
                     <div class="!border border-solid !border-slate-900 !text-slate-900 py-[.6rem] px-[1.2rem] w-max" v-if="object.actual_date">{{ object.actual_date.value }}</div>
                 </div>
-                <div class="w-1/6 flex justify-center">
+                <div class=" flex justify-center">
                   <div class="m-auto">
                     <span v-if="object.flat_area">{{ object.flat_area.name }} : {{ object.flat_area.value }} |</span>
                   </div>
                 </div>
-                <div class="w-1/6 flex flex-col justify-center">
-                    <p>{{ object.owners[0] ? object.owners[0].fio : '' }}</p>
-                    <p>{{ object.owners[0] ? object.owners[0].phone : '' }}</p>
+                <div class=" flex flex-col justify-center gap-[.5rem]">
+                    <p class="flex gap-[.5rem]">
+                      <IconContPerson/>
+                      {{ object.owners[0] ? object.owners[0].fio : '' }}
+                    </p>
+                    <p class="flex gap-[.5rem]">
+                      <IconContPhone/>
+                      {{ object.owners[0] ? object.owners[0].phone : '' }}
+                    </p>
                     <p>{{ object.owners[0] ? object.owners[0].email : '' }}</p>
                 </div>
-                <div class="w-1/6" v-if="object.status">
+                <div class="" v-if="object.status">
                     {{ object.status.value }}
                 </div>
             </div>
@@ -55,6 +57,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import IconContPerson from "@/components/icons/IconContPerson.vue";
+import IconContPhone from "@/components/icons/IconContPhone.vue";
 const router = useRouter();
 const route = useRoute();
 
