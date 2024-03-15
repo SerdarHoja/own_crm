@@ -28,17 +28,17 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, onUnmounted } from 'vue';
     import brief from "@/components/objects/tabs/brief.vue";
     import edit from "@/components/objects/tabs/edit.vue";
     import comments from "@/components/objects/tabs/comments.vue";
     import photos from "@/components/objects/tabs/photos.vue";
     import owner from "@/components/objects/tabs/owner.vue";
     import { useRoute, useRouter } from 'vue-router';
+    import {useObjectsStore} from '@/stores/objects.module.js';
 
     const activeKey = ref('1');
     const route = useRoute();
-
     const id = route.params.id;
 
     console.log("comp", id)
@@ -46,6 +46,13 @@
     onMounted(() => {
     })
 
+    const myStore = useObjectsStore();
+    onMounted(() => {
+        myStore.showAddObjectButton = true;
+    })
+    onUnmounted(() => {
+        myStore.showAddObjectButton = false;
+    })
 
 </script>
 

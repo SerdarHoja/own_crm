@@ -106,8 +106,10 @@
     }
     
     const handleRemove = (file) => {
+        console.log('remove', file);
         fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
-      removePhoto(file.uid);
+        removePhoto(file.uid);
+        return false;
     }
     const removePhoto = async (id) => {
       const data = new FormData();

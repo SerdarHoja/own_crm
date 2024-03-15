@@ -11,9 +11,10 @@
 <!--        </a-tabs>-->
 <!--      </div>-->
     </div>
-    <a-button @click="toggleModal" key="1" type="primary">
+    <a-button class="absolute z-50 top-3 right-[400px]" @click="toggleModal" key="1" type="primary">
+
       Добавить объект
-    </a-button>
+    </a-button> -->
 
     <!-- Добавлен компонент фильтры -->
     <FiltersObject
@@ -69,7 +70,7 @@
       </div>
     </div>
   </div>
-  <a-modal v-model:open="open" title="Выберите вариант" @ok="handleOk">
+  <a-modal v-model:open="myStore.openAddObjectModal" title="Выберите вариант" @ok="handleOk">
     <a-form-item
         v-if="newObjectFieldType && newObjectFieldType[0]"
         :label="newObjectFieldType[0].name"
@@ -87,7 +88,7 @@
             :key="option.code"
             :value="option.id"
         >
-          {{ option.value }}
+          {{ option.value }} - {{ option.code }} - {{ option.id }}
         </a-select-option>
       </a-select>
     </a-form-item>
@@ -95,7 +96,7 @@
   </a-modal>
 </template>
 <script setup>
-import {ref, onMounted, computed} from 'vue'
+import {ref, onMounted, onUnmounted, computed} from 'vue'
 import {useObjectsStore} from '@/stores/objects.module.js';
 import {message} from 'ant-design-vue';
 import ObjectItem from '@/components/objects/ObjectItem.vue';
@@ -113,10 +114,15 @@ const router = useRouter();
 
 onMounted(() => {
   fetchCountryData();
+  myStore.showAddObjectButton = true;
 })
 
+onUnmounted(() => {
+    myStore.showAddObjectButton = false;
+})
+
+
 const countryObjects = computed(() => {
-  console.log(myStore.countryObjects);
   return myStore.countryObjects;
 })
 
@@ -156,14 +162,15 @@ const toggleModal = async () => {
   await myStore.getFieldsForNewObject('country');
 }
 
-const handleSelect = async (value) => {
-  console.log("val", value)
-  await myStore.getFieldsObject('settlements', value);
+const nextPageType = ref('')
+const handleSelect = async (value, option) => {
+  nextPageType.value = option.key;
+  await myStore.getFieldsObject(option.key, option.value);
 }
 
 const handleOk = async () => {
   router.push('/objects/new');
-
+  myStore.pageType = nextPageType.value;
 }
 
 </script>

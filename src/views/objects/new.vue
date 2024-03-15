@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
+        <a-button @click="createObject" class="mb-m-base/2 mt-2.5">Save</a-button>
         <div v-if="loading" class="flex justify-center items-center">
             <a-spin />
         </div>
@@ -14,7 +14,7 @@
                             v-if="row.type === 'text' || row.type === 'number'"
                             :label="row.name"
                             :name="row.name"
-                            :rules="[{ required: row.required }]"
+                            :rules="[{ required: row.required && isFormSubmitted}]"
                             class="flex flex-col items-start w-objectEditElem"
                         >
                             <a-input
@@ -143,7 +143,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, computed, reactive } from 'vue';
+    import { ref, onMounted, computed, reactive, onUnmounted } from 'vue';
     import { useRoute } from 'vue-router';
     import { useObjectsStore } from '@/stores/objects.module.js';
     import stages from "@/components/objects/stages.vue";
@@ -157,9 +157,9 @@
     const route = useRoute();
     const loading = ref(false);
     const myStore = useObjectsStore();
+    const isFormSubmitted = ref(false);
     const formData = reactive({
-        id: props.id,
-        section: 'country',
+        section: myStore.pageType,
         fields: {},
         stages: {},
     })
@@ -168,8 +168,12 @@
 
     onMounted(() => {
         fetchObjectFields();
+        myStore.showAddObjectButton = true;
     })
 
+    onUnmounted(() => {
+        myStore.showAddObjectButton = false;
+    })
     const objectFields = computed(() => {
         return myStore.allNewFields;
     })
@@ -237,10 +241,12 @@
         }
     };
 
+
     const updateObject = async () => {
+        isFormSubmitted.value = true;
         loading.value = true;
         try {
-            await myStore.updateObject(formData).then(
+            await myStore.createObject(formData).then(
             (response) => {
                 console.log(response)
                 if (response.data.result === 'error') {

@@ -15,7 +15,7 @@
                   v-if="row.type === 'text' || row.type === 'number'"
                   :label="row.name"
                   :name="row.name"
-                  :rules="[{ required: row.required }]"
+                  :rules="[{ required: row.required && isFormSubmitted}]"
                   class="flex flex-col items-start w-objectEditElem"
               >
                 <a-input
@@ -153,6 +153,10 @@
               </a-form-item>
             </div>
           </div>
+          <MapComponent 
+              v-if="card.title === 'Карта'"
+              :dataMap="card.fields"
+          ></MapComponent>
         </a-card>
       </div>
       <div class="w-[15%]">
@@ -187,6 +191,7 @@ import {useObjectsStore} from '@/stores/objects.module.js';
 import stages from "@/components/objects/stages.vue";
 import {useUserStore} from "@/stores/user.module";
 import { h } from 'vue';
+import MapComponent from "@/components/MapComponent.vue"
 
 
 const props = defineProps({
@@ -196,6 +201,7 @@ const optionsData = ref([]);
 const route = useRoute();
 const loading = ref(false);
 const myStore = useObjectsStore();
+const isFormSubmitted = ref(false);
 const formData = reactive({
   id: props.id,
   section: 'country',
@@ -276,6 +282,7 @@ const fetchObjectFields = async () => {
 };
 
 const updateObject = async () => {
+  isFormSubmitted.value = true;
   loading.value = true;
   try {
     await myStore.updateObject(formData).then(

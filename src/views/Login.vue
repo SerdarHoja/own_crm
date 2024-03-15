@@ -56,8 +56,6 @@
         if(response && response.result === 'error') {
           loading.value = false;
           message.error(response.text);
-          localStorage.removeItem('user');
-          router.push('/login');
         } else {
           router.push("/objects");
           loading.value = false;
