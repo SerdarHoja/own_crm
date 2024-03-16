@@ -77,7 +77,6 @@
     >
       <div class="flex w-full mt-20">
         <div class="w-1/2">
-          <h1>SEARCH</h1>
           <ul>
             <li class="flex mb-10" v-for="row in fields" :key="row.code">
               <div class="w-[100px]">{{ row.name }}</div>
