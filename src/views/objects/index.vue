@@ -215,4 +215,3 @@ export default {
     grid-template-columns: 24% 14% 18% 15% 10% 14%;
   }
 </style>
-
