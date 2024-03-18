@@ -289,6 +289,7 @@
     const mapChange = (coords) => {
       console.log('mapChange', coords)
       formData.fields['coordinates'] = [coords.lat, coords.long];
+      formData.fields['yandex_cian'] = coords.addr;
     }
 
 </script>
