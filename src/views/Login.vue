@@ -1,6 +1,6 @@
 <template>
       <a-form
-        class="login w-[430px] bg-white border-[1px] border-solid border-[#D0D5DD] px-8 py-10 rounded-3xl mt-9 mx-auto"
+        class="login bg-white border-[1px] border-solid border-[#D0D5DD] px-8 py-10 rounded-3xl mt-9 mx-auto"
         :model="formState"
         name="basic"
         autocomplete="off"
