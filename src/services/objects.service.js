@@ -40,9 +40,12 @@ class ObjectsService {
         fd.append(`fields[${key}]`, value);
       }
     }
-    for (const [key, value] of Object.entries(data.stages)) {
-      fd.append(`stages[${key}]`, JSON.stringify(value));
+    if(data.stages){
+      for (const [key, value] of Object.entries(data.stages)) {
+        fd.append(`stages[${key}]`, JSON.stringify(value));
+      }
     }
+
     const url = `${API_URL}/objects/save/`;
 
     // Do not set 'Content-Type' header when using FormData
