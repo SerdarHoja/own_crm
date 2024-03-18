@@ -152,6 +152,10 @@
                         </a-form-item>
                     </div>
                 </div>
+                <MapComponent 
+                    v-if="card.title === 'Карта'"
+                    :dataMap="card.fields"
+                ></MapComponent>
             </a-card>
         </div>
     </div>
@@ -162,7 +166,7 @@
     import { useRoute } from 'vue-router';
     import { useSettlementsStore } from '@/stores/settlements.module.js';
     import {useUserStore} from "@/stores/user.module";
-
+    import MapComponent from "@/components/MapComponent.vue"
 
     const props = defineProps({
         id: String,
