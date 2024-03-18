@@ -47,6 +47,10 @@
     width: max-content!important;
     margin-right: 1.6rem;
 }
+.form__btns .ant-form-item{
+    width: max-content!important;
+    margin-right: 1.6rem;
+}
 .form__block{
     display: flex;
     flex-wrap: wrap;
@@ -115,11 +119,27 @@ span.anticon.anticon-delete {
 .village-edit-tab-content-block .ant-form-item{
     width: 28rem!important;
 }
+.village-edit-tab-content-block .block-full-width .ant-form-item{
+    width: 100%!important;
+}
+.village-edit-tab-content-block .block-full-width .ant-form-item textarea{
+    width: 100%!important;
+}
 .village-edit-tab-content-block .ant-col.ant-form-item-control.css-kqecok{
     width: 28rem!important;
 }
 .village-tabs .ant-tabs-nav-wrap{
     margin-bottom: 1.6rem;
+}
+.object-info-tab-content-block .village-edit-textarea textarea.ant-input{
+    width: 100%!important;
+}
+.village-edit-tab-content-block .ant-form-item.village-edit-textarea {
+    width: 100% !important;
+    max-width: 100%!important;
+}
+.village-edit-tab-content div{
+    width: 100%;
 }
 .ant-input{
     height: 4rem!important;
@@ -128,9 +148,6 @@ span.anticon.anticon-delete {
 .ant-select{
     height: 4rem!important;
     width: 28rem!important;
-}
-.ant-form-item-control-input-content{
-    height: 4rem!important;
 }
 .ant-select-selector{
     height: 100% !important;
@@ -198,60 +215,60 @@ span.anticon.anticon-delete {
 
 
 
-:where(.css-kqecok).ant-radio-button-wrapper {
-    height: 4rem!important;
-}
-:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #ffffff!important;
-}
-:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #ffffff!important;
-}
-:where(.css-kqecok).ant-row{
-    flex-direction: column!important;
-    align-items: flex-start!important;
-}
-:where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-item, :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
-    line-height: 3rem;
-}
-:where(.css-kqecok).ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab, :where(.css-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab {
-    border-radius: .4rem!important;
-}
-:where(.css-kqecok).ant-tabs-card >.ant-tabs-nav .ant-tabs-tab, :where(.css-kqecok).ant-tabs-card >div>.ant-tabs-nav .ant-tabs-tab {
-    padding: 0.6rem 1.2rem!important;
-}
-:where(.css-kqecok).ant-tabs-top >.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-bottom >.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-top >div>.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-bottom >div>.ant-tabs-nav::before {
-    border-bottom: 0!important;
-}
-:where(.css-kqecok).ant-btn {
-    font-size: 1.4rem!important;
-    height: 4rem!important;
-    padding: .4rem 1.5rem!important;
-    border-radius: .4rem!important;
-}
-:where(.css-kqecok).ant-input {
-    padding: .4rem 1.1rem!important;
-    font-size: 1.4rem!important;
-    border: .1rem solid #d9d9d9!important;
-    border-radius: .6rem!important;
-}
-:where(.css-kqecok).ant-card .ant-card-body {
-    padding: .5rem 0!important;
-    border-radius: 0;
-}
-:where(.css-kqecok).ant-card-bordered {
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
-    border-left: none;
-    border-right: none;
-}
+/*:where(.css-kqecok).ant-radio-button-wrapper {*/
+/*    height: 4rem!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {*/
+/*    color: #ffffff!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {*/
+/*    color: #ffffff!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-row{*/
+/*    flex-direction: column!important;*/
+/*    align-items: flex-start!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-item, :where(.css-kqecok).ant-select-single .ant-select-selector .ant-select-selection-placeholder {*/
+/*    line-height: 3rem;*/
+/*}*/
+/*:where(.css-kqecok).ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab, :where(.css-kqecok).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab {*/
+/*    border-radius: .4rem!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-tabs-card >.ant-tabs-nav .ant-tabs-tab, :where(.css-kqecok).ant-tabs-card >div>.ant-tabs-nav .ant-tabs-tab {*/
+/*    padding: 0.6rem 1.2rem!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-tabs-top >.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-bottom >.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-top >div>.ant-tabs-nav::before, :where(.css-kqecok).ant-tabs-bottom >div>.ant-tabs-nav::before {*/
+/*    border-bottom: 0!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-btn {*/
+/*    font-size: 1.4rem!important;*/
+/*    height: 4rem!important;*/
+/*    padding: .4rem 1.5rem!important;*/
+/*    border-radius: .4rem!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-input {*/
+/*    padding: .4rem 1.1rem!important;*/
+/*    font-size: 1.4rem!important;*/
+/*    border: .1rem solid #d9d9d9!important;*/
+/*    border-radius: .6rem!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-card .ant-card-body {*/
+/*    padding: .5rem 0!important;*/
+/*    border-radius: 0;*/
+/*}*/
+/*:where(.css-kqecok).ant-card-bordered {*/
+/*    border-top: 1px solid #f0f0f0;*/
+/*    border-bottom: 1px solid #f0f0f0;*/
+/*    border-left: none;*/
+/*    border-right: none;*/
+/*}*/
 /*:where(.css-dev-only-do-not-override-kqecok).ant-card .ant-card-body {*/
 /*    padding: .5rem 0;*/
 /*    border-radius: 0!important;*/
 /*}*/
-:where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
-    font-size: 1.4rem;
-}
+/*:where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {*/
+/*    font-size: 1.4rem;*/
+/*}*/
 /*:where(.css-dev-only-do-not-override-kqecok).ant-card-bordered {*/
 /*    border-top: .1rem solid #f0f0f0;*/
 /*    border-bottom: .1rem solid #f0f0f0;*/
@@ -259,36 +276,36 @@ span.anticon.anticon-delete {
 /*    border-right: none;*/
 /*    border-radius: 0!important;*/
 /*}*/
-:where(.css-kqecok).ant-input-number .ant-input-number-input {
-    height: 4rem!important;
-    padding: 0 1.1rem!important;
-    border-radius: .4rem!important;
-}
-:where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
-    font-size: 1.4rem!important;
-}
-:where(.css-kqecok).ant-form-item .ant-form-item-control-input-content {
-    display: flex;
-    column-gap: 0.5rem;
-}
-:where(.css-dev-only-do-not-override-kqecok).ant-input {
-    padding: .4rem 1.1rem;
-    font-size: 1.4rem;
-    border: .1rem solid #d9d9d9;
-    border-radius: .4rem;
-}
-:where(.css-dev-only-do-not-override-kqecok).ant-form-item .ant-form-item-control-input {
-    min-height: 4rem!important;
-}
-:where(.css-dev-only-do-not-override-kqecok).ant-form-item .ant-form-item-control-input {
-    min-height: 4rem!important;
-}
-:where(.css-dev-only-do-not-override-kqecok).ant-input-number .ant-input-number-input {
-    width: 100% !important;
-    height: 4rem!important;
-    padding: 0 1.1rem!important;
-    border-radius: .4rem!important;
-}
+/*:where(.css-kqecok).ant-input-number .ant-input-number-input {*/
+/*    height: 4rem!important;*/
+/*    padding: 0 1.1rem!important;*/
+/*    border-radius: .4rem!important;*/
+/*}*/
+/*:where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {*/
+/*    font-size: 1.4rem!important;*/
+/*}*/
+/*:where(.css-kqecok).ant-form-item .ant-form-item-control-input-content {*/
+/*    display: flex;*/
+/*    column-gap: 0.5rem;*/
+/*}*/
+/*:where(.css-dev-only-do-not-override-kqecok).ant-input {*/
+/*    padding: .4rem 1.1rem;*/
+/*    font-size: 1.4rem;*/
+/*    border: .1rem solid #d9d9d9;*/
+/*    border-radius: .4rem;*/
+/*}*/
+/*:where(.css-dev-only-do-not-override-kqecok).ant-form-item .ant-form-item-control-input {*/
+/*    min-height: 4rem!important;*/
+/*}*/
+/*:where(.css-dev-only-do-not-override-kqecok).ant-form-item .ant-form-item-control-input {*/
+/*    min-height: 4rem!important;*/
+/*}*/
+/*:where(.css-dev-only-do-not-override-kqecok).ant-input-number .ant-input-number-input {*/
+/*    width: 100% !important;*/
+/*    height: 4rem!important;*/
+/*    padding: 0 1.1rem!important;*/
+/*    border-radius: .4rem!important;*/
+/*}*/
 
 .objects-detail__info-subtitle{
     font-size: 1.4rem;

@@ -3,9 +3,8 @@
     <div class="object-info-tab-content-block w-[30%]">
       <a-card class="object-info-tab-content mb-[1.6rem]" :class="card.fields.length > 0 ? 'block' : 'hidden'" v-for="card in objectBrief" :key="card.title">
         <span v-if="card.fields.length > 0">
-          {{ card.title }}
-          <a-divider />
-          <div>
+          <div class="objects-detail__info-subtitle">{{ card.title }}</div>
+          <div class="text-[1.4rem]">
             <div v-for="row in card.fields" :key="row.id" class="flex">
               <div class="objects-detail__info-elem flex flex-1">{{ row.name }}</div>
               <div>{{ row.value }}</div>
