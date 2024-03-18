@@ -115,6 +115,9 @@ span.anticon.anticon-delete {
 .village-edit-tab-content-block .ant-form-item{
     width: 28rem!important;
 }
+.village-edit-tab-content-block .ant-col.ant-form-item-control.css-kqecok{
+    width: 28rem!important;
+}
 .village-tabs .ant-tabs-nav-wrap{
     margin-bottom: 1.6rem;
 }
