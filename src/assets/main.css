@@ -8165,20 +8165,6 @@ a.own-style-button:active {
   border: 1px solid #205EFE;
 }
 
-.login {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-}
-
 .login__content {
   width: 35rem;
 }
