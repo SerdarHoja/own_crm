@@ -36,7 +36,7 @@
 </template>
 <script setup>
     import { useObjectsStore } from '@/stores/objects.module.js';
-    import { defineProps, ref } from 'vue';
+    import { ref } from 'vue';
     import { message } from 'ant-design-vue';
     
     const props = defineProps({

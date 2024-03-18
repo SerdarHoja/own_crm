@@ -10,6 +10,8 @@ import { ref, onMounted, defineProps } from 'vue';
 const props = defineProps({
     dataMap: Object,
 })
+
+const emit = defineEmits(['change']);
 const map = ref(null);
 const long = ref(props.dataMap[0]?.value?.long);
 const lat = ref(props.dataMap[0]?.value?.lat);
@@ -67,6 +69,7 @@ const initMap = () => {
       placemark = new ymaps.Placemark(coords, {
         hintContent: 'Метка',
         balloonContent: 'Текст метки'
+
       });
       // Добавляем новую метку на карту
       map.geoObjects.add(placemark);
