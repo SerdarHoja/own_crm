@@ -83,7 +83,7 @@
             :key="option.code"
             :value="option.id"
         >
-          {{ option.value }} - {{ option.code }} - {{ option.id }}
+          {{ option.value }}
         </a-select-option>
       </a-select>
     </a-form-item>

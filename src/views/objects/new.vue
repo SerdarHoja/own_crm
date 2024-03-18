@@ -242,7 +242,7 @@
     };
 
 
-    const updateObject = async () => {
+    const createObject = async () => {
         isFormSubmitted.value = true;
         loading.value = true;
         try {

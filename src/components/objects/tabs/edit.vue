@@ -156,6 +156,7 @@
           <MapComponent 
               v-if="card.title === 'Карта'"
               :dataMap="card.fields"
+              @change="mapChange"
           ></MapComponent>
         </a-card>
       </div>
@@ -307,6 +308,11 @@ const updateObject = async () => {
 const stageChange = (row) => {
   console.log('stageChange', row)
   formData.stages[row.code] = row.value;
+}
+
+const mapChange = (coords) => {
+  console.log('mapChange', coords)
+  formData.fields['coordinates'] = [coords.lat, coords.long];
 }
 
 </script>

@@ -10,6 +10,8 @@ import { ref, onMounted, defineProps } from 'vue';
 const props = defineProps({
     dataMap: Object,
 })
+
+const emit = defineEmits(['change']);
 const map = ref(null);
 
 onMounted(() => {
@@ -33,15 +35,23 @@ const initMap = () => {
   const mapElement = document.getElementById('map');
   if (mapElement) {
     ymaps.ready(() => {
-      var map = new ymaps.Map('map', {
+      const map = new ymaps.Map('map', {
         center: [props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], // Координаты центра карты
         zoom: 9 // Уровень масштабирования
       });
   
-      var placemark = new ymaps.Placemark([props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], { // координаты метки
+      const placemark = new ymaps.Placemark([props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], { // координаты метки
         // Свойства метки
         hintContent: 'Метка', // всплывающая подсказка
         balloonContent: 'Текст метки' // содержимое балуна
+      }, {
+        draggable: true // возможность перетаскивания
+      });
+
+      placemark.events.add('dragend', function (e) {
+          const coords = e.get('target').geometry.getCoordinates();
+          console.log("Coords", coords, coords[1].toPrecision(6), coords[0].toPrecision(6))
+          emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6) });
       });
   
       // Добавляем метку на карту
