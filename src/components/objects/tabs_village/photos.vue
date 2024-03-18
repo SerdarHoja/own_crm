@@ -18,7 +18,7 @@
         <a-button @click="setPlan(previewId)">
             Установить планировку
         </a-button>
-        
+        {{ previewSort }}
         <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
 </template>
@@ -89,6 +89,7 @@
     const previewImage = ref('');
     const previewTitle = ref('');
     const previewId = ref('');
+    const previewSort = ref('');
 
     const handleCancel = () => {
         previewVisible.value = false;
@@ -99,10 +100,14 @@
         if (!file.url && !file.preview) {
             file.preview = (await getBase64(file.originFileObj));
         }
+        
         previewImage.value = file.url || file.preview;
         previewVisible.value = true;
         previewTitle.value = file.name || file.url.substring(file.url.lastIndexOf('/') + 1);
         previewId.value = file.uid;
+        previewSort.value = myStore.photos.filter(el => el.real_img_id === file.name)[0].sort;
+
+
     }
 
     const handleRemove = (file) => {

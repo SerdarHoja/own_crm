@@ -137,6 +137,10 @@
                         </a-form-item>
                     </div>
                 </form>
+                <MapComponent 
+                    v-if="card.title === 'Карта'"
+                    :dataMap="card.fields"
+                ></MapComponent>
             </a-card>
         </div>
     </div>
@@ -148,7 +152,7 @@
     import { useObjectsStore } from '@/stores/objects.module.js';
     import stages from "@/components/objects/stages.vue";
     import {useUserStore} from "@/stores/user.module";
-
+    import MapComponent from "@/components/MapComponent.vue"
 
     const props = defineProps({
         id: String,
@@ -242,7 +246,7 @@
     };
 
 
-    const updateObject = async () => {
+    const createObject = async () => {
         isFormSubmitted.value = true;
         loading.value = true;
         try {

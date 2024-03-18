@@ -27,13 +27,18 @@ class ObjectsService {
     );
   }
 
-  updateObject(data) {
+  async updateObject(data) {
     const fd = new FormData();
     if(data.id && data.id !== undefined)
       fd.append("id", data.id);
     fd.append("section", data.section);
     for (const [key, value] of Object.entries(data.fields)) {
-      fd.append(`fields[${key}]`, value);
+      if (key === 'coordinates' && Array.isArray(value)) {
+        fd.append(`fields[${key}][lat]`, value[0]);
+        fd.append(`fields[${key}][long]`, value[1]);
+      } else {
+        fd.append(`fields[${key}]`, value);
+      }
     }
     for (const [key, value] of Object.entries(data.stages)) {
       fd.append(`stages[${key}]`, JSON.stringify(value));

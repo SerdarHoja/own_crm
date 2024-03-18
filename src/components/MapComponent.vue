@@ -10,7 +10,12 @@ import { ref, onMounted, defineProps } from 'vue';
 const props = defineProps({
     dataMap: Object,
 })
+
+const emit = defineEmits(['change']);
 const map = ref(null);
+const long = ref(props.dataMap[0]?.value?.long);
+const lat = ref(props.dataMap[0]?.value?.lat);
+
 
 onMounted(() => {
   starMap();
@@ -30,27 +35,64 @@ const starMap = () => {
 }
 
 const initMap = () => {
-  const mapElement = document.getElementById('map');
-  if (mapElement) {
-    ymaps.ready(() => {
-      var map = new ymaps.Map('map', {
-        center: [props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], // Координаты центра карты
-        zoom: 9 // Уровень масштабирования
-      });
-  
-      var placemark = new ymaps.Placemark([props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], { // координаты метки
-        // Свойства метки
-        hintContent: 'Метка', // всплывающая подсказка
-        balloonContent: 'Текст метки' // содержимое балуна
-      });
-  
-      // Добавляем метку на карту
-      map.geoObjects.add(placemark);
+  ymaps.ready(() => {
+    var map = new ymaps.Map('map', {
+      center: [props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat],
+      zoom: 9
     });
-  } else {
-    console.error("No data available in props.dataMap");
-  }
+
+    // Добавляем обработчик клика на карту
+    map.events.add(['click', 'dblclick'], function (e) {
+      // Получаем координаты точки, по которой кликнули
+      var coords = e.get('coords');
+      long.value = coords[0]
+      lat.value = coords[1]
+
+      // Здесь можно сделать что-то с новыми координатами, например, обновить метку
+      updatePlacemark(coords);
+    });
+
+    // Создаем метку с начальными координатами
+    var placemark = new ymaps.Placemark([long.value, lat.value], {
+      hintContent: 'Метка',
+      balloonContent: 'Текст метки'
+    });
+
+    // Добавляем метку на карту
+    map.geoObjects.add(placemark);
+
+    // Функция для обновления метки
+    function updatePlacemark(coords) {
+      // Удаляем старую метку
+      map.geoObjects.remove(placemark);
+      // Создаем новую метку с новыми координатами
+      placemark = new ymaps.Placemark(coords, {
+        hintContent: 'Метка',
+        balloonContent: 'Текст метки'
+
+      });
+      // Добавляем новую метку на карту
+      map.geoObjects.add(placemark);
+      
+      ymaps.geocode([long.value, lat.value])
+        .then(result => {
+            // // Получаем описание первого найденного объекта
+            
+            const firstGeoObject = result.geoObjects.get(0);
+            const addressDetails = firstGeoObject.properties.get('metaDataProperty').GeocoderMetaData.AddressDetails;
+            console.log('Название адреса:', [long.value, lat.value], addressDetails.Country.AddressLine);
+        })
+        .catch(error => {
+            console.error('Ошибка при выполнении геокодирования:', error);
+        });
+    }
+
+  });
 }
+
+
+
+
 </script>
 
 <style>

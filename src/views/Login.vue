@@ -1,6 +1,6 @@
 <template>
       <a-form
-        class="w-[430px] bg-white border-[1px] border-solid border-[#D0D5DD] px-8 py-10 rounded-3xl mt-9 mx-auto"
+        class="login w-[430px] bg-white border-[1px] border-solid border-[#D0D5DD] px-8 py-10 rounded-3xl mt-9 mx-auto"
         :model="formState"
         name="basic"
         autocomplete="off"
@@ -23,8 +23,8 @@
           <a-input-password v-model:value="formState.password" placeholder="Password" />
         </a-form-item>
 
-        <a-form-item>
-          <a-button type="primary" html-type="submit" :loading="loading" class="!bg-blue-600 w-full">Submit</a-button>
+        <a-form-item class="btn-submit">
+          <a-button type="primary" html-type="submit" :loading="loading" class=" !bg-blue-600 w-full">Submit</a-button>
         </a-form-item>
       </a-form>
   </template>

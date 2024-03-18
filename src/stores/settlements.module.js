@@ -125,6 +125,7 @@ export const useSettlementsStore = defineStore('settlements', {
       try {
         const response = await ObjectsService.getObjectPhotos(id);
         this.photos = response.data.data
+        console.log
         return response;
       } catch (error) {
         return Promise.reject(error);

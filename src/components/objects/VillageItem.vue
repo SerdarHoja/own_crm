@@ -29,8 +29,8 @@
                     <p v-if="object.security.value">{{`${object.security.name}`}}: {{`${object.security.value}`}}</p>
                   </div>
                 </div>
-                <div class=" flex justify-center" >
-                  <div class="m-auto" v-if="object.active == 'Y'">Опубликован</div>
+                <div class=" flex" >
+                  <div class="my-auto" v-if="object.active == 'Y'">Опубликован</div>
                 </div>
             </div>
         </a-card>

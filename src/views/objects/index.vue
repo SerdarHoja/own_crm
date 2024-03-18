@@ -83,7 +83,7 @@
             :key="option.code"
             :value="option.id"
         >
-          {{ option.value }} - {{ option.code }} - {{ option.id }}
+          {{ option.value }}
         </a-select-option>
       </a-select>
     </a-form-item>
@@ -215,4 +215,3 @@ export default {
     grid-template-columns: 24% 14% 18% 15% 10% 14%;
   }
 </style>
-
