@@ -5,6 +5,7 @@
       @preview="handlePreview"
       @remove="handleRemove"
       @change="handleChange"
+      :before-upload="handleChange"
     >
       <div v-if="fileList.length < 8">
         <plus-outlined />
@@ -163,17 +164,18 @@
     }
 
     const handleChange = async ({fileList, file}) => {
+        console.log('21321')
         const data = new FormData();
         data.append('idObject', props.id);
         data.append('photo[]', fileList[fileList.length - 1].originFileObj);
-      await myStore.uploadNewPhoto(data).then(
-            (response) => {
-                if (response.data.result === 'error') {
-                    message.error(response.data.text)
-                } else {
-                    fetchPhotos();
+        await myStore.uploadNewPhoto(data).then(
+                (response) => {
+                    if (response.data.result === 'error') {
+                        message.error(response.data.text)
+                    } else {
+                        fetchPhotos();
+                    }
                 }
-            }
-        )
+            )
     }
 </script>
