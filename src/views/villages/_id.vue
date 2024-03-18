@@ -1,5 +1,5 @@
 <template>
-    <div class="p-[4rem] w-full">
+    <div class="main village-tabs">
         <router-link to="/villages">
             <a-button type="primary mb-[1rem]">
                 Назад

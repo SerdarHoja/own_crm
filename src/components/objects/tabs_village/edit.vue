@@ -5,10 +5,10 @@
             <a-spin />
         </div>
         <div v-else>
-            <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
+            <a-card class="village-edit-tab-content-block mb-m-base/2" v-for="card in objectFields" :key="card.title">
                 <div class="font-bold">{{ card.title }}</div>
                 <a-divider />
-                <div class="grid gap-[1.6rem] grid-cols-gridObjectInfo">
+                <div class="flex gap-[1.6rem] flex-wrap">
                     <div v-for="row in card.fields" :key="row.id">
                         <a-form-item
                             v-if="row.type === 'text' || row.type === 'number'"
@@ -65,8 +65,8 @@
                             :rules="[{ required: row.required }]"
                             class="w-objectEditElem"
                         >
-                            <a-radio-group 
-                                v-model:value="row.checked" 
+                            <a-radio-group
+                                v-model:value="row.checked"
                                 v-model:checked="row.checked"
                                 @change="onChangeCheckBox(row.value, row.code, $event)"
                             >
@@ -124,11 +124,11 @@
                             >
                                 <a-radio-button v-for="option in row.options" :key="option.id" :value="option.value">{{ option.value }}</a-radio-button>
                             </a-radio-group>
-        
+
                         </a-form-item>
                     </div>
                 </div>
-                <MapComponent 
+                <MapComponent
                     v-if="card.title === 'Карта'"
                     :dataMap="card.fields"
                 ></MapComponent>
@@ -224,7 +224,7 @@
                 loading.value = false;
                 isFormSubmitted.value = false;
             }
-            
+
     };
 
     const clearSelection = (row) => {

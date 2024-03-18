@@ -1,8 +1,8 @@
 <template>
   <div class="main-content js-height">
     <div class="flex gap-24">
-      <div class="w-[30%] h-full overflow-y-auto">
-        <a-card class="mb-[3.2rem]" :class="card.fields.length > 0 ? 'block' : 'hidden'" v-for="card in objectBrief" :key="card.title">
+      <div class="object-info-tab-content-block w-[30%] h-full overflow-y-auto">
+        <a-card class="object-info-tab-content mb-[3.2rem]" :class="card.fields.length > 0 ? 'block' : 'hidden'" v-for="card in objectBrief" :key="card.title">
         <span v-if="card.fields.length > 0">
           <div class="objects-detail__info-subtitle">{{ card.title }}</div>
           <div class="text-[1.4rem]">
