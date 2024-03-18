@@ -80,7 +80,7 @@ const initMap = () => {
             
             const firstGeoObject = result.geoObjects.get(0);
             const addressDetails = firstGeoObject.properties.get('metaDataProperty').GeocoderMetaData.AddressDetails;
-            console.log('Название адреса:', [long.value, lat.value], addressDetails.Country.AddressLine);
+            emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6), addr:addressDetails.Country.AddressLine});
         })
         .catch(error => {
             console.error('Ошибка при выполнении геокодирования:', error);
