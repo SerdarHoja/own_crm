@@ -47,7 +47,7 @@ export const useSettlementsStore = defineStore('settlements', {
     },
     async updateObject(data) {
       try {
-        const response = await ObjectsService.updateObjectTEST(data);
+        const response = await ObjectsService.updateObject(data);
         return response
     } catch (error) {
         console.error('Error fetching data:', error);
