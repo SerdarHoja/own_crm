@@ -66,6 +66,9 @@
 .form__input{
     width: 28rem!important;
 }
+.block-full-width textarea{
+    width: 100%!important;
+}
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
@@ -134,10 +137,10 @@ span.anticon.anticon-delete {
 .object-info-tab-content-block .village-edit-textarea textarea.ant-input{
     width: 100%!important;
 }
-.village-edit-tab-content-block .ant-form-item.village-edit-textarea {
-    width: 100% !important;
-    max-width: 100%!important;
-}
+/*.village-edit-tab-content-block .ant-form-item.village-edit-textarea {*/
+/*    width: 100% !important;*/
+/*    max-width: 100%!important;*/
+/*}*/
 .village-edit-tab-content div{
     width: 100%;
 }
