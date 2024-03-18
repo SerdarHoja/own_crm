@@ -110,7 +110,6 @@
             >test
           </a-button>
         </div>
-        <div class="w-1/2 bg-stone-200"></div>
       </div>
     </a-modal>
 
