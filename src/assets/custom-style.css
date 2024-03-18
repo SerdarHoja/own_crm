@@ -96,15 +96,27 @@ span.anticon.anticon-delete {
     font-family: sans-serif, "Inter", "Helvetica"!important;
     color: #253858;
 }
-#rc-tabs-2-panel-1 .ant-card-body{
+.object-info-tab-content .ant-card-body{
     padding: 0!important;
     border-top: none!important;
     border-right: none!important;
     border-bottom: none!important;
     border-left: none!important;
 }
-#rc-tabs-2-panel-1 .ant-card{
-    border: 0!important;
+.object-info-tab-content-block .object-info-tab-content{
+    border-right: none!important;
+    border-left: none!important;
+    border-radius: 0!important;
+    padding: .5rem 0;
+}
+.village-edit-tab-content-block .ant-input{
+    height: 100%!important;
+}
+.village-edit-tab-content-block .ant-form-item{
+    width: 28rem!important;
+}
+.village-tabs .ant-tabs-nav-wrap{
+    margin-bottom: 1.6rem;
 }
 .ant-input{
     height: 4rem!important;
@@ -364,9 +376,6 @@ span.anticon.anticon-delete {
 .login .ant-btn{
     height: 4rem !important;
 }
-.login .btn-submit{
-    margin-bottom: 0!important;
-}
 .login .ant-input-suffix{
-    margin: 0 auto!important;
+    margin-left: 1rem!important;
 }
