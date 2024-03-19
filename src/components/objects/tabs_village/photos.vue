@@ -6,6 +6,7 @@
       @remove="handleRemove"
       @change="handleChange"
       :before-upload="handleChange"
+      :dragger="true"
     >
       <div v-if="fileList.length < 8">
         <plus-outlined />
