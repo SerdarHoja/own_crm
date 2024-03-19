@@ -5,11 +5,11 @@
       <div v-if="loading" class="flex justify-center items-center w-[80%]">
         <a-spin/>
       </div>
-      <div v-else class="w-[80%]">
+      <div v-else class="object-info-tab-content-block w-[80%]">
         <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
           <div class="font-bold">{{ card.title }}</div>
           <a-divider/>
-          <div class="flex gap-[1.6rem] flex-wrap">
+          <div :class="(card.id == 240)?'block-full-width':'flex gap-[1.6rem] flex-wrap'">
             <div v-for="row in card.fields" :key="row.id">
               <a-form-item
                   v-if="row.type === 'text' || row.type === 'number'"
@@ -38,7 +38,7 @@
                     v-model:value="formData.fields[row.code]"
                     :ref="row.code"
                     :type="row.html"
-                    class="w-full"
+                    class="w-full text-area-edit"
                 >
                 </a-textarea>
               </a-form-item>
@@ -153,7 +153,7 @@
               </a-form-item>
             </div>
           </div>
-          <MapComponent 
+          <MapComponent
               v-if="card.title === 'Карта'"
               :dataMap="card.fields"
               @change="mapChange"

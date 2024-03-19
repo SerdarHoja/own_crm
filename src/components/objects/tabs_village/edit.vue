@@ -6,10 +6,10 @@
         <a-spin/>
       </div>
       <div v-else class="w-[80%]">
-        <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
+        <a-card class="village-edit-tab-content-block mb-m-base/2" v-for="card in objectFields" :key="card.title">
           <div class="font-bold">{{ card.title }}</div>
           <a-divider/>
-          <div class="flex gap-[1.6rem] flex-wrap">
+          <div :class="(card.id == 240)?'block-full-width':'flex gap-[1.6rem] flex-wrap'">
             <div v-for="row in card.fields" :key="row.id">
               <a-form-item
                   v-if="row.type === 'text' || row.type === 'number'"
@@ -291,6 +291,7 @@
       formData.fields['coordinates'] = [coords.lat, coords.long];
       formData.fields['yandex_cian'] = coords.addr;
     }
+
 
 </script>
 <style>
