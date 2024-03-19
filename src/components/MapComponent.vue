@@ -96,46 +96,47 @@ const initMap = () => {
       newCoordinates = placemark.geometry.getCoordinates();
       console.log('Метка закончила перетаскиваться', newCoordinates);
       console.log(newCoordinates);
-      updatePlacemark(newCoordinates)
+      // updatePlacemark(newCoordinates)
     });
 
     // Функция для обновления метки
 
-    function updatePlacemark(coords) {
+    // function updatePlacemark(coords) {
 
-      map.geoObjects.remove(placemark);
+    //   map.geoObjects.remove(placemark);
 
-      placemark = new ymaps.Placemark(coords, {
-        hintContent: 'Метка',
-        balloonContent: 'Текст метки'
-      }, {
-        draggable: true // Делаем метку перетаскиваемой
-      });
-      placemark.events.add('dragend', function (e) {
-      // Здесь вы можете выполнить необходимые действия после окончания перетаскивания метки
-      newCoordinates = placemark.geometry.getCoordinates();
-      console.log('Метка закончила перетаскиваться', newCoordinates);
-      console.log(newCoordinates);
-      updatePlacemark(newCoordinates)
-    });
-      // Добавляем новую метку на карту
-      map.geoObjects.add(placemark);
+    //   placemark = new ymaps.Placemark(coords, {
+    //     hintContent: 'Метка',
+    //     balloonContent: 'Текст метки'
+    //   }, {
+    //     draggable: true // Делаем метку перетаскиваемой
+    //   });
+    //   placemark.events.add('dragend', function (e) {
+    //   // Здесь вы можете выполнить необходимые действия после окончания перетаскивания метки
+    //   newCoordinates = placemark.geometry.getCoordinates();
+    //   console.log('Метка закончила перетаскиваться', newCoordinates);
+    //   console.log(newCoordinates);
+    //   updatePlacemark(newCoordinates)
+    // });
+    //   // Добавляем новую метку на карту
+    //   map.geoObjects.add(placemark);
 
       
-    //   ymaps.geocode([long.value, lat.value])
-    //     .then(result => {
-    //         // // Получаем описание первого найденного объекта
+    // //   ymaps.geocode([long.value, lat.value])
+    // //     .then(result => {
+    // //         // // Получаем описание первого найденного объекта
             
-    //         const firstGeoObject = result.geoObjects.get(0);
-    //         const addressDetails = firstGeoObject.properties.get('metaDataProperty').GeocoderMetaData.AddressDetails;
-    //         emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6), addr:addressDetails.Country.AddressLine});
-    //     })
-    //     .catch(error => {
-    //         console.error('Ошибка при выполнении геокодирования:', error);
-    //     });
-    // }
+    // //         const firstGeoObject = result.geoObjects.get(0);
+    // //         const addressDetails = firstGeoObject.properties.get('metaDataProperty').GeocoderMetaData.AddressDetails;
+    // //         emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6), addr:addressDetails.Country.AddressLine});
+    // //     })
+    // //     .catch(error => {
+    // //         console.error('Ошибка при выполнении геокодирования:', error);
+    // //     });
+    // // }
 
-  });
+    // };
+  })
 }
 
 
