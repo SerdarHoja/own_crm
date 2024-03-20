@@ -137,9 +137,7 @@ span.anticon.anticon-delete {
 .village-edit-tab-content-block .block-full-width .ant-form-item textarea{
     height: 8rem!important;
 }
-.village-edit-tab-content-block .ant-col.ant-form-item-control.css-kqecok{
-    width: 28rem!important;
-}
+
 .village-tabs .ant-tabs-nav-wrap{
     margin-bottom: 1.6rem;
 }
@@ -153,6 +151,14 @@ span.anticon.anticon-delete {
 .village-edit-tab-content div{
     width: 100%;
 }
+
+.block-full-width .ant-checkbox-wrapper{
+    width: 28rem!important;
+}
+.ant-input-affix-wrapper{
+    height: 4rem!important;
+}
+
 .ant-input{
     height: 4rem!important;
     width: 28rem!important;
