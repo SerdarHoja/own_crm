@@ -86,6 +86,16 @@ export const useOwnerStore = defineStore('owner', {
         return Promise.reject(error);
       }
     },
+//изменение данных владельца
+    async updateOwnerData(id, newData) {
+      try {
+        const response = await OwnerService.updateOwnerData(id, newData);
+        return response.data;
+      } catch (error) {
+        console.error('Ошибка обновления данных собственника:', error);
+        return Promise.reject(error);
+      }
+    },
 
   },
 });

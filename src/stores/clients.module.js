@@ -67,6 +67,16 @@ export const useClientStore = defineStore('client', {
       } catch (error) {
         return Promise.reject(error);
       }
-    }
+    },
+//Изменение данных клиента
+    async updateClientData(id, newData) {
+      try {
+        const response = await OwnerService.updateClientData(id, newData);
+        return response.data;
+      } catch (error) {
+        console.error('Ошибка обновления данных собственника:', error);
+        return Promise.reject(error);
+      }
+    },
   },
 });

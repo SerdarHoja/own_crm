@@ -35,7 +35,7 @@
       :columns="columns"
       :data-source="checkClientsData(clients.data)"
       :pagination="{
-        pageSize: 10,
+        pageSize: 5,
         total: clients.total,
       }"
       :custom-row="
@@ -111,6 +111,7 @@
           </a-button>
         </div>
       </div>
+      <a-button @click="updateClient" type="primary">Сохранить изменения</a-button>
     </a-modal>
 
     <!-- create modal -->
@@ -295,6 +296,19 @@ const handleDelete = async (e, id) => {
   await myStore.deleteClient(data);
   loading.value = true;
   fetchData();
+};
+
+//Изменение данных клиента
+const updateClient = async () => {
+  try {
+    const response = await myStore.updateClientData(clickedRow.value, selectedItemValue.value);
+    message.success('Данные клиента успешно обновлены');
+    fetchData();
+    open.value = false;
+  } catch (error) {
+    console.error('Error saving changes:', error);
+    message.error('Ошибка при сохранении данных');
+  }
 };
 
 const columns = [
