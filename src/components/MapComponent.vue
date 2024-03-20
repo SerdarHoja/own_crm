@@ -80,11 +80,10 @@ const initMap = () => {
       const newCoordinates = placemark.geometry.getCoordinates();
       console.log('Метка закончила перетаскиваться', newCoordinates);
       console.log(newCoordinates);
-      updatePlacemark(newCoordinates)
+      // updatePlacemark(newCoordinates)
     });
 
     // Функция для обновления метки
-
     function updatePlacemark(coords) {
 
       map.geoObjects.remove(placemark);

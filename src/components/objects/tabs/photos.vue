@@ -1,16 +1,38 @@
 <template>
-    <a-upload
-      v-model:file-list="fileList"
-      list-type="picture-card"
-      @preview="handlePreview"
-      @remove="handleRemove"
-      @change="handleChange"
+    <draggable 
+        :list="fileList" 
+        group="people" 
+        @start="drag = true; console.log('start')" 
+        @end="dragEnd" 
+        item-key="id"
+        class="flex flex-wrap gap-2"
+        :move="checkMove"
     >
-      <div>
-        <plus-outlined />
-        <div style="margin-top: 8px">Upload</div>
-      </div>
+        <template #item="{element}">
+            <img 
+                :src="element.url" 
+                alt="example" 
+                style="width: 200px" 
+                @click="handlePreview(element)"
+            />
+        </template>
+    </draggable>
+    <a-upload
+        v-model:file-list="fileList"
+        name="avatar"
+        list-type="picture-card"
+        class="avatar-uploader"
+        :show-upload-list="false"
+        :before-upload="beforeUpload"
+        @change="handleChange"
+    >
+        <div>
+            <loading-outlined v-if="loading"></loading-outlined>
+            <plus-outlined v-else></plus-outlined>
+            <div class="ant-upload-text">Upload</div>
+        </div>
     </a-upload>
+    <rawDisplayer class="col-3" :value="fileList" title="List" />
     <a-modal :open="previewVisible" :title="previewTitle" :footer="null" @cancel="handleCancel">
         <a-button @click="setAsMain(previewId)">
             Сделать главной
@@ -26,6 +48,9 @@
     import { ref, onMounted, watchEffect, computed, defineProps } from 'vue';
     import { message } from 'ant-design-vue';
     import { useObjectsStore } from '@/stores/objects.module.js';
+    import draggable from 'vuedraggable'
+
+    const drag = ref(false);
 
     const props = defineProps({
         id: String,
@@ -172,5 +197,15 @@
                 }
             }
         )
+    }
+
+    const checkMove = async(evt) => {
+        console.log(evt);
+        return (evt.draggedContext.element.name!=='apple');
+    }
+
+    const dragEnd = async (e) => {
+        console.log('end',e);
+        drag.value = false;
     }
 </script>
