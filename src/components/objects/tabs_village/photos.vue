@@ -1,18 +1,57 @@
 <template>
-    <a-upload
-      v-model:file-list="fileList"
-      list-type="picture-card"
-      @preview="handlePreview"
-      @remove="handleRemove"
-      @change="handleChange"
-      :before-upload="handleChange"
-      :dragger="true"
+    <draggable 
+        :list="fileList" 
+        group="people" 
+        @start="drag = true; console.log('start')" 
+        @end="dragEnd" 
+        item-key="id"
+        class="flex flex-wrap gap-2"
+        :move="checkMove"
     >
-      <div v-if="fileList.length < 8">
-        <plus-outlined />
-        <div style="margin-top: 8px">Upload</div>
-      </div>
+    
+        <template #item="{element}">
+            <div>
+                <div> 
+                    {{ element.uid }}   
+                    <img 
+                        :id="element.uid"
+                        :src="element.url" 
+                        alt="example" 
+                        style="width: 200px" 
+                        @click="handlePreview(element)"
+                    />
+                    <div class="flex">
+                        <a-checkbox
+                            v-model:checked="element.main"
+                            @change="setAsMain(element.uid)"
+                        >Главное фото</a-checkbox>
+                        <a-checkbox 
+                            v-model:checked="element.plan"
+                            @change="setPlan(element.uid, element.plan)"
+                        >План</a-checkbox>
+                        <div>Cорт: {{element.sort}}</div>
+                        
+                    </div>
+                </div>
+            </div>
+        </template>
+    </draggable>
+    <a-upload
+        v-model:file-list="fileList"
+        name="avatar"
+        list-type="picture-card"
+        class="avatar-uploader"
+        :show-upload-list="false"
+        :before-upload="beforeUpload"
+        @change="handleChange"
+    >
+        <div>
+            <loading-outlined v-if="loading"></loading-outlined>
+            <plus-outlined v-else></plus-outlined>
+            <div class="ant-upload-text">Upload</div>
+        </div>
     </a-upload>
+    <rawDisplayer class="col-3" :value="fileList" title="List" />
     <a-modal :open="previewVisible" :title="previewTitle" :footer="null" @cancel="handleCancel">
         <a-button @click="setAsMain(previewId)">
             Сделать главной
@@ -28,6 +67,9 @@
     import { ref, onMounted, watchEffect, computed, defineProps } from 'vue';
     import { message } from 'ant-design-vue';
     import { useSettlementsStore } from '@/stores/settlements.module.js';
+    import draggable from 'vuedraggable'
+
+    const drag = ref(false);
 
     const props = defineProps({
         id: String,
@@ -73,6 +115,10 @@
                     name: i.real_img_id,
                     status: 'done',
                     url: i.pathFull,
+                    sort:i.sort,
+                    plan:+i.plan,
+                    main:+i.main,
+
                 })
             })
         }
@@ -113,8 +159,10 @@
     }
 
     const handleRemove = (file) => {
-      fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
-      removePhoto(file.uid);
+        console.log('remove', file);
+        fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
+        removePhoto(file.uid);
+        return false;
     }
     const removePhoto = async (id) => {
       const data = new FormData();
@@ -138,7 +186,7 @@
         data.append('idPhoto', id);
         await myStore.setPhotoAsMain(data).then(
             (response) => {
-                if (response.data.result === 'error') {
+                if (response?.data?.result === 'error') {
                     message.error(response.data.text)
                 } else {
                     fetchPhotos();
@@ -148,13 +196,20 @@
         )
     }
 
-    const setPlan = async (id) => {
+    const setPlan = async (id, value = true) => {
+        console.log(id);
         const data = new FormData();
-        data.append('plan', true);
         data.append('idPhoto', id);
+        if(value) {
+            console.log(1, value);
+            data.append('plan', false);
+        } else {
+            console.log(2, value);
+            data.append('plan', true);
+        }
         await myStore.setPhotoPlan(data).then(
             (response) => {
-                if (response.data.result === 'error') {
+                if (response?.data?.result === 'error') {
                     message.error(response.data.text)
                 } else {
                     fetchPhotos();
@@ -170,13 +225,32 @@
         data.append('idObject', props.id);
         data.append('photo[]', fileList[fileList.length - 1].originFileObj);
         await myStore.uploadNewPhoto(data).then(
-                (response) => {
-                    if (response.data.result === 'error') {
-                        message.error(response.data.text)
-                    } else {
-                        fetchPhotos();
-                    }
+            (response) => {
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                } else {
+                    fetchPhotos();
                 }
-            )
+            }
+        )
+    }
+
+    
+    const checkMove = async(evt) => {
+        console.log(evt);
+        return (evt.draggedContext.element.name!=='apple');
+    }
+
+    const dragEnd = async (e) => {
+        console.log('end',e);
+        console.log('idPhoto',e.item.__draggable_context.element.uid);
+
+        if(!e.newDraggableIndex) {
+            setAsMain(e.item.__draggable_context.element.uid);
+        }
+        // if(!e.oldIndex) {
+        //     setAsMain(e.item.__draggable_context.element.uid);
+        // }
+        drag.value = false;
     }
 </script>

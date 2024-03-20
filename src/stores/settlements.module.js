@@ -6,6 +6,8 @@ import UserService from "@/services/user.service";
 export const useSettlementsStore = defineStore('settlements', {
   state: () => ({
     countryObjects: [],
+    countryObjectsTotal: 0,
+    countryObjectsLimit: 0,
     objectBrief: [],
     objectFields: [],
     commentsList: [],
@@ -13,13 +15,26 @@ export const useSettlementsStore = defineStore('settlements', {
     photos: [],
     newObjectFields: [],
     allNewFields: [],
-    showAddVillagesButton: false
+    showAddVillagesButton: false,
   }),
   actions: {
     async getObjects(section) {
       try {
         const response = await ObjectsService.getObjects(section);
           this.countryObjects = response.data.data;
+          this.countryObjectsTotal = response.data.total;
+          this.countryObjectsLimit = response.data.limit;
+          return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async getObjectsPage(section, page) {
+      try {
+        const response = await ObjectsService.getObjectsPage(section, page);
+          this.countryObjects = response.data.data;
+          this.countryObjectsTotal = response.data.total;
+          this.countryObjectsLimit = response.data.limit;
           return response;
       } catch (error) {
         return Promise.reject(error);
@@ -127,6 +142,24 @@ export const useSettlementsStore = defineStore('settlements', {
         this.photos = response.data.data
         console.log
         return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async setPhotoAsMain(data) {
+      try {
+        const response = await ObjectsService.setPhotoAsMain(data);
+        console.log(response)
+        // return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async setPhotoPlan(data) {
+      try {
+        const response = await ObjectsService.setPhotoPlan(data);
+        console.log(response)
+        // return response;
       } catch (error) {
         return Promise.reject(error);
       }
