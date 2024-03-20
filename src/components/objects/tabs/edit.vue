@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
-    <div class="flex justify-between">
+    <div class="flex justify-between main__content">
       <div v-if="loading" class="flex justify-center items-center w-[80%]">
         <a-spin/>
       </div>
@@ -314,6 +314,8 @@ const mapChange = (coords) => {
   console.log('mapChange', coords)
   formData.fields['coordinates'] = [coords.lat, coords.long];
 }
+
+
 
 </script>
 <style>
