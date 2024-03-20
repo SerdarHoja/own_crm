@@ -20,7 +20,7 @@
     "vue-sweetalert2": "^5.0.5",
     "vue-the-mask": "^0.11.1",
     "vue-yandex-maps": "^0.12.7",
-    "vuedraggable": "^4.1.0",
+    "vuedraggable": "^2.24.3",
     "yandex-maps": "^0.0.1",
     "ymaps": "^0.2.1"
   },
