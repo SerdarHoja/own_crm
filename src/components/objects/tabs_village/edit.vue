@@ -62,7 +62,7 @@
                 />
               </a-form-item>
               <a-form-item
-                  v-if="row.type === 'checkbox'"
+                  v-if="row.type === 'checkbox' && !row.multi"
                   :label="row.name"
                   :name="row.name"
                   :rules="[{ required: row.required }]"
@@ -77,6 +77,21 @@
                   <a-radio-button :value="false">Нет</a-radio-button>
                 </a-radio-group>
               </a-form-item>
+              <a-form-item
+                  v-if="row.type === 'checkbox' && row.multi"
+                  :label="row.name"
+                  :name="row.name"
+                  :rules="[{ required: row.required }]"
+                  class="w-objectEditElem checkbox-list"
+              >
+                <a-checkbox  
+                  v-for="option in row.options" 
+                  :key="option.id"  
+                  v-model:checked="option.checked"
+                  @change="onChangeCheckBoxList(option.id, row.code, $event)"
+                >{{ option.value }}</a-checkbox>
+              </a-form-item>
+              
               <a-form-item
                   v-if="row.type == 'select' && row.mode == 'static'"
                   :label="row.name"
@@ -204,7 +219,10 @@
     const formData = reactive({
         id: props.id,
         section: 'settlements',
-        fields: {},
+        fields: {
+          external_info:[],
+          internal_info:[]
+        },
     })
     const villageFields = ref([]);
     onMounted(() => {
@@ -217,6 +235,7 @@
     })
 
     const onChangeCheckBox = (value, code, e) => {
+        console.log(formData.fields);
         if (e.target.value && value) {
             formData.fields[code] = value;
         } else if (e.target.value && !value) {
@@ -224,6 +243,9 @@
         } else {
             formData.fields[code] = false;
         }
+    }
+    const onChangeCheckBoxList = (value, code, e) => {
+        formData.fields[code].push(value)
     }
 
 
@@ -305,4 +327,9 @@
   width: 100%;
   margin-bottom: 0;
 }
+
+.checkbox-list .ant-form-item-control-input-content{
+  display: block;
+}
+
 </style>
