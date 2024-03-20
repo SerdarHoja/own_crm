@@ -110,7 +110,6 @@
             >test
           </a-button>
         </div>
-        <div class="w-1/2 bg-stone-200"></div>
       </div>
     </a-modal>
 
@@ -189,7 +188,7 @@
                     v-model:value="newData[row.code]"
                     show-search
                     :filter-option="filterOption"
-                    class="!w-full"
+                    class="w-full"
                   >
                     <a-select-option
                       v-for="option in row.options"
@@ -237,14 +236,13 @@ const fetchClientFields = async () => {
   try {
     await myStore.getClientFields();
     fields.value = myStore.clientFields;
+    console.log("=========================", fields.value);
   } catch (error) {
     console.error("Error fetching data in component:", error);
   }
 };
 
-const newData = ref({
-  type: 1,
-});
+const newData = ref({});
 
 const showModal = async (record) => {
   open.value = true;

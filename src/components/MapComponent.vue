@@ -42,49 +42,33 @@ const initMap = () => {
     });
 
     // Получаем ссылку на объект управления поиска на карте
-    var searchControl = map.controls.get('searchControl');
-    var newCoordinates = null
-    // Добавляем обработчик события успешного поиска
-    searchControl.events.add('resultselect', function (e) {
-      var results = searchControl.getResultsArray();
-      var selected = e.get('index');
-      var selectedItem = results[selected];
-      var coordinates = selectedItem.geometry.getCoordinates();
-      
-      console.log('Координаты найденного объекта:', coordinates);
+    const searchControl = map.controls.get('searchControl');
+    map.controls.remove(searchControl);
 
-      map.geoObjects.removeAll();
-      updatePlacemark(coordinates);
-    });
+    // Получаем ссылку на объект управления пробками на карте
+    const trafficControl = map.controls.get('trafficControl');
+    map.controls.remove(trafficControl);
 
-    // Добавляем обработчик клика на карту
-    map.events.add('click', function (e) {
-      var coords = e.get('coords');
-      long.value = coords[0]
-      lat.value = coords[1]
-      console.log(coords)
-      updatePlacemark(coords);
-    });
+    // Получаем ссылку на объект управления "Слои" (typeSelector) на карте
+    const typeSelectorControl = map.controls.get('typeSelector');
+    map.controls.remove(typeSelectorControl);
+
+    // Получаем ссылку на объект управления "Местоположение" на карте
+    const geolocationControl = map.controls.get('geolocationControl');
+    map.controls.remove(geolocationControl);
 
     // Создаем метку с начальными координатами
-
-    // var placemark = new ymaps.Placemark([long.value, lat.value], {
-    //   hintContent: 'Метка',
-    //   balloonContent: 'Текст метки'
-    // });
-
-    const placemark = new ymaps.Placemark([props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], { // координаты метки
+    let placemark = new ymaps.Placemark([props.dataMap[0]?.value?.long, props.dataMap[0]?.value?.lat], { // координаты метки
       // Свойства метки
-      hintContent: 'Метка', // всплывающая подсказка
-      balloonContent: 'Текст метки' // содержимое балуна
     }, {
       draggable: true // возможность перетаскивания
     });
+
     placemark.events.add('dragend', function (e) {
         const coords = e.get('target').geometry.getCoordinates();
         console.log("Coords", coords, coords[1].toPrecision(6), coords[0].toPrecision(6))
         emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6) });
-
+        updatePlacemark(coords);
     });
 
     // Добавляем метку на карту
@@ -93,50 +77,44 @@ const initMap = () => {
 
     placemark.events.add('dragend', function (e) {
       // Здесь вы можете выполнить необходимые действия после окончания перетаскивания метки
-      newCoordinates = placemark.geometry.getCoordinates();
+      const newCoordinates = placemark.geometry.getCoordinates();
       console.log('Метка закончила перетаскиваться', newCoordinates);
       console.log(newCoordinates);
       // updatePlacemark(newCoordinates)
     });
 
     // Функция для обновления метки
+    function updatePlacemark(coords) {
 
-    // function updatePlacemark(coords) {
+      map.geoObjects.remove(placemark);
 
-    //   map.geoObjects.remove(placemark);
-
-    //   placemark = new ymaps.Placemark(coords, {
-    //     hintContent: 'Метка',
-    //     balloonContent: 'Текст метки'
-    //   }, {
-    //     draggable: true // Делаем метку перетаскиваемой
-    //   });
-    //   placemark.events.add('dragend', function (e) {
-    //   // Здесь вы можете выполнить необходимые действия после окончания перетаскивания метки
-    //   newCoordinates = placemark.geometry.getCoordinates();
-    //   console.log('Метка закончила перетаскиваться', newCoordinates);
-    //   console.log(newCoordinates);
-    //   updatePlacemark(newCoordinates)
-    // });
-    //   // Добавляем новую метку на карту
-    //   map.geoObjects.add(placemark);
+      placemark = new ymaps.Placemark(coords, {}, {
+        draggable: true // Делаем метку перетаскиваемой
+      });
+      placemark.events.add('dragend', function (e) {
+      // Здесь вы можете выполнить необходимые действия после окончания перетаскивания метки
+      const newCoordinates = placemark.geometry.getCoordinates();
+      console.log('Метка закончила перетаскиваться', newCoordinates);
+      console.log(newCoordinates);
+      updatePlacemark(newCoordinates)
+    });
+      // Добавляем новую метку на карту
+      map.geoObjects.add(placemark);
 
       
-    // //   ymaps.geocode([long.value, lat.value])
-    // //     .then(result => {
-    // //         // // Получаем описание первого найденного объекта
-            
-    // //         const firstGeoObject = result.geoObjects.get(0);
-    // //         const addressDetails = firstGeoObject.properties.get('metaDataProperty').GeocoderMetaData.AddressDetails;
-    // //         emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6), addr:addressDetails.Country.AddressLine});
-    // //     })
-    // //     .catch(error => {
-    // //         console.error('Ошибка при выполнении геокодирования:', error);
-    // //     });
-    // // }
+      ymaps.geocode([long.value, lat.value])
+        .then(result => {
+            // // Получаем описание первого найденного объекта
+            const firstGeoObject = result.geoObjects.get(0);
+            const addressDetails = firstGeoObject.properties.get('metaDataProperty').GeocoderMetaData.AddressDetails;
+            emit('change', { lat: coords[0].toPrecision(6), long: coords[1].toPrecision(6), addr:addressDetails.Country.AddressLine});
+        })
+        .catch(error => {
+            console.error('Ошибка при выполнении геокодирования:', error);
+        });
+    }
 
-    // };
-  })
+  });
 }
 
 

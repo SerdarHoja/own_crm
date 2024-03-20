@@ -28,9 +28,17 @@
             </div>
         </div>
       <div class="flex flex-col gap-[.8rem]">
-        <div v-for="obj in countryObjects" :key="obj.id">
+        <div v-for="obj in displayedObjects" :key="obj.id">
           <ObjectItem :object="obj" />
         </div>
+        <a-pagination
+            v-if="+totalObjects > 10"
+            :current="currentPage"
+            :total="totalObjects"
+            :pageSize="objectsPerPage"
+            @change="handlePageChange"
+            class="flex justify-end"
+        />
       </div>
         <div v-if="countryObjects.length === 0">
             Список пуст
@@ -60,6 +68,22 @@
     const countryObjects = computed(() => {
         return myStore.countryObjects;
     })
+
+    const objectsPerPage = ref(10); // количество объектов на странице
+    const currentPage = ref(1); // текущая страница
+
+    const totalObjects = computed(() => countryObjects.value.length);
+
+    const displayedObjects = computed(() => {
+        const startIndex = (currentPage.value - 1) * objectsPerPage.value;
+        const endIndex = startIndex + objectsPerPage.value;
+        return countryObjects.value.slice(startIndex, endIndex);
+    });
+
+    const handlePageChange = (page) => {
+    currentPage.value = page;
+    };
+    
 
     const fetchCountryData = async () => {
         loading.value = true;
