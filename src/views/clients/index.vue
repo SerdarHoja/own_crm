@@ -92,6 +92,16 @@
                 />
               </a-form-item>
             </div>
+            <a-form-item v-if="fields">
+              <!-- выпадающий список для типа клиента -->
+          <a-select v-model:value="selectedItemValue.type" class="w-full">
+            <a-select-option
+              v-for="option in fields.find(field => field.type === 'select').options"
+              :key="option.id"
+              :value="option.id"
+            >{{ option.value }}</a-select-option>
+          </a-select>
+        </a-form-item>
           </a-form>
           <a-button
             @click="
