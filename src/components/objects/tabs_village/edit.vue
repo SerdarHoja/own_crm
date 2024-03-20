@@ -84,14 +84,14 @@
                   :rules="[{ required: row.required }]"
                   class="w-objectEditElem checkbox-list"
               >
-                <a-checkbox  
-                  v-for="option in row.options" 
-                  :key="option.id"  
+                <a-checkbox
+                  v-for="option in row.options"
+                  :key="option.id"
                   v-model:checked="option.checked"
                   @change="onChangeCheckBoxList(option.id, row.code, $event)"
                 >{{ option.value }}</a-checkbox>
               </a-form-item>
-              
+
               <a-form-item
                   v-if="row.type == 'select' && row.mode == 'static'"
                   :label="row.name"
@@ -330,6 +330,15 @@
 
 .checkbox-list .ant-form-item-control-input-content{
   display: block;
+}
+.village-edit-tab-content-block .ant-col.ant-form-item-control.css-kqecok {
+  width: 100%;
+}
+.block-full-width textarea{
+  height: 8rem;
+}
+.block-full-width textarea{
+  height: 8rem;
 }
 
 </style>
