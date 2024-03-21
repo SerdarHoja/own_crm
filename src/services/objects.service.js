@@ -201,7 +201,7 @@ class ObjectsService {
   }
 
   setPhotoPlan(data) {
-    return axios.post(API_URL + `/objectsphoto/setmain/`, data, { headers: authHeader() });
+    return axios.post(API_URL + `/objectsphoto/setplan/`, data, { headers: authHeader() });
   }
 
   uploadNewPhoto(data) {
@@ -213,6 +213,12 @@ class ObjectsService {
   
   listByOwner(id) {
     return axios.get(API_URL + `/objects/listbyowner/?owner=${id}`, { headers: authHeader() });
+  }
+  
+  getObjectsPage(section, page ) {
+    return axios.get(API_URL + "/objects/list/?section=" + section + `&page=${page}`, {
+      headers: authHeader(),
+    });
   }
 }
 

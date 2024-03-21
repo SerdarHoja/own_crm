@@ -6,7 +6,7 @@
     <FiltersObject :section="'settlements'"/>
     <div class="flex flex-col mb-m-base">
       <div class="flex gap-x-[3rem] items-center total-objects">
-          Найдено: <span>{{myStore.countryObjects.length}}</span>
+          Найдено: <span>{{myStore.countryObjectsTotal}}</span>
       </div>
     </div>
     <div class="country-data">
@@ -28,11 +28,11 @@
             </div>
         </div>
       <div class="flex flex-col gap-[.8rem]">
-        <div v-for="obj in displayedObjects" :key="obj.id">
+        <div v-for="obj in countryObjects" :key="obj.id">
           <ObjectItem :object="obj" />
         </div>
         <a-pagination
-            v-if="+totalObjects > 10"
+            v-if="+myStore.countryObjectsTotal > 20"
             :current="currentPage"
             :total="totalObjects"
             :pageSize="objectsPerPage"
@@ -69,21 +69,32 @@
         return myStore.countryObjects;
     })
 
-    const objectsPerPage = ref(10); // количество объектов на странице
     const currentPage = ref(1); // текущая страница
+    const totalObjects = ref(0); // общее количество объектов
+    const objectsPerPage = ref(20); // количество объектов на странице
 
-    const totalObjects = computed(() => countryObjects.value.length);
-
-    const displayedObjects = computed(() => {
-        const startIndex = (currentPage.value - 1) * objectsPerPage.value;
-        const endIndex = startIndex + objectsPerPage.value;
-        return countryObjects.value.slice(startIndex, endIndex);
-    });
-
-    const handlePageChange = (page) => {
-    currentPage.value = page;
+    const handlePageChange = async (newPage) => {
+        loading.value = true;
+        try {
+            await myStore.getObjectsPage('settlements', newPage).then(
+            (response) => {
+                console.log(response)
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                    loading.value = false;
+                } else {
+                    currentPage.value = newPage;
+                    loading.value = false;
+                }
+            }
+            )
+        } catch (error) {
+            console.error('Error fetching data in component:', error);
+        }
+        console.log('Выбрана страница:', newPage);
     };
-    
+
+    totalObjects.value = 378; // Общее количество объектов
 
     const fetchCountryData = async () => {
         loading.value = true;
@@ -103,3 +114,9 @@
         }
     };
 </script>
+<style>
+.ant-pagination-options {
+    display: none !important;
+}
+</style>
+

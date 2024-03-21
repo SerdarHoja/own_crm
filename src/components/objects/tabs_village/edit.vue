@@ -246,6 +246,7 @@
     }
     const onChangeCheckBoxList = (value, code, e) => {
         formData.fields[code].push(value)
+        console.log(formData.fields[code])
     }
 
 
