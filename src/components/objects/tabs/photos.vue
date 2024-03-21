@@ -2,19 +2,36 @@
     <draggable 
         :list="fileList" 
         group="people" 
-        @start="drag = true; console.log('start')" 
+        @start="drag = true;" 
         @end="dragEnd" 
         item-key="id"
         class="flex flex-wrap gap-2"
         :move="checkMove"
     >
         <template #item="{element}">
-            <img 
-                :src="element.url" 
-                alt="example" 
-                style="width: 200px" 
-                @click="handlePreview(element)"
-            />
+            <div class="image-container"   @click="handlePreview(element)">
+                <img 
+                    :src="element.url" 
+                    alt="example" 
+                    style="width: 200px" 
+                    class="image"
+                />
+                <div class="overlay">
+                    <a-popconfirm
+                        title="Действительно удалить?"
+                        ok-text="Да"
+                        cancel-text="Нет"
+                        @confirm="handleRemove(element, $event)"
+                        @cancel="onCancel"
+                        v-if="!drag"
+                    >
+                        <TrashIcon
+                            @click="deleteConfirm($event)"
+                            class="w-10 h-10 cursor-pointer mt-[60px] ml-[80px] text-white"
+                        />
+                    </a-popconfirm>
+                </div>
+            </div>
         </template>
     </draggable>
     <a-upload
@@ -49,6 +66,7 @@
     import { message } from 'ant-design-vue';
     import { useObjectsStore } from '@/stores/objects.module.js';
     import draggable from 'vuedraggable'
+    import { TrashIcon } from "@heroicons/vue/24/solid";
 
     const drag = ref(false);
 
@@ -130,12 +148,18 @@
         previewId.value = file.uid;
     }
     
-    const handleRemove = (file) => {
+    const handleRemove = (file, $event) => {
+        $event.preventDefault();
+        $event.stopPropagation();
         console.log('remove', file);
         fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
         removePhoto(file.uid);
         return false;
     }
+    const deleteConfirm = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
     const removePhoto = async (id) => {
       const data = new FormData();
       data.append('idObject', props.id);
@@ -209,3 +233,29 @@
         drag.value = false;
     }
 </script>
+
+<style>
+    .image-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .image-container:hover .overlay {
+        opacity: 0.5;
+    }
+    .image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+</style>   
