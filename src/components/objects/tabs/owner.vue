@@ -10,7 +10,6 @@
       >
         <a-select
             show-search
-            class="!w-[30rem]"
             @focus="ownersList"
             @change="handleSelect"
         >
@@ -80,7 +79,7 @@
                   </div>
                 </div>
                 <!-- <a-space wrap>
-                  <a-button 
+                  <a-button
                     type="primary"
                     @click="deleteOwner(owner?.id, object.id)"
                   >Удалить</a-button>

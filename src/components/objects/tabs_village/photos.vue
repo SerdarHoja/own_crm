@@ -1,36 +1,37 @@
 <template>
-    <draggable 
-        :list="fileList" 
-        group="people" 
-        @start="drag = true; console.log('start')" 
-        @end="dragEnd" 
+    <draggable
+        :list="fileList"
+        group="people"
+        @start="drag = true; console.log('start')"
+        @end="dragEnd"
         item-key="id"
-        class="flex flex-wrap gap-2"
+        class="village-photo__list"
         :move="checkMove"
     >
-    
         <template #item="{element}">
             <div>
-                <div> 
-                    {{ element.uid }}   
-                    <img 
+                <div class="village-photo__container">
+<!--                    {{ element.uid }}-->
+                  <div style="height: 37rem;">
+                    <img
                         :id="element.uid"
-                        :src="element.url" 
-                        alt="example" 
-                        style="width: 200px" 
+                        :src="element.url"
+                        alt="example"
                         @click="handlePreview(element)"
+                        class="village-photo__image"
                     />
-                    <div class="flex">
+                  </div>
+                  <div class="village-photo__bottom">
                         <a-checkbox
                             v-model:checked="element.main"
                             @change="setAsMain(element.uid)"
                         >Главное фото</a-checkbox>
-                        <a-checkbox 
+                        <a-checkbox
                             v-model:checked="element.plan"
                             @change="setPlan(element.uid, element.plan)"
                         >План</a-checkbox>
                         <div>Cорт: {{element.sort}}</div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -148,7 +149,7 @@
         if (!file.url && !file.preview) {
             file.preview = (await getBase64(file.originFileObj));
         }
-        
+
         previewImage.value = file.url || file.preview;
         previewVisible.value = true;
         previewTitle.value = file.name || file.url.substring(file.url.lastIndexOf('/') + 1);
@@ -235,7 +236,7 @@
         )
     }
 
-    
+
     const checkMove = async(evt) => {
         console.log(evt);
         return (evt.draggedContext.element.name!=='apple');
@@ -254,3 +255,30 @@
         drag.value = false;
     }
 </script>
+<style scoped>
+.village-photo__list{
+  display: grid;
+  grid-template-columns: repeat(4 , .25fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.village-photo__container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.village-photo__image{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: .4rem;
+}
+.village-photo__bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+</style>
