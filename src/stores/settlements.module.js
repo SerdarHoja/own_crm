@@ -136,6 +136,15 @@ export const useSettlementsStore = defineStore('settlements', {
         return Promise.reject(error);
       }
     },
+    async sortPhoto(data) {
+      try {
+        const response = await ObjectsService.sortPhoto(data);
+        console.log(response);
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
     async getObjectPhotos(id) {
       try {
         const response = await ObjectsService.getObjectPhotos(id);
