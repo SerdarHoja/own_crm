@@ -347,4 +347,19 @@ export default {
 .object-info-tab-content-block {
   overflow: auto;
 }
+
+/* Пример стилизации полосы прокрутки */
+.object-info-tab-content-block::-webkit-scrollbar {
+  width: 10px; /* Ширина полосы прокрутки */
+}
+.object-info-tab-content-block::-webkit-scrollbar-thumb {
+  background-color: #888; /* Цвет полосы прокрутки */
+  border-radius: 5px; /* Радиус скругления углов полосы прокрутки */
+}
+.object-info-tab-content-block::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Цвет полосы прокрутки при наведении */
+}
+.object-info-tab-content-block::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Цвет фона полосы прокрутки */
+}
 </style>
