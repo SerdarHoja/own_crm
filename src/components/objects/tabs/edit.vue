@@ -1,12 +1,16 @@
 <template>
   <div>
     <a-button @click="updateObject" class="mb-m-base/2 mt-2.5">Save</a-button>
-    <div class="flex justify-between main__content">
+    <div class="flex justify-between main__content" ref="mainContent">
       <div v-if="loading" class="flex justify-center items-center w-[80%]">
         <a-spin/>
       </div>
       <div v-else class="object-info-tab-content-block w-[80%]">
-        <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
+        <a-card
+            class="mb-m-base/2"
+            v-for="(card, index) in objectFields"
+            :key="card.title"
+            :id="'card-' + index">
           <div class="font-bold">{{ card.title }}</div>
           <a-divider/>
           <div :class="(card.id == 240)?'block-full-width':'flex gap-[1.6rem] flex-wrap'">
@@ -162,23 +166,11 @@
       </div>
       <div class="w-[15%]">
         <a-anchor
-            :items="[
-      {
-        key: 'part-1',
-        href: '#part-1',
-        title:  'Part 1',
-      },
-      {
-        key: 'part-2',
-        href: '#part-2',
-        title: 'Part 2',
-      },
-      {
-        key: 'part-3',
-        href: '#part-3',
-        title: 'Part 3',
-      },
-    ]"
+            :items="objectFields.map((card, index) => ({
+            key: 'card-' + index,
+            href: '#card-' + index,
+            title: card.title
+          }))"
         />
       </div>
     </div>
@@ -315,9 +307,31 @@ const mapChange = (coords) => {
   formData.fields['coordinates'] = [coords.lat, coords.long];
 }
 
-
-
 </script>
+
+/*Временный код*/
+<script>
+export default {
+  mounted() {
+    this.adjustMainContentHeight();
+    window.addEventListener('resize', this.adjustMainContentHeight);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.adjustMainContentHeight);
+  },
+  methods: {
+    adjustMainContentHeight() {
+      const windowHeight = window.innerHeight;
+      const mainContent = this.$refs.mainContent;
+      const adjustedHeight = windowHeight - 220;
+
+      mainContent.style.height = `${adjustedHeight}px`;
+    }
+  }
+}
+</script>
+
+
 <style>
 .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok {
   display: flex;
@@ -329,5 +343,8 @@ const mapChange = (coords) => {
 .ant-col.ant-form-item-control.css-dev-only-do-not-override-kqecok {
   width: 100%;
   margin-bottom: 0;
+}
+.object-info-tab-content-block {
+  overflow: auto;
 }
 </style>
