@@ -1,11 +1,11 @@
 <template>
     <div class="main">
         <router-link to="/objects">
-            <a-button type="primary mb-[1rem]">
+            <a-button type="primary mb-[1rem]" class="button-back">
                 Назад
             </a-button>
         </router-link>
-        <a-tabs v-model:activeKey="activeKey" type="card">
+        <a-tabs v-model:activeKey="activeKey" type="card" class="tabs-nav">
             <a-tab-pane key="1" tab="Информация">
                 <brief :id="id"/>
             </a-tab-pane>

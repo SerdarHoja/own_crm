@@ -7,6 +7,13 @@
     flex: 1;
     height: 100%;
 }
+
+button.ant-btn{
+    padding: .4rem 1.5rem;
+}
+button span{
+    font-size: 1.4rem;
+}
 .title__block{
     display: flex;
     column-gap: 3rem;
@@ -42,7 +49,10 @@
 /*Таб редактирование*/
 .object-info-tab-content-block .ant-form-item-control-input-content{
     width: 28rem;
-    height: 4rem;
+    height: 100%;
+}
+.object-info-tab-content-block .ant-select-selection-search{
+    height: 4rem!important;
 }
 .object-info-tab-content-block .block-full-width{
     width: 100%;
@@ -139,10 +149,25 @@ span.anticon.anticon-delete {
 }
 
 
+.ant-select.ant-select-in-form-item.css-dev-only-do-not-override-kqecok.w-full.ant-select-single.ant-select-show-arrow {
+    height: 4rem!important;
+}
+.ant-card.css-kqecok.ant-card-bordered.village-edit-tab-content-block .ant-input.css-kqecok{
+    border: none!important;
+}
 
+.ant-input.css-dev-only-do-not-override-kqecok{
+    height: 4rem;
+}
+.ant-form-item{
+    margin-bottom: 2.4rem;
+}
 .ant-card-body{
     font-family: sans-serif, "Inter", "Helvetica"!important;
     color: #253858;
+}
+.ant-select-selector{
+    height: 4rem!important;
 }
 .object-info-tab-content .ant-card-body{
     padding: 0!important;
@@ -165,6 +190,11 @@ span.anticon.anticon-delete {
 }
 .village-edit-tab-content-block .block-full-width .ant-form-item textarea{
     height: 8rem!important;
+    width: 100%!important;
+}
+.village-edit-tab-content-block .block-full-width .ant-form-item textarea.ant-input {
+    height: 8rem !important;
+    width: 100% !important;
 }
 .village-edit-tab-content-block .ant-form-item.css-kqecok, .ant-input{
     width: 100%!important;
@@ -174,6 +204,9 @@ span.anticon.anticon-delete {
 }
 .village-edit-tab-content-block .ant-input{
     width: 28rem!important;
+}
+.village-edit-tab-content-block .ant-select-selector{
+    height: 4rem!important;
 }
 
 .village-tabs .ant-tabs-nav-wrap{
@@ -329,19 +362,8 @@ input{
     border-left: none;
     border-right: none;
 }
-:where(.css-dev-only-do-not-override-kqecok).ant-card .ant-card-body {
-    padding: .5rem 0;
-    border-radius: 0!important;
-}
 :where(.css-kqecok)[class^="ant-col"], :where(.css-kqecok)[class*=" ant-col"] {
     font-size: 1.4rem;
-}
-:where(.css-dev-only-do-not-override-kqecok).ant-card-bordered {
-    border-top: .1rem solid #f0f0f0;
-    border-bottom: .1rem solid #f0f0f0;
-    border-left: none;
-    border-right: none;
-    border-radius: 0!important;
 }
 :where(.css-kqecok).ant-input-number .ant-input-number-input {
     height: 4rem!important;
@@ -462,6 +484,9 @@ input{
 /*}*/
 .login{
     width: 43rem;
+}
+.login .ant-form-item.css-kqecok {
+    width: 100% !important;
 }
 .login input{
     width: 100%;
