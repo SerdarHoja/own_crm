@@ -11,7 +11,6 @@
         <template #item="{element}">
             <div>
                 <div class="village-photo__container">
-<!--                    {{ element.uid }}-->
                   <div style="height: 37rem;">
                     <img
                         :id="element.uid"
@@ -79,6 +78,7 @@
     const loading = ref(false);
     const myStore = useSettlementsStore();
     const fileList = ref([]);
+    const mainPhotoID = ref([]);
 
 
     onMounted(() => {
@@ -111,15 +111,15 @@
         if(photos.value) {
             fileList.value = []
             photos.value.forEach((i, x) => {
+                if(i.main) mainPhotoID.value = i.id
                 fileList.value.push({
                     uid:  i.id,
                     name: i.real_img_id,
                     status: 'done',
                     url: i.pathFull,
                     sort:i.sort,
-                    plan:+i.plan,
-                    main:+i.main,
-
+                    plan:i.plan,
+                    main:i.main,
                 })
             })
         }
@@ -180,6 +180,20 @@
           }
       )
     }
+    const sortPhoto = async (id, sort) => {
+      const data = new FormData();
+      data.append('idPhoto', id);
+      data.append('sort', sort);
+      await myStore.sortPhoto(data).then(
+          (response) => {
+            if (response.data.result === 'error') {
+              message.error(response.data.text)
+            } else {
+                setAsMain(mainPhotoID.value);
+            }
+          }
+      )
+    }
 
     const setAsMain = async (id) => {
         const data = new FormData();
@@ -198,16 +212,14 @@
     }
 
     const setPlan = async (id, value = true) => {
-        console.log(id);
         const data = new FormData();
         data.append('idPhoto', id);
         if(value) {
-            console.log(1, value);
-            data.append('plan', false);
-        } else {
-            console.log(2, value);
             data.append('plan', true);
+        } else {
+            data.append('plan', false);
         }
+        
         await myStore.setPhotoPlan(data).then(
             (response) => {
                 if (response?.data?.result === 'error') {
@@ -221,7 +233,6 @@
     }
 
     const handleChange = async ({fileList, file}) => {
-        console.log('21321')
         const data = new FormData();
         data.append('idObject', props.id);
         data.append('photo[]', fileList[fileList.length - 1].originFileObj);
@@ -243,17 +254,26 @@
     }
 
     const dragEnd = async (e) => {
-        console.log('end',e);
-        console.log('idPhoto',e.item.__draggable_context.element.uid);
-
-        if(!e.newDraggableIndex) {
-            setAsMain(e.item.__draggable_context.element.uid);
+        const currentPhotoID = e.item._underlying_vm_.uid;
+        const newIndex = e.newIndex;
+        const oldIndex = e.oldIndex;
+        if (newIndex !== 0 && oldIndex !== 0) {
+            sortPhoto(currentPhotoID, newIndex);
+   
         }
-        // if(!e.oldIndex) {
-        //     setAsMain(e.item.__draggable_context.element.uid);
-        // }
-        drag.value = false;
-    }
+
+        if (newIndex === 0) {
+            setAsMain(currentPhotoID);
+        }
+
+        if (oldIndex === 0) {
+            const mainPhoto  = photos.value.find((el) => el.sort === '2');   
+            setAsMain(mainPhoto.id);        
+        }
+
+        drag.value = false; // Set drag value to false at the end of the function
+    };
+
 </script>
 <style scoped>
 .village-photo__list{

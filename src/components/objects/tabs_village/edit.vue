@@ -220,9 +220,10 @@
         id: props.id,
         section: 'settlements',
         fields: {
-          external_info:[],
-          internal_info:[]
+          external_info: [],
+          internal_info: []
         },
+
     })
     const villageFields = ref([]);
     onMounted(() => {
@@ -246,7 +247,7 @@
     }
     const onChangeCheckBoxList = (value, code, e) => {
         formData.fields[code].push(value)
-        console.log(formData.fields[code])
+        console.log(formData)
     }
 
 
@@ -277,7 +278,6 @@
         loading.value = true;
         isFormSubmitted.value = true;
         // await myStore.updateObject(formData)
-        console.log(formData);
             try {
                 await myStore.updateObject(formData).then(
                 (response) => {
