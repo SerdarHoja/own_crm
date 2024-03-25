@@ -24,7 +24,6 @@
                 show-search
                 :filter-option="filterOption"
                 @focus="onFocusSelect(row.code, row.id)"
-                class="!w-[30rem]"
               >
                 <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
               </a-select>

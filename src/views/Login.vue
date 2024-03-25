@@ -11,9 +11,8 @@
         <a-form-item
           name="email"
           :rules="[{ required: true, message: 'Please input your email!' }]"
-          class="!w-full"
         >
-          <a-input v-model:value="formState.email" placeholder="Username" class="!w-full"/>
+          <a-input v-model:value="formState.email" placeholder="Username"/>
         </a-form-item>
 
         <a-form-item

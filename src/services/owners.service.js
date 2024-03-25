@@ -32,7 +32,10 @@ class OwnerService {
   deleteBindingObject(data) {
     return axios.post(API_URL + '/owners/deletebindingobject/', data, { headers: authHeader() });
   }
-
+  //изменение данных владельца
+  updateOwnerData(id, newData) {
+    return axios.put(API_URL + `/owners/save`, newData, { headers: authHeader() });
+  }
 }
 
 export default new OwnerService();
