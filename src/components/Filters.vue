@@ -22,7 +22,7 @@
         v-if="row.type == 'select' && row.mode == 'ajax'"
         :label="row.title"
         :name="row.code"
-        ><h1>SEARCH</h1>
+        >
         <a-select
           v-model:value="formData.filter[row.code]"
           show-search
@@ -62,7 +62,7 @@ const optionsData = ref([]);
 
 const props = defineProps({
   page: String,
-  fields: Array
+  brokerOptions: Array
 });
 
 const formData = ref({
