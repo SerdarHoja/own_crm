@@ -66,9 +66,9 @@ button span{
 
 
 .form__wrap .ant-row.ant-form-row.css-dev-only-do-not-override-kqecok {
-    display: flex!important;
-    flex-direction: column!important;
-    align-items: start!important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
 }
 .form__wrap{
     display: flex;

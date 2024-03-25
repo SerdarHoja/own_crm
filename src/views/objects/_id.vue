@@ -47,12 +47,12 @@
     })
 
     const myStore = useObjectsStore();
-    onMounted(() => {
-        myStore.showAddObjectButton = true;
-    })
-    onUnmounted(() => {
-        myStore.showAddObjectButton = false;
-    })
+    // onMounted(() => {
+    //     myStore.showAddObjectButton = true;
+    // })
+    // onUnmounted(() => {
+    //     myStore.showAddObjectButton = false;
+    // })
 
 </script>
 

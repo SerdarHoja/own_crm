@@ -17,13 +17,29 @@
       <div class="w-[50%] p-5">
         <a-carousel :after-change="onChange" arrows>
           <template #prevArrow>
-            <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
-              <left-circle-outlined />
+            <div class="custom-slick-arrow" style="left: 31px; z-index: 1">
+              <!-- <left-circle-outlined /> -->
+              <div>
+                <svg class="arrow-3-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                  <g fill="none" stroke="#4064bf" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
+                      <circle class="arrow-3-iconcircle" cx="16" cy="16" r="15.12"></circle>
+                      <path class="arrow-3-icon--arrow" d="M16.14 9.93L22.21 16l-6.07 6.07M8.23 16h13.98"></path>
+                  </g>
+                </svg>
+              </div>
             </div>
           </template>
           <template #nextArrow>
-            <div class="custom-slick-arrow" style="right: 10px">
-              <right-circle-outlined />
+            <div class="custom-slick-arrow" style="right: 31px">
+              <!-- <right-circle-outlined /> -->
+              <div>
+                <svg class="arrow-3-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                  <g fill="none" stroke="#4064bf" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
+                      <circle class="arrow-3-iconcircle" cx="16" cy="16" r="15.12"></circle>
+                      <path class="arrow-3-icon--arrow" d="M16.14 9.93L22.21 16l-6.07 6.07M8.23 16h13.98"></path>
+                  </g>
+                </svg>
+              </div>
             </div>
           </template>
           <div v-for="it in photos" :key="it.id">
