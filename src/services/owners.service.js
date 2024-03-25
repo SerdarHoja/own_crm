@@ -34,7 +34,7 @@ class OwnerService {
   }
   //изменение данных владельца
   updateOwnerData(id, newData) {
-    return axios.put(API_URL + `/owners/${id}`, newData, { headers: authHeader() });
+    return axios.put(API_URL + `/owners/save`, newData, { headers: authHeader() });
   }
 }
 

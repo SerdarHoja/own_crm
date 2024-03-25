@@ -28,7 +28,7 @@ class ClientService {
   }
   //Изменение данных клиента
   updateClientData(id, newData) {
-    return axios.put(API_URL + `/clients/${id}`, newData, { headers: authHeader() });
+    return axios.put(API_URL + `/clients/save`, newData, { headers: authHeader() });
   }
 }
 

@@ -29,7 +29,7 @@
         </a-button>
       </template>
     </a-page-header>
-    <filters :page="'clients'" class="flex mb-m-base gap-y-8" />
+    <filters :fields="fields" :page="'clients'" class="flex mb-m-base gap-y-8" />
     <a-table
       @change="onTableChange($event)"
       :columns="columns"
@@ -68,82 +68,64 @@
 
     <!-- edit modal -->
     <a-modal
-      v-model:open="open"
-      :footer="null"
-      :title="'ID: ' + clickedRow"
-      width="80%"
-      class="h-[80vh]"
-      @ok="handleOk"
-    >
-      {{ selectedItemValue }}
-      <div class="flex w-full mt-20">
-        <div class="w-1/2">
-          <a-form name="basic">
-            <div v-for="row in Object.entries(selectedItemValue)" :key="row">
-              <template
-                v-if="
-                  row[0] === 'type' &&
-                  fields &&
-                  fields.find((field) => field.code === row[0]).type ===
-                    'select'
-                "
+    v-model:open="open"
+    :footer="null"
+    :title="'ID: ' + clickedRow"
+    width="80%"
+    class="h-[80vh]"
+    @ok="handleOk"
+  >
+    <div class="flex w-full mt-20">
+      <div class="w-1/2">
+        <a-form name="basic">
+          <div v-for="row in Object.entries(selectedItemValue)" :key="row">
+            <template
+              v-if="
+                row[0] === 'type' &&
+                fields &&
+                fields.find((field) => field.code === row[0]).type ===
+                  'select'
+              "
+            >
+              <a-form-item
+                :label="translateRows[row[0]] || row[0]"
+                :name="row[0]"
               >
-                <a-form-item
-                  :label="translateRows[row[0]] || row[0]"
-                  :name="row[0]"
+                <a-select
+                  v-model:value="selectedItemValue[row[0]]"
+                  class="w-full"
                 >
-                  <a-select
-                    v-model:value="selectedItemValue.type"
-                    class="w-full"
-                  >
-                    <a-select-option
-                      v-for="option in fields.find(
-                        (field) => field.code === row[0]
-                      ).options"
-                      :key="option.id"
-                      :value="option.id"
-                      >{{ option.value }}</a-select-option
-                    >
-                  </a-select>
-                </a-form-item>
-              </template>
-              <template v-else>
-                <a-form-item
-                  :label="translateRows[row[0]] || row[0]"
-                  :name="row[0]"
-                >
-                  <a-input
-                    v-model:value="row[1]"
-                    :default-value="row[1]"
-                    @change="onEditInput"
-                    class="!w-full"
-                  />
-                </a-form-item>
-              </template>
-            </div>
-          </a-form>
-          <a-button
-            @click="
-              console.log(
-                fields.map((item) => {
-                  const value = client[item.code];
-                  return {
-                    name: item.name,
-                    value,
-                    type: item.type,
-                    options: item.options,
-                  };
-                })
-              )
-            "
-            >test
-          </a-button>
-        </div>
+                  <a-select-option
+                    v-for="option in fields.find(
+                      (field) => field.code === row[0]
+                    ).options"
+                    :key="option.id"
+                    :value="option.id"
+                  >{{ option.value }}</a-select-option>
+                </a-select>
+              </a-form-item>
+            </template>
+            <template v-else-if="row[0] === 'broker' && typeof row[1] === 'object'">
+              <a-form-item :label="translateRows[row[0]] || row[0]" :name="row[0]">
+                <a-input v-model:value="row[1].name" class="!w-full" />
+              </a-form-item>
+            </template>
+            <template v-else>
+              <a-form-item :label="translateRows[row[0]] || row[0]" :name="row[0]">
+                <a-input
+                  v-model:value="row[1]"
+                  :default-value="row[1]"
+                  @change="onEditInput"
+                  class="!w-full"
+                />
+              </a-form-item>
+            </template>
+          </div>
+        </a-form>
+        <a-button @click="updateClient" type="primary">Сохранить изменения</a-button>
       </div>
-      <a-button @click="updateClient" type="primary"
-        >Сохранить изменения</a-button
-      >
-    </a-modal>
+    </div>
+  </a-modal>
 
     <!-- create modal -->
     <a-modal
@@ -258,6 +240,7 @@ const translateRows = {
   fio: "ФИО",
   email: "email",
   phone: "Телефон",
+  broker: 'Брокер',
   about: "О клиенте",
   type: "Тип клиента",
   number_auto: "Номер автомобиля",
@@ -344,6 +327,7 @@ const updateClient = async () => {
     message.error("Ошибка при сохранении данных");
   }
 };
+
 
 const columns = [
   {
