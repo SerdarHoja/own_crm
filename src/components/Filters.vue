@@ -16,7 +16,6 @@
                     v-model:value="formData.filter[row.code]"
                     :ref="row.code"
                     :type="row.html"
-                    class="!w-[30rem]"
                 />
             </a-form-item>
             <a-form-item
@@ -29,7 +28,6 @@
                     show-search
                     :filter-option="filterOption"
                     @focus="onFocusSelect(row.code, row.id, page)"
-                    class="!w-[30rem]"
                 >
                     <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
                 </a-select>

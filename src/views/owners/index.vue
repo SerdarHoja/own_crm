@@ -35,7 +35,7 @@
       :columns="columns"
       :data-source="checkClientsData(owners)"
       :pagination="{
-        pageSize: 10,
+        pageSize: 5,
         total: owners.total,
       }"
       :custom-row="
@@ -89,8 +89,8 @@
             </li>
           </ul>
         </div>
-        <div class="w-1/2 bg-stone-200"></div>
       </div>
+      <a-button type="primary" @click="saveChanges">Сохранить изменения</a-button>
     </a-modal>
 
     <!-- create modal -->
@@ -159,7 +159,7 @@
                 v-model:value="newData[row.code]"
                 show-search
                 :filter-option="filterOption"
-                class="!w-full"
+                class="w-full"
               >
                 <a-select-option
                   v-for="option in row.options"
@@ -250,6 +250,22 @@ const handleDelete = async (e, id) => {
   await myStore.deleteOwner(data);
   loading.value = true;
   fetchData();
+};
+
+//Изменение данных владельца
+const saveChanges = async () => {
+  loading.value = true;
+  try {
+    await myStore.updateOwnerData(clickedRow.value, newData.value);
+    await fetchData();
+    open.value = false;
+    message.success("Данные собственника успешно сохранены");
+  } catch (error) {
+    console.error("Error saving changes:", error);
+    message.error("Ошибка при сохранении данных");
+  } finally {
+    loading.value = false;
+  }
 };
 
 const columns = [

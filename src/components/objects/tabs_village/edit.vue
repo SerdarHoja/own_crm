@@ -6,10 +6,10 @@
         <a-spin/>
       </div>
       <div v-else class="w-[80%]">
-        <a-card class="mb-m-base/2" v-for="card in objectFields" :key="card.title">
+        <a-card class="village-edit-tab-content-block mb-m-base/2" v-for="card in objectFields" :key="card.title">
           <div class="font-bold">{{ card.title }}</div>
           <a-divider/>
-          <div class="flex gap-[1.6rem] flex-wrap">
+          <div :class="(card.id == 240)?'block-full-width':'flex gap-[1.6rem] flex-wrap'">
             <div v-for="row in card.fields" :key="row.id">
               <a-form-item
                   v-if="row.type === 'text' || row.type === 'number'"
@@ -62,7 +62,7 @@
                 />
               </a-form-item>
               <a-form-item
-                  v-if="row.type === 'checkbox'"
+                  v-if="row.type === 'checkbox' && !row.multi"
                   :label="row.name"
                   :name="row.name"
                   :rules="[{ required: row.required }]"
@@ -77,6 +77,21 @@
                   <a-radio-button :value="false">Нет</a-radio-button>
                 </a-radio-group>
               </a-form-item>
+              <a-form-item
+                  v-if="row.type === 'checkbox' && row.multi"
+                  :label="row.name"
+                  :name="row.name"
+                  :rules="[{ required: row.required }]"
+                  class="w-objectEditElem checkbox-list"
+              >
+                <a-checkbox
+                  v-for="option in row.options"
+                  :key="option.id"
+                  v-model:checked="option.checked"
+                  @change="onChangeCheckBoxList(option.id, row.code, $event)"
+                >{{ option.value }}</a-checkbox>
+              </a-form-item>
+
               <a-form-item
                   v-if="row.type == 'select' && row.mode == 'static'"
                   :label="row.name"
@@ -204,7 +219,11 @@
     const formData = reactive({
         id: props.id,
         section: 'settlements',
-        fields: {},
+        fields: {
+          external_info: [],
+          internal_info: []
+        },
+
     })
     const villageFields = ref([]);
     onMounted(() => {
@@ -217,6 +236,7 @@
     })
 
     const onChangeCheckBox = (value, code, e) => {
+        console.log(formData.fields);
         if (e.target.value && value) {
             formData.fields[code] = value;
         } else if (e.target.value && !value) {
@@ -224,6 +244,10 @@
         } else {
             formData.fields[code] = false;
         }
+    }
+    const onChangeCheckBoxList = (value, code, e) => {
+        formData.fields[code].push(value)
+        console.log(formData)
     }
 
 
@@ -254,7 +278,6 @@
         loading.value = true;
         isFormSubmitted.value = true;
         // await myStore.updateObject(formData)
-        console.log(formData);
             try {
                 await myStore.updateObject(formData).then(
                 (response) => {
@@ -289,7 +312,9 @@
     const mapChange = (coords) => {
       console.log('mapChange', coords)
       formData.fields['coordinates'] = [coords.lat, coords.long];
+      formData.fields['yandex_cian'] = coords.addr;
     }
+
 
 </script>
 <style>
@@ -303,4 +328,18 @@
   width: 100%;
   margin-bottom: 0;
 }
+
+.checkbox-list .ant-form-item-control-input-content{
+  display: block;
+}
+.village-edit-tab-content-block .ant-col.ant-form-item-control.css-kqecok {
+  width: 100%;
+}
+.block-full-width textarea{
+  height: 8rem;
+}
+.block-full-width textarea{
+  height: 8rem;
+}
+
 </style>

@@ -35,7 +35,7 @@
       :columns="columns"
       :data-source="checkClientsData(clients.data)"
       :pagination="{
-        pageSize: 10,
+        pageSize: 5,
         total: clients.total,
       }"
       :custom-row="
@@ -80,17 +80,46 @@
         <div class="w-1/2">
           <a-form name="basic">
             <div v-for="row in Object.entries(selectedItemValue)" :key="row">
-              <a-form-item
-                :label="translateRows[row[0]] || row[0]"
-                :name="row[0]"
+              <template
+                v-if="
+                  row[0] === 'type' &&
+                  fields &&
+                  fields.find((field) => field.code === row[0]).type ===
+                    'select'
+                "
               >
-                <a-input
-                  v-model:value="row[1]"
-                  :default-value="row[1]"
-                  @change="onEditInput"
-                  class="!w-full"
-                />
-              </a-form-item>
+                <a-form-item
+                  :label="translateRows[row[0]] || row[0]"
+                  :name="row[0]"
+                >
+                  <a-select
+                    v-model:value="selectedItemValue.type"
+                    class="w-full"
+                  >
+                    <a-select-option
+                      v-for="option in fields.find(
+                        (field) => field.code === row[0]
+                      ).options"
+                      :key="option.id"
+                      :value="option.id"
+                      >{{ option.value }}</a-select-option
+                    >
+                  </a-select>
+                </a-form-item>
+              </template>
+              <template v-else>
+                <a-form-item
+                  :label="translateRows[row[0]] || row[0]"
+                  :name="row[0]"
+                >
+                  <a-input
+                    v-model:value="row[1]"
+                    :default-value="row[1]"
+                    @change="onEditInput"
+                    class="!w-full"
+                  />
+                </a-form-item>
+              </template>
             </div>
           </a-form>
           <a-button
@@ -110,8 +139,10 @@
             >test
           </a-button>
         </div>
-        <div class="w-1/2 bg-stone-200"></div>
       </div>
+      <a-button @click="updateClient" type="primary"
+        >Сохранить изменения</a-button
+      >
     </a-modal>
 
     <!-- create modal -->
@@ -189,7 +220,7 @@
                     v-model:value="newData[row.code]"
                     show-search
                     :filter-option="filterOption"
-                    class="!w-full"
+                    class="w-full"
                   >
                     <a-select-option
                       v-for="option in row.options"
@@ -237,14 +268,13 @@ const fetchClientFields = async () => {
   try {
     await myStore.getClientFields();
     fields.value = myStore.clientFields;
+    console.log("=========================", fields.value);
   } catch (error) {
     console.error("Error fetching data in component:", error);
   }
 };
 
-const newData = ref({
-  type: 1,
-});
+const newData = ref({});
 
 const showModal = async (record) => {
   open.value = true;
@@ -297,6 +327,22 @@ const handleDelete = async (e, id) => {
   await myStore.deleteClient(data);
   loading.value = true;
   fetchData();
+};
+
+//Изменение данных клиента
+const updateClient = async () => {
+  try {
+    const response = await myStore.updateClientData(
+      clickedRow.value,
+      selectedItemValue.value
+    );
+    message.success("Данные клиента успешно обновлены");
+    fetchData();
+    open.value = false;
+  } catch (error) {
+    console.error("Error saving changes:", error);
+    message.error("Ошибка при сохранении данных");
+  }
 };
 
 const columns = [

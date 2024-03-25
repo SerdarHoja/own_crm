@@ -91,7 +91,7 @@
   </a-modal>
 </template>
 <script setup>
-import {ref, onMounted, onUnmounted, computed} from 'vue'
+import {ref, onMounted, onUnmounted, computed, watch} from 'vue'
 import {useObjectsStore} from '@/stores/objects.module.js';
 import {message} from 'ant-design-vue';
 import ObjectItem from '@/components/objects/ObjectItem.vue';
@@ -168,41 +168,8 @@ const handleOk = async () => {
   myStore.pageType = nextPageType.value;
 }
 
-</script>
-//Вычисление высоты контента
-<script>
-export default {
-  mounted() {
-    this.layout(); // Вызываем метод layout при монтировании компонента
-    window.addEventListener('resize', this.layout); // Добавляем обработчик события resize
-  },
-  methods: {
-    layout() {
-      const setHeight = () => {
-        document.querySelectorAll('.js-height').forEach((element) => {
-          let countHeight = 0;
-          Array.from(element.parentNode.children).forEach((child) => {
-            if (!child.classList.contains('cards__arr') && !child.classList.contains('js-height')) {
-              countHeight += child.offsetHeight;
-            }
-          });
-          element.style.height = `calc(100% - ${countHeight}px - 5.6rem)`;
-        });
-      };
 
-      // Вызываем setHeight
-      setHeight();
-    },
-    // Дополнительный метод для обновления высоты после динамических изменений
-    updateLayout() {
-      // Вызываем layout после динамических изменений на странице
-      this.layout();
-    },
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.layout); // Удаляем обработчик события при уничтожении компонента
-  },
-};
+
 </script>
 
 <style>
