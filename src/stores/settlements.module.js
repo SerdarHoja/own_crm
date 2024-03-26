@@ -8,6 +8,8 @@ export const useSettlementsStore = defineStore('settlements', {
     countryObjects: [],
     countryObjectsTotal: 0,
     countryObjectsLimit: 0,
+    countryObjectsCurrentPage: 1,
+    countryObjectsFilter: '',
     objectBrief: [],
     objectFields: [],
     commentsList: [],
@@ -31,7 +33,7 @@ export const useSettlementsStore = defineStore('settlements', {
     },
     async getObjectsPage(section, page) {
       try {
-        const response = await ObjectsService.getObjectsPage(section, page);
+        const response = await ObjectsService.getObjectsPage(section, page, this.countryObjectsFilter);
           this.countryObjects = response.data.data;
           this.countryObjectsTotal = response.data.total;
           this.countryObjectsLimit = response.data.limit;
@@ -113,8 +115,13 @@ export const useSettlementsStore = defineStore('settlements', {
     },
     async getObjectList(section, param) {
       try {
+        console.log(param)
         const response = await ObjectsService.getObjectsFilter(section, param);
+        this.countryObjectsFilter = param;
         this.countryObjects = response.data.data;
+        this.countryObjectsTotal = response.data.total
+        this.countryObjectsLimit = response.data.limit;
+        this.countryObjectsCurrentPage = 1;
         return response;
       } catch (error) {
         return Promise.reject(error);

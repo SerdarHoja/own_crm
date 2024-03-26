@@ -39,8 +39,8 @@
         </div>
         <a-pagination
             v-if="+myStore.countryObjectsTotal > 20"
-            :current="currentPage"
-            :total="totalObjects"
+            :current="myStore.countryObjectsCurrentPage"
+            :total="+myStore.countryObjectsTotal"
             :pageSize="objectsPerPage"
             @change="handlePageChange"
             class="flex justify-end"
@@ -75,7 +75,11 @@
         return myStore.countryObjects;
     })
 
-    const currentPage = ref(1); // текущая страница
+    const countryObjectsTest = computed(() => {
+        return myStore.countryObjectsCurrentPage;
+    })
+
+    const currentPage = ref(myStore.countryObjectsCurrentPage); // текущая страница
     const totalObjects = ref(0); // общее количество объектов
     const objectsPerPage = ref(20); // количество объектов на странице
 
@@ -90,6 +94,7 @@
                     loading.value = false;
                 } else {
                     currentPage.value = newPage;
+                    myStore.countryObjectsCurrentPage = newPage;
                     loading.value = false;
                 }
             }

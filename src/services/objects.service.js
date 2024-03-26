@@ -233,8 +233,9 @@ class ObjectsService {
     return axios.get(API_URL + `/objects/listbyowner/?owner=${id}`, { headers: authHeader() });
   }
   
-  getObjectsPage(section, page ) {
-    return axios.get(API_URL + "/objects/list/?section=" + section + `&page=${page}`, {
+  getObjectsPage(section, page, filter = '' ) {
+    if(filter !== '') filter = `&` + filter
+    return axios.get(API_URL + "/objects/list/?section=" + section + `${filter}&page=${page}`, {
       headers: authHeader(),
     });
   }

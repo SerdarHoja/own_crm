@@ -123,7 +123,7 @@ const handleFinish = async () => {
 
   if (props.section === "settlements") {
     console.log (formData.id);
-    await settlementsStore.getObjectList(props.section,qs.stringify(formData.value));
+    await settlementsStore.getObjectList(props.section, qs.stringify(formData.value));
   }
 };
 
@@ -134,6 +134,7 @@ const clearFilter = async () => {
   }
   if (props.section === "settlements") {
     await settlementsStore.getObjectList(props.section);
+    settlementsStore.countryObjectsCurrentPage = 1;
   }
 };
 
