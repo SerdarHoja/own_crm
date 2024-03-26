@@ -55,6 +55,7 @@
       name="avatar"
       list-type="picture-card"
       class="avatar-uploader"
+      multiple
       :show-upload-list="false"
       :before-upload="beforeUpload"
       @change="handleChange"
@@ -245,9 +246,15 @@ const removePhoto = async (id) => {
   }
 
   const handleChange = async ({fileList, file}) => {
+      console.log('filelist: ', fileList);
+      console.log('file: ', file);
       const data = new FormData();
       data.append('idObject', props.id);
-      data.append('photo[]', fileList[fileList.length - 1].originFileObj);
+      data.append('photo[]', file.originFileObj);
+      // fileList.forEach((file) => {
+      //     data.append('photo[]', file.originFileObj);
+      // });
+      // data.append('photo[]', fileList[fileList.length - 1].originFileObj);
       await myStore.uploadNewPhoto(data).then(
           (response) => {
               if (response.data.result === 'error') {
