@@ -25,7 +25,7 @@
                 :filter-option="filterOption"
                 @focus="onFocusSelect(row.code, row.id)"
               >
-                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
               </a-select>
             </template>
           </a-form-item>
