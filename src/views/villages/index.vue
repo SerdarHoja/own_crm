@@ -9,15 +9,21 @@
           Найдено: <span>{{myStore.countryObjectsTotal}}</span>
       </div>
     </div>
-    <div class="country-data">
+    <div class="country-data settlements">
         <div class="mt-5 py-12">
             <div class="grid grid-col-cast gap-5">
                 <div class="w-1/5">
                     <h4 class="text-[#A5A7A7]">Посёлок</h4>
                 </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Шоссе</h4>
+              </div>
                 <div class="w-1/6">
-                    <h4 class="text-[#A5A7A7]">Информация</h4>
+                    <h4 class="text-[#A5A7A7]">МКАД</h4>
                 </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Населенный пункт</h4>
+              </div>
                 <div class="w-1/6">
                     <h4 class="text-[#A5A7A7]">Характеристики</h4>
                 </div>
