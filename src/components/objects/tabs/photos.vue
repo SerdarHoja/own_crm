@@ -9,26 +9,43 @@
       :move="checkMove"
   >
     <template #item="{element}">
-      <div class="object-photo__container" @click="handlePreview(element)">
-        <img
-            :src="element.url"
-            alt="example"
-            class="object-photo__image"
-        />
-        <div class="overlay">
-          <a-popconfirm
-              title="Действительно удалить?"
-              ok-text="Да"
-              cancel-text="Нет"
-              @confirm="handleRemove(element, $event)"
-              @cancel="onCancel"
-              v-if="!drag"
+      <div>
+        <div class="object-photo__container" @click="handlePreview(element)">
+          <img
+              :src="element.url"
+              alt="example"
+              class="object-photo__image"
+          />
+          <div class="overlay">
+            <a-popconfirm
+                title="Действительно удалить?"
+                ok-text="Да"
+                cancel-text="Нет"
+                @confirm="handleRemove(element, $event)"
+                @cancel="onCancel"
+                v-if="!drag"
+            >
+              <TrashIcon
+                  @click="deleteConfirm($event)"
+                  class="w-10 h-10 cursor-pointer text-white"
+              />
+            </a-popconfirm>
+          </div>
+        </div>
+        <div class="object-photo__bottom">
+          <a-checkbox
+            v-model:checked="element.main"
+            @change="setAsMain(element.uid)"
           >
-            <TrashIcon
-                @click="deleteConfirm($event)"
-                class="w-10 h-10 cursor-pointer text-white"
-            />
-          </a-popconfirm>
+            Главное фото : {{ element.main }}
+          </a-checkbox>
+          <a-checkbox
+            v-model:checked="element.plan"
+            @change="setPlan(element.uid, element.plan)"
+          >
+            План
+          </a-checkbox>
+          <div>Cорт: {{element.sort}}</div>
         </div>
       </div>
     </template>
@@ -50,13 +67,6 @@
   </a-upload>
   <rawDisplayer class="col-3" :value="fileList" title="List"/>
   <a-modal :open="previewVisible" :title="previewTitle" :footer="null" @cancel="handleCancel">
-    <a-button @click="setAsMain(previewId)">
-      Сделать главной
-    </a-button>
-    <a-button @click="setPlan(previewId)">
-      Установить планировку
-    </a-button>
-
     <img alt="example" style="width: 100%" :src="previewImage"/>
   </a-modal>
 </template>
@@ -76,6 +86,7 @@ const props = defineProps({
 const loading = ref(false);
 const myStore = useObjectsStore();
 const fileList = ref([]);
+const mainPhotoID = ref([]);
 
 
 onMounted(() => {
@@ -107,12 +118,16 @@ const fetchPhotos = async () => {
 watchEffect(() => {
   if (photos.value) {
     fileList.value = []
+    console.log(photos.value)
     photos.value.forEach((i, x) => {
       fileList.value.push({
-        uid: i.id,
+        uid:  i.id,
         name: i.real_img_id,
         status: 'done',
         url: i.pathFull,
+        sort:i.sort,
+        plan:i.plan,
+        main:i.main,
       })
     })
   }
@@ -175,62 +190,101 @@ const removePhoto = async (id) => {
       }
   )
 }
-const setAsMain = async (id) => {
-  const data = new FormData();
-  data.append('idObject', props.id);
-  data.append('idPhoto', id);
-  await myStore.setPhotoAsMain(data).then(
-      (response) => {
-        if (response.data.result === 'error') {
-          message.error(response.data.text)
-        } else {
-          fetchPhotos();
-          handleCancel();
+
+
+  const sortPhoto = async (id, sort) => {
+    const data = new FormData();
+    data.append('idPhoto', id);
+    data.append('sort', sort);
+    await myStore.sortPhoto(data).then(
+        (response) => {
+          if (response.data.result === 'error') {
+            message.error(response.data.text)
+          } else {
+              setAsMain(mainPhotoID.value);
+          }
         }
+    )
+  }
+
+  const setAsMain = async (id) => {
+      const data = new FormData();
+      data.append('idObject', props.id);
+      data.append('idPhoto', id);
+      await myStore.setPhotoAsMain(data).then(
+          (response) => {
+              if (response?.data?.result === 'error') {
+                  message.error(response.data.text)
+              } else {
+                  fetchPhotos();
+                  handleCancel();
+              }
+          }
+      )
+  }
+
+  const setPlan = async (id, value = true) => {
+      const data = new FormData();
+      data.append('idPhoto', id);
+      if(value) {
+          data.append('plan', true);
+      } else {
+          data.append('plan', false);
       }
-  )
-}
+      
+      await myStore.setPhotoPlan(data).then(
+          (response) => {
+              if (response?.data?.result === 'error') {
+                  message.error(response.data.text)
+              } else {
+                  fetchPhotos();
+                  handleCancel();
+              }
+          }
+      )
+  }
 
-const setPlan = async (id) => {
-  const data = new FormData();
-  data.append('plan', true);
-  data.append('idPhoto', id);
-  await myStore.setPhotoPlan(data).then(
-      (response) => {
-        if (response.data.result === 'error') {
-          message.error(response.data.text)
-        } else {
-          fetchPhotos();
-          handleCancel();
-        }
+  const handleChange = async ({fileList, file}) => {
+      const data = new FormData();
+      data.append('idObject', props.id);
+      data.append('photo[]', fileList[fileList.length - 1].originFileObj);
+      await myStore.uploadNewPhoto(data).then(
+          (response) => {
+              if (response.data.result === 'error') {
+                  message.error(response.data.text)
+              } else {
+                  fetchPhotos();
+              }
+          }
+      )
+  }
+
+
+  const checkMove = async(evt) => {
+      console.log(evt);
+      return (evt.draggedContext.element.name!=='apple');
+  }
+
+  const dragEnd = async (e) => {
+      const currentPhotoID = e.item._underlying_vm_.uid;
+      const newIndex = e.newIndex;
+      const oldIndex = e.oldIndex;
+      if (newIndex !== 0 && oldIndex !== 0) {
+          sortPhoto(currentPhotoID, newIndex);
+  
       }
-  )
-}
 
-const handleChange = async ({fileList, file}) => {
-  const data = new FormData();
-  data.append('idObject', props.id);
-  data.append('photo[]', fileList[fileList.length - 1].originFileObj);
-  await myStore.uploadNewPhoto(data).then(
-      (response) => {
-        if (response.data.result === 'error') {
-          message.error(response.data.text)
-        } else {
-          fetchPhotos();
-        }
+      if (newIndex === 0) {
+          setAsMain(currentPhotoID);
       }
-  )
-}
 
-const checkMove = async (evt) => {
-  console.log(evt);
-  return (evt.draggedContext.element.name !== 'apple');
-}
+      if (oldIndex === 0) {
+          const mainPhoto  = photos.value.find((el) => el.sort === '2');   
+          setAsMain(mainPhoto.id);        
+      }
 
-const dragEnd = async (e) => {
-  console.log('end', e);
-  drag.value = false;
-}
+      drag.value = false; // Set drag value to false at the end of the function
+  };
 </script>
 
 <style scoped>
@@ -268,5 +322,13 @@ const dragEnd = async (e) => {
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+.object-photo__bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
 }
 </style>

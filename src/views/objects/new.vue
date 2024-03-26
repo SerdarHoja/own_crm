@@ -172,11 +172,11 @@
 
     onMounted(() => {
         fetchObjectFields();
-        myStore.showAddObjectButton = true;
+        // myStore.showAddObjectButton = true;
     })
 
     onUnmounted(() => {
-        myStore.showAddObjectButton = false;
+        // myStore.showAddObjectButton = false;
     })
     const objectFields = computed(() => {
         return myStore.allNewFields;
