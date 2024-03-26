@@ -167,10 +167,10 @@
       <div class="w-[15%]">
         <a-anchor
             :items="objectFields.map((card, index) => ({
-            key: 'card-' + index,
-            href: '#card-' + index,
-            title: card.title
-          }))"
+              key: 'card-' + index,
+              href: '#card-' + index,
+              title: card.title
+            }))"
         />
       </div>
     </div>
