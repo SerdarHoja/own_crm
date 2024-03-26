@@ -24,12 +24,12 @@
     </a-space>
     <a-space class="mr-12">
       <a-button key="1" type="primary" v-if="objectStoreStore.showAddObjectButton" @click="toggleAddObjectModal">
-        Добавить объект 
+        Добавить объект
       </a-button>
     </a-space>
     <a-space class="mr-12">
       <a-button key="2" type="primary" v-if="settlementsStore.showAddVillagesButton" @click="goAddNewVillages">
-          Добавить поселок  
+          Добавить поселок
       </a-button>
     </a-space>
     <DateTimeHeader class="mr-12"/>
@@ -61,7 +61,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 const settlementsStore = useSettlementsStore();
-const objectStoreStore = useObjectsStore(); 
+const objectStoreStore = useObjectsStore();
 
 import {message} from 'ant-design-vue';
 const searchText = ref('');

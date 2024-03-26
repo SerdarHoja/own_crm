@@ -6,18 +6,24 @@
     <FiltersObject :section="'settlements'"/>
     <div class="flex flex-col mb-m-base">
       <div class="flex gap-x-[3rem] items-center total-objects">
-          Найдено: <span>{{myStore.countryObjects.length}}</span>
+          Найдено: <span>{{myStore.countryObjectsTotal}}</span>
       </div>
     </div>
-    <div class="country-data">
+    <div class="country-data settlements">
         <div class="mt-5 py-12">
             <div class="grid grid-col-cast gap-5">
                 <div class="w-1/5">
                     <h4 class="text-[#A5A7A7]">Посёлок</h4>
                 </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Шоссе</h4>
+              </div>
                 <div class="w-1/6">
-                    <h4 class="text-[#A5A7A7]">Информация</h4>
+                    <h4 class="text-[#A5A7A7]">МКАД</h4>
                 </div>
+              <div class="w-1/6">
+                <h4 class="text-[#A5A7A7]">Населенный пункт</h4>
+              </div>
                 <div class="w-1/6">
                     <h4 class="text-[#A5A7A7]">Характеристики</h4>
                 </div>
@@ -28,13 +34,13 @@
             </div>
         </div>
       <div class="flex flex-col gap-[.8rem]">
-        <div v-for="obj in displayedObjects" :key="obj.id">
+        <div v-for="obj in countryObjects" :key="obj.id">
           <ObjectItem :object="obj" />
         </div>
         <a-pagination
-            v-if="+totalObjects > 10"
-            :current="currentPage"
-            :total="totalObjects"
+            v-if="+myStore.countryObjectsTotal > 20"
+            :current="myStore.countryObjectsCurrentPage"
+            :total="+myStore.countryObjectsTotal"
             :pageSize="objectsPerPage"
             @change="handlePageChange"
             class="flex justify-end"
@@ -69,21 +75,37 @@
         return myStore.countryObjects;
     })
 
-    const objectsPerPage = ref(10); // количество объектов на странице
-    const currentPage = ref(1); // текущая страница
+    const countryObjectsTest = computed(() => {
+        return myStore.countryObjectsCurrentPage;
+    })
 
-    const totalObjects = computed(() => countryObjects.value.length);
+    const currentPage = ref(myStore.countryObjectsCurrentPage); // текущая страница
+    const totalObjects = ref(0); // общее количество объектов
+    const objectsPerPage = ref(20); // количество объектов на странице
 
-    const displayedObjects = computed(() => {
-        const startIndex = (currentPage.value - 1) * objectsPerPage.value;
-        const endIndex = startIndex + objectsPerPage.value;
-        return countryObjects.value.slice(startIndex, endIndex);
-    });
-
-    const handlePageChange = (page) => {
-    currentPage.value = page;
+    const handlePageChange = async (newPage) => {
+        loading.value = true;
+        try {
+            await myStore.getObjectsPage('settlements', newPage).then(
+            (response) => {
+                console.log(response)
+                if (response.data.result === 'error') {
+                    message.error(response.data.text)
+                    loading.value = false;
+                } else {
+                    currentPage.value = newPage;
+                    myStore.countryObjectsCurrentPage = newPage;
+                    loading.value = false;
+                }
+            }
+            )
+        } catch (error) {
+            console.error('Error fetching data in component:', error);
+        }
+        console.log('Выбрана страница:', newPage);
     };
-    
+
+    totalObjects.value = 378; // Общее количество объектов
 
     const fetchCountryData = async () => {
         loading.value = true;
@@ -103,3 +125,9 @@
         }
     };
 </script>
+<style>
+.ant-pagination-options {
+    display: none !important;
+}
+</style>
+

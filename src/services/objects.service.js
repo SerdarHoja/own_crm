@@ -31,12 +31,12 @@ class ObjectsService {
     const fd = new FormData();
     if(data.id && data.id !== undefined)
       fd.append("id", data.id);
-    fd.append("section", data.section);
+      fd.append("section", data.section);
     for (const [key, value] of Object.entries(data.fields)) {
       if (key === 'coordinates' && Array.isArray(value)) {
         fd.append(`fields[${key}][lat]`, value[0]);
         fd.append(`fields[${key}][long]`, value[1]);
-      } else {
+      } else if(key !== 'external_info' && key !== 'internal_info' && key !== 'land_type') {
         fd.append(`fields[${key}]`, value);
       }
     }
@@ -45,7 +45,26 @@ class ObjectsService {
         fd.append(`stages[${key}]`, JSON.stringify(value));
       }
     }
+    
+    if(data.fields.external_info) {
+      data.fields.external_info.forEach((value, index) => {
+        fd.append(`fields[external_info][${index}]`, value);
+      });
+    }
+    
+    if(data.fields.internal_info) {
+      data.fields.internal_info.forEach((value, index) => {
+        fd.append(`fields[internal_info][${index}]`, value);
+      });
+    }
 
+    if(data.fields.land_type) {
+      data.fields.land_type.forEach((value, index) => {
+        fd.append(`fields[land_type][${index}]`, value);
+      });
+    }
+
+    
     const url = `${API_URL}/objects/save/`;
 
     // Do not set 'Content-Type' header when using FormData
@@ -201,18 +220,30 @@ class ObjectsService {
   }
 
   setPhotoPlan(data) {
-    return axios.post(API_URL + `/objectsphoto/setmain/`, data, { headers: authHeader() });
+    return axios.post(API_URL + `/objectsphoto/setplan/`, data, { headers: authHeader() });
   }
 
   uploadNewPhoto(data) {
     return axios.post(API_URL + `/objectsphoto/add/`, data, { headers: authHeader() });
   }
+  
   removePhoto(data) {
     return axios.post(API_URL + `/objectsphoto/delete/`, data, { headers: authHeader() });
   }
   
+  sortPhoto(data) {
+    return axios.post(API_URL + `/objectsphoto/sort/`, data, { headers: authHeader() });
+  }
+
   listByOwner(id) {
     return axios.get(API_URL + `/objects/listbyowner/?owner=${id}`, { headers: authHeader() });
+  }
+  
+  getObjectsPage(section, page, filter = '' ) {
+    if(filter !== '') filter = `&` + filter
+    return axios.get(API_URL + "/objects/list/?section=" + section + `${filter}&page=${page}`, {
+      headers: authHeader(),
+    });
   }
 }
 

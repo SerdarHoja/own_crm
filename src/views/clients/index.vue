@@ -29,13 +29,17 @@
         </a-button>
       </template>
     </a-page-header>
-    <filters :page="'clients'" class="flex mb-m-base gap-y-8" />
+    <filters
+      :page="'clients'"
+      :brokerOptions="brokerOptions"
+      class="flex mb-m-base gap-y-8"
+    />
     <a-table
       @change="onTableChange($event)"
       :columns="columns"
       :data-source="checkClientsData(clients.data)"
       :pagination="{
-        pageSize: 10,
+        pageSize: 5,
         total: clients.total,
       }"
       :custom-row="
@@ -75,40 +79,65 @@
       class="h-[80vh]"
       @ok="handleOk"
     >
-      {{ selectedItemValue }}
       <div class="flex w-full mt-20">
         <div class="w-1/2">
           <a-form name="basic">
             <div v-for="row in Object.entries(selectedItemValue)" :key="row">
-              <a-form-item
-                :label="translateRows[row[0]] || row[0]"
-                :name="row[0]"
+              <template
+                v-if="
+                  row[0] === 'type' &&
+                  fields &&
+                  fields.find((field) => field.code === row[0]).type ===
+                    'select'
+                "
               >
-                <a-input
-                  v-model:value="row[1]"
-                  :default-value="row[1]"
-                  @change="onEditInput"
-                  class="!w-full"
-                />
-              </a-form-item>
+                <a-form-item
+                  :label="translateRows[row[0]] || row[0]"
+                  :name="row[0]"
+                >
+                  <a-select
+                    v-model:value="selectedItemValue[row[0]]"
+                    class="w-full"
+                  >
+                    <a-select-option
+                      v-for="option in fields.find(
+                        (field) => field.code === row[0]
+                      ).options"
+                      :key="option.id"
+                      :value="option.id"
+                      >{{ option.value }}</a-select-option
+                    >
+                  </a-select>
+                </a-form-item>
+              </template>
+              <template
+                v-else-if="row[0] === 'broker' && typeof row[1] === 'object'"
+              >
+                <a-form-item
+                  :label="translateRows[row[0]] || row[0]"
+                  :name="row[0]"
+                >
+                  <a-input v-model:value="row[1].name" class="!w-full" />
+                </a-form-item>
+              </template>
+              <template v-else>
+                <a-form-item
+                  :label="translateRows[row[0]] || row[0]"
+                  :name="row[0]"
+                >
+                  <a-input
+                    v-model:value="row[1]"
+                    :default-value="row[1]"
+                    @change="onEditInput"
+                    class="!w-full"
+                  />
+                </a-form-item>
+              </template>
             </div>
           </a-form>
-          <a-button
-            @click="
-              console.log(
-                fields.map((item) => {
-                  const value = client[item.code];
-                  return {
-                    name: item.name,
-                    value,
-                    type: item.type,
-                    options: item.options,
-                  };
-                })
-              )
-            "
-            >test
-          </a-button>
+          <a-button @click="updateClient" type="primary"
+            >Сохранить изменения</a-button
+          >
         </div>
       </div>
     </a-modal>
@@ -221,11 +250,13 @@ const open = ref(false);
 const clickedRow = ref(null);
 const createModal = ref(false);
 const fields = ref(null);
+const brokerOptions = ref([]);
 
 const translateRows = {
   fio: "ФИО",
   email: "email",
   phone: "Телефон",
+  broker: "Брокер",
   about: "О клиенте",
   type: "Тип клиента",
   number_auto: "Номер автомобиля",
@@ -236,6 +267,10 @@ const fetchClientFields = async () => {
   try {
     await myStore.getClientFields();
     fields.value = myStore.clientFields;
+    const brokerField = fields.value.find(field => field.code === 'broker');
+    if (brokerField) {
+      brokerOptions.value = brokerField.options;
+    }
     console.log("=========================", fields.value);
   } catch (error) {
     console.error("Error fetching data in component:", error);
@@ -295,6 +330,22 @@ const handleDelete = async (e, id) => {
   await myStore.deleteClient(data);
   loading.value = true;
   fetchData();
+};
+
+//Изменение данных клиента
+const updateClient = async () => {
+  try {
+    const response = await myStore.updateClientData(
+      clickedRow.value,
+      selectedItemValue.value
+    );
+    message.success("Данные клиента успешно обновлены");
+    fetchData();
+    open.value = false;
+  } catch (error) {
+    console.error("Error saving changes:", error);
+    message.error("Ошибка при сохранении данных");
+  }
 };
 
 const columns = [
@@ -383,5 +434,6 @@ const cancel = (e) => {
 const checkClientsData = (data) => {
   return !Array.isArray(data) ? [] : data;
 };
+
 </script>
 <style scoped></style>

@@ -24,9 +24,8 @@
                 show-search
                 :filter-option="filterOption"
                 @focus="onFocusSelect(row.code, row.id)"
-                class="!w-[30rem]"
               >
-                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
+                <a-select-option v-for="option in optionsData" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
               </a-select>
             </template>
           </a-form-item>
@@ -112,7 +111,6 @@ const onFocusSelect = async (code, id) => {
   if (props.section === "settlements") {
     await settlementsStore.getOptionsData(code, id, "object");
     optionsData.value = settlementsStore.optionData;
-    console.log(settlementsStore.optionData);
   }
 
   console.log(optionsData.value);
@@ -124,7 +122,8 @@ const handleFinish = async () => {
   }
 
   if (props.section === "settlements") {
-    await settlementsStore.getObjectList(props.section,qs.stringify(formData.value));
+    console.log (formData.id);
+    await settlementsStore.getObjectList(props.section, qs.stringify(formData.value));
   }
 };
 
@@ -135,6 +134,7 @@ const clearFilter = async () => {
   }
   if (props.section === "settlements") {
     await settlementsStore.getObjectList(props.section);
+    settlementsStore.countryObjectsCurrentPage = 1;
   }
 };
 

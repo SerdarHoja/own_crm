@@ -1,5 +1,5 @@
 <template>
-    <a-modal v-model:open="props.open" :title='title' @ok="saveData" closable @cancel="toggleModal">
+    <a-modal v-model:open="props.open" :title='title' @ok="saveData" closable @cancel="toggleModal" class="popup-wrap">
         <a-form
             name="basic"
             autocomplete="off"
@@ -28,14 +28,14 @@
                         :name="row.name"
                         :rules="[{ required: row.required, message: 'Required' }]"
                     >
-                        <a-select    
+                        <a-select
                             v-model:value="formData.fields[row.code]"
                             show-search
                             :filter-option="filterOption"
                             class="!w-[200px]"
                         >
                             <a-select-option v-for="option in row.options" :key="option.id" :value="option.id">{{ option.value }}</a-select-option>
-                        </a-select>                        
+                        </a-select>
                     </a-form-item>
                     <a-form-item
                         v-if="row.type == 'select' && row.mode == 'ajax'"
@@ -43,7 +43,7 @@
                         :name="row.name"
                         :rules="[{ required: row.required, message: 'Required' }]"
                     >
-                        <a-select    
+                        <a-select
                             v-model:value="formData.fields[row.code]"
                             show-search
                             :filter-option="filterOption"
@@ -51,9 +51,9 @@
                             class="!w-[200px]"
                         >
                             <a-select-option v-for="option in optionsData" :key="option.id" :value="option.value">{{ option.value }}</a-select-option>
-                        </a-select> 
+                        </a-select>
                     </a-form-item>
-                
+
                 </div>
             </div>
         </a-form>
@@ -66,7 +66,7 @@
 <script setup>
     import { reactive, ref, onMounted, computed } from 'vue';
     import { useUserStore } from '../stores/user.module.js';
-    
+
     const myStore = useUserStore();
     const loading = ref(false);
 
@@ -87,7 +87,7 @@
         fields: {},
     })
 
-    const emits = defineEmits(['toggle'], ['save'])   
+    const emits = defineEmits(['toggle'], ['save'])
 
     const toggleModal = () => {
         emits('toggle');
