@@ -36,7 +36,7 @@ class ObjectsService {
       if (key === 'coordinates' && Array.isArray(value)) {
         fd.append(`fields[${key}][lat]`, value[0]);
         fd.append(`fields[${key}][long]`, value[1]);
-      } else if(key !== 'external_info' && key !== 'internal_info') {
+      } else if(key !== 'external_info' && key !== 'internal_info' && key !== 'land_type') {
         fd.append(`fields[${key}]`, value);
       }
     }
@@ -55,6 +55,12 @@ class ObjectsService {
     if(data.fields.internal_info) {
       data.fields.internal_info.forEach((value, index) => {
         fd.append(`fields[internal_info][${index}]`, value);
+      });
+    }
+
+    if(data.fields.land_type) {
+      data.fields.land_type.forEach((value, index) => {
+        fd.append(`fields[land_type][${index}]`, value);
       });
     }
 

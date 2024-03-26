@@ -82,13 +82,16 @@
                   :label="row.name"
                   :name="row.name"
                   :rules="[{ required: row.required }]"
-                  class="w-objectEditElem checkbox-list"
+                  :class="row.code + ' w-objectEditElem checkbox-list'"
               >
+              <!-- {{ row }} -->
                 <a-checkbox
                   v-for="option in row.options"
                   :key="option.id"
+                  :id="option.id"
+                  :checked="option.checked"
                   v-model:checked="option.checked"
-                  @change="onChangeCheckBoxList(option.id, row.code, $event)"
+                  @change="onChangeCheckBoxMultiList(option.id, row.code, $event)"
                 >{{ option.value }}</a-checkbox>
               </a-form-item>
 
@@ -221,11 +224,14 @@
         section: 'settlements',
         fields: {
           external_info: [],
-          internal_info: []
+          internal_info: [],
+          land_type: [],
         },
 
     })
     const villageFields = ref([]);
+    const selectedOptions = ref([]);
+
     onMounted(() => {
         fetchObjectFields();
     })
@@ -245,9 +251,21 @@
             formData.fields[code] = false;
         }
     }
-    const onChangeCheckBoxList = (value, code, e) => {
-        formData.fields[code].push(value)
-        console.log(formData)
+    const onChangeCheckBoxMultiList = (value, code, e) => {
+      let multiCheckbox = []
+      const wrapper = document.querySelector(`.${code}`)
+      const checkboxChecked = wrapper.querySelectorAll('.ant-checkbox-input')
+      checkboxChecked.forEach(el => {
+        if(el.checked) {
+          multiCheckbox.push(el.id)
+        }
+      })
+      multiCheckbox.push(value)
+      if(!e.target.checked) {
+        multiCheckbox = multiCheckbox.filter(item => item !== value);
+      }
+      formData.fields[code] = multiCheckbox;
+      console.log(formData)
     }
 
 

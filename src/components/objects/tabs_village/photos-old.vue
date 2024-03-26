@@ -2,7 +2,7 @@
     <draggable
         :list="fileList"
         group="people"
-        @start="drag = true;"
+        @start="drag = true; console.log('start')"
         @end="dragEnd"
         item-key="id"
         class="village-photo__list"
@@ -10,42 +10,28 @@
     >
         <template #item="{element}">
             <div>
-                <div class="village-photo__container" @click="handlePreview(element)">
+                <div class="village-photo__container">
+                  <div style="height: 37rem;">
                     <img
+                        :id="element.uid"
                         :src="element.url"
                         alt="example"
+                        @click="handlePreview(element)"
                         class="village-photo__image"
                     />
-                    <div class="overlay">
-                        <a-popconfirm
-                            title="Действительно удалить?"
-                            ok-text="Да"
-                            cancel-text="Нет"
-                            @confirm="handleRemove(element, $event)"
-                            @cancel="onCancel"
-                            v-if="!drag"
-                        >
-                            <TrashIcon
-                                @click="deleteConfirm($event)"
-                                class="w-10 h-10 cursor-pointer text-white"
-                            />
-                        </a-popconfirm>
-                    </div>
-                </div>
-                <div class="village-photo__bottom">
+                  </div>
+                  <div class="village-photo__bottom">
                         <a-checkbox
                             v-model:checked="element.main"
                             @change="setAsMain(element.uid)"
-                        >
-                        Главное фото : {{ element.main }}
-                    </a-checkbox>
+                        >Главное фото</a-checkbox>
                         <a-checkbox
                             v-model:checked="element.plan"
                             @change="setPlan(element.uid, element.plan)"
-                        >
-                        План
-                    </a-checkbox>
-                    <div>Cорт: {{element.sort}}</div>
+                        >План</a-checkbox>
+                        <div>Cорт: {{element.sort}}</div>
+
+                    </div>
                 </div>
             </div>
         </template>
@@ -55,7 +41,6 @@
         name="avatar"
         list-type="picture-card"
         class="avatar-uploader"
-        multiple
         :show-upload-list="false"
         :before-upload="beforeUpload"
         @change="handleChange"
@@ -66,17 +51,23 @@
             <div class="ant-upload-text">Upload</div>
         </div>
     </a-upload>
-    <rawDisplayer class="col-3" :value="fileList" title="List"/>
+    <rawDisplayer class="col-3" :value="fileList" title="List" />
     <a-modal :open="previewVisible" :title="previewTitle" :footer="null" @cancel="handleCancel">
-        <img alt="example" style="width: 100%" :src="previewImage"/>
+        <a-button @click="setAsMain(previewId)">
+            Сделать главной
+        </a-button>
+        <a-button @click="setPlan(previewId)">
+            Установить планировку
+        </a-button>
+        {{ previewSort }}
+        <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
 </template>
 <script setup>
-    import {ref, onMounted, watchEffect, computed, defineProps} from 'vue';
-    import {message} from 'ant-design-vue';
-    import {useSettlementsStore} from '@/stores/settlements.module.js';
+    import { ref, onMounted, watchEffect, computed, defineProps } from 'vue';
+    import { message } from 'ant-design-vue';
+    import { useSettlementsStore } from '@/stores/settlements.module.js';
     import draggable from 'vuedraggable'
-    import {TrashIcon} from "@heroicons/vue/24/solid";
 
     const drag = ref(false);
 
@@ -117,10 +108,10 @@
     };
 
     watchEffect(() => {
-        if (photos.value) {
+        if(photos.value) {
             fileList.value = []
-            console.log(photos.value)
             photos.value.forEach((i, x) => {
+                if(i.main) mainPhotoID.value = i.id
                 fileList.value.push({
                     uid:  i.id,
                     name: i.real_img_id,
@@ -147,6 +138,7 @@
     const previewImage = ref('');
     const previewTitle = ref('');
     const previewId = ref('');
+    const previewSort = ref('');
 
     const handleCancel = () => {
         previewVisible.value = false;
@@ -157,42 +149,37 @@
         if (!file.url && !file.preview) {
             file.preview = (await getBase64(file.originFileObj));
         }
+
         previewImage.value = file.url || file.preview;
         previewVisible.value = true;
         previewTitle.value = file.name || file.url.substring(file.url.lastIndexOf('/') + 1);
         previewId.value = file.uid;
+        previewSort.value = myStore.photos.filter(el => el.real_img_id === file.name)[0].sort;
+
+
     }
 
-const handleRemove = (file, $event) => {
-  $event.preventDefault();
-  $event.stopPropagation();
-  console.log('remove', file);
-  fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
-  removePhoto(file.uid);
-  return false;
-}
-const deleteConfirm = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
-const removePhoto = async (id) => {
-  const data = new FormData();
-  data.append('idObject', props.id);
-  data.append('idPhoto', id);
-  await myStore.removePhoto(data).then(
-      (response) => {
-        console.log(response.data.result);
-        if (response.data.result === 'error') {
-          message.error(response.data.text)
-        } else {
-          fetchPhotos();
-          handleCancel();
-        }
-      }
-  )
-}
-
-
+    const handleRemove = (file) => {
+        console.log('remove', file);
+        fileList.value = fileList.value.filter((i) => i.uid !== file.uid);
+        removePhoto(file.uid);
+        return false;
+    }
+    const removePhoto = async (id) => {
+      const data = new FormData();
+      data.append('idObject', props.id);
+      data.append('idPhoto', id);
+      await myStore.removePhoto(data).then(
+          (response) => {
+            if (response.data.result === 'error') {
+              message.error(response.data.text)
+            } else {
+              fetchPhotos();
+              handleCancel();
+            }
+          }
+      )
+    }
     const sortPhoto = async (id, sort) => {
       const data = new FormData();
       data.append('idPhoto', id);
@@ -246,15 +233,9 @@ const removePhoto = async (id) => {
     }
 
     const handleChange = async ({fileList, file}) => {
-        console.log('filelist: ', fileList);
-        console.log('file: ', file);
         const data = new FormData();
         data.append('idObject', props.id);
-        data.append('photo[]', file.originFileObj);
-      // fileList.forEach((file) => {
-      //     data.append('photo[]', file.originFileObj);
-      // });
-      // data.append('photo[]', fileList[fileList.length - 1].originFileObj);
+        data.append('photo[]', fileList[fileList.length - 1].originFileObj);
         await myStore.uploadNewPhoto(data).then(
             (response) => {
                 if (response.data.result === 'error') {
@@ -292,8 +273,8 @@ const removePhoto = async (id) => {
 
         drag.value = false; // Set drag value to false at the end of the function
     };
-</script>
 
+</script>
 <style scoped>
 .village-photo__list{
   display: grid;
@@ -302,34 +283,16 @@ const removePhoto = async (id) => {
   margin-bottom: 2rem;
 }
 .village-photo__container{
-    position: relative;
-    display: block;
-    cursor: pointer;
-    height: 37rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
-.village-photo__container:hover .overlay {
-    opacity: 0.5;
-  }
-.village-photo__image{  width: 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: .4rem;
+.village-photo__image{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: .4rem;
 }
-.overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
 .village-photo__bottom{
   display: flex;
   justify-content: space-between;

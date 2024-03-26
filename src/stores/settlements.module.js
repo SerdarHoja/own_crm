@@ -115,7 +115,6 @@ export const useSettlementsStore = defineStore('settlements', {
     },
     async getObjectList(section, param) {
       try {
-        console.log(param)
         const response = await ObjectsService.getObjectsFilter(section, param);
         this.countryObjectsFilter = param;
         this.countryObjects = response.data.data;
