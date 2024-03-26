@@ -45,7 +45,7 @@ button span{
     width: 28rem;
     height: 4rem;
 }
-
+/*test*/
 /*Таб редактирование*/
 .object-info-tab-content-block .ant-form-item-control-input-content{
     width: 28rem;
@@ -142,7 +142,7 @@ span.anticon.anticon-delete {
 }
 
 .ant-modal .ant-form-item-control-input-content{
-    height: 4rem!important;
+    height: 4rem;
 }
 .ant-modal .ant-col.ant-form-item-control.css-kqecok{
     width: 100%!important;
