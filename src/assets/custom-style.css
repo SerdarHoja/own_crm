@@ -141,6 +141,13 @@ span.anticon.anticon-delete {
     margin: 0!important;
 }
 
+.ant-modal .ant-form-item-control-input-content{
+    height: 4rem;
+}
+.ant-modal .ant-col.ant-form-item-control.css-kqecok{
+    width: 100%;
+}
+
 
 
 /*Табы*/
