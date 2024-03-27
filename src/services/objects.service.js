@@ -63,6 +63,7 @@ class ObjectsService {
         fd.append(`fields[land_type][${index}]`, value);
       });
     }
+    
 
     
     const url = `${API_URL}/objects/save/`;
