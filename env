@@ -1,4 +1,0 @@
-VUE_APP_NAME = CRM
-VUE_APP_API_BASE_URL=http://crm.web-hands.ru/api/v1
-VUE_APP_API_YMAP =https://api-maps.yandex.ru/2.1/?apikey=019259ab-e7cb-4f34-99eb-a3af7e540ec7&lang=ru_RU
-VUE_MAP_KEY=019259ab-e7cb-4f34-99eb-a3af7e540ec7
